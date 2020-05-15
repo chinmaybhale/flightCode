@@ -1,5 +1,10 @@
-#include "headers.h"
 #include "macros.h"
+#include "headers.h"
+
+void read_config()
+{
+	return;
+}
 
 int main()
 {
