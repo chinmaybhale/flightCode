@@ -15,3 +15,8 @@ init.h, seq.h, headers.h:
 
 macros.h:
 	contains macros needed for conversion of values and actuation of valves.
+
+Assign yourself a task in the issues tab. Branch the code to work on it, and open a pull request when you 
+are done coding.
+
+Please comment your code!!!!
