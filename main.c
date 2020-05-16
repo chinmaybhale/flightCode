@@ -1,14 +1,12 @@
-#include "macros.h"
-#include "headers.h"
+// HELIOS ROCKETRY
+// Entry point of the flight code.
+// Please try to limit definitions over here.
+// Code will either be defined in init or seq.
 
-void read_config()
-{
-	return;
-}
+#include "headers.h"
 
 int main()
 {
-	read_config();
 	init();
 	
 	while(1)
