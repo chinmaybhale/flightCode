@@ -20,3 +20,10 @@ Assign yourself a task in the issues tab. Branch the code to work on it, and ope
 are done coding.
 
 Please comment your code!!!!
+
+To compile code, type "make" in the terminal.
+
+To compile code for debugging, type "make debug" in the terminal.
+
+To create a fresh solution in case of a bad compile, or to recompile, type "make clean" and then type one
+of the above in the terminal.
