@@ -1,10 +1,10 @@
 OBJECTS = main.o init.o seq.o
 
 flightcode: $(OBJECTS)
-	gcc -o flightcode $(OBJECTS)
+	gcc -o flightcode $(OBJECTS) -O3
 
 debug: $(OBJECTS)
-	gcc -o flightcode $(OBJECTS) -g
+	gcc -o flightcode $(OBJECTS) -Og
 
 main.o : headers.h
 init.o : headers.h
