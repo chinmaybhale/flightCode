@@ -9,6 +9,7 @@
 #include "init.h"
 #include "seq.h"
 #include "daq_interface.h"
+/*****************************/
 
 // Global variables
 // used for storing values of pressure, temp, etc
@@ -39,5 +40,7 @@ struct sensor t[5]; // for temperature values
 
 struct valve main_v[7];
 struct valve backup_v[5];
+
+short debug = 0;
 
 #endif
