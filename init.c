@@ -43,5 +43,7 @@ void init(char *name)
 {
 	read_config(name);
 	system_check();
-	return 0;
+	if(debug)
+		init_file();	
+	return;
 }
