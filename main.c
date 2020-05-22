@@ -5,9 +5,14 @@
 
 #include "headers.h"
 
-int main()
+int main(int argc, char **argc)
 {
-	init();
+	if(argc < 2) {
+		printf("Need config file\n");
+		return 0;
+	}
+
+	init(argc[1]);
 	
 	while(1)
 		seq();

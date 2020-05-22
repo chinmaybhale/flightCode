@@ -4,7 +4,7 @@
 
 #include "headers.h"
 
-static void read_config(char *name)
+static void read_config(char *file_name)
 {
 	// CSV FORMAT
 	// sensor_name, base_val, +ve error, -ve error, pin# (if availabe, -1 otherwise)
@@ -39,9 +39,9 @@ static void system_check()
 	return;
 }
 
-void init(char *name)
+void init(char *file_name)
 {
-	read_config(name);
+	read_config(file_name);
 	system_check();
-	return 0;
+	return;
 }
