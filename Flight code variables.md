@@ -4,28 +4,28 @@
 
 |                |P&ID Label                         |Flight code Label                        |
 |----------------|-------------------------------|-----------------------------|
-|Solenoid valves|`N-PV-01`            |**`valve[0]`**         |
-|        |`N-PV-02`              |**`valve[1]`**            |
-|         |`R-PV-01`    |**`valve[3]`**   |
-|     |`R-PV-02`            |**`valve[4]`**         |
-|        |`R-PV-03`              |**`valve[5]`**            |
-|         |`R-PV-04`    |**`valve[6]`**   |
-|           |`R-PV-05`            |**`valve[7]`**         |
-|        |`L-PV-01`              |**`valve[8]`**            |
-|         |`L-SV-01`    |**`valve[9]`**   |
-|        |`L-SV-02`              |**`valve[10]`**            |
-|         |`L-SV-03`    |**`valve[11]`**   |
-|        |`C-PV-01`              |**`valve[12]`**            |
-|         |`C-PV-02`    |**`valve[13]`**   |
-|Pressure Transducers|`N-PT-01`            |**`pt[0]`**         |
-|        |`R-PT-01`              |**`pt[1]`**            |
-|         |`R-PT-02`    |**`pt[3]`**   |
-|     |`R-PT-03`            |**`pt[4]`**         |
-|        |`L-PT-01`              |**`pt[5]`**            |
-|         |`L-PT-02`    |**`pt[6]`**   |
-|           |`L-PT-03`            |**`pt[7]`**         |
-|    Temperature transducers    |`R-TT-01`              |**`tt[0]`**            |
-|         |`L-TT-01`    |**`tt[1]`**   |
+|Solenoid valves|`N_PV_01`            |**`valve[0]`**         |
+|        |`N_PV_02`              |**`valve[1]`**            |
+|         |`R_PV_01`    |**`valve[2]`**   |
+|     |`R_PV_02`            |**`valve[3]`**         |
+|        |`R_PV_03`              |**`valve[4]`**            |
+|         |`R_PV_04`    |**`valve[5]`**   |
+|           |`R_PV_05`            |**`valve[6]`**         |
+|        |`L_PV_01`              |**`valve[7]`**            |
+|         |`L_SV_01`    |**`valve[8]`**   |
+|        |`L_SV_02`              |**`valve[9]`**            |
+|         |`L_SV_03`    |**`valve[10]`**   |
+|        |`C_PV_01`              |**`valve[11]`**            |
+|         |`C_PV_02`    |**`valve[12]`**   |
+|Pressure Transducers|`N_PT_01`            |**`pt[0]`**         |
+|        |`R_PT_01`              |**`pt[1]`**            |
+|         |`R_PT_02`    |**`pt[2]`**   |
+|     |`R_PT_03`            |**`pt[3]`**         |
+|        |`L_PT_01`              |**`pt[4]`**            |
+|         |`L_PT_02`    |**`pt[5]`**   |
+|           |`L_PT_03`            |**`pt[6]`**         |
+|    Temperature transducers    |`R_TT_01`              |**`tt[0]`**            |
+|         |`L_TT_01`    |**`tt[1]`**   |
 
 
 
