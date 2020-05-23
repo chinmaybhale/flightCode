@@ -24,16 +24,16 @@ static void init_sensor(char *setup, struct sensor *p)
 	char *str_pin = (char *)malloc(sizeof(char) * 3);
 
 	strncpy(str_base_val, setup + 7, 4);
-	str_base_val[5] = '\0';
+	str_base_val[4] = '\0';
 
 	strncpy(str_pos_err, setup + 11, 2);
-	str_pos_err[3] = '\0';
+	str_pos_err[2] = '\0';
 
 	strncpy(str_neg_err, setup + 13, 2);
-	str_neg_err[3] = '\0';
+	str_neg_err[2] = '\0';
 
 	strncpy(str_pin, setup + 15, 2);
-	str_pin[3] = '\0';
+	str_pin[2] = '\0';
 	
 	float base_val = atof(str_base_val);
 	float pos_err = atof(str_pos_err) / 100.0f;
@@ -57,7 +57,7 @@ static void init_valve(char *setup, struct valve *v)
 	char *str_pin = (char *)malloc(sizeof(char) * 3);
 
 	strncpy(str_pin, setup + 8, 2);
-	str_pin[3] = '\0';
+	str_pin[2] = '\0';
 
 	v->pin = atoi(str_pin);
 	v->stat = 0;
