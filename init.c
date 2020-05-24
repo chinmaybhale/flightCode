@@ -7,9 +7,9 @@
 static void read_config(char *file_name)
 {
 	// CSV FORMAT
-	// sensor_name(7)[0-6], base_val(4)[7-10], +ve error(2)[11, 12], -ve error(2)[13, 14], pin# (if availabe, -1 otherwise)(2)[15, 16]
+	// sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
 	// or
-	// valve_name(7)[0-6], pin#(2)[7, 8]
+	// valve_name(7)[0-6], pin#(2)[8, 9]
 	//
 	// sensor_name will decide if it is a pressure or temperature or other kind of sensor.
 
@@ -23,16 +23,16 @@ static void init_sensor(char *setup, struct sensor *p)
 	char *str_neg_err = (char *)malloc(sizeof(char) * 3);
 	char *str_pin = (char *)malloc(sizeof(char) * 3);
 
-	strncpy(str_base_val, setup + 7, 4);
+	strncpy(str_base_val, setup + 8, 4);
 	str_base_val[4] = '\0';
 
-	strncpy(str_pos_err, setup + 11, 2);
+	strncpy(str_pos_err, setup + 13, 2);
 	str_pos_err[2] = '\0';
 
-	strncpy(str_neg_err, setup + 13, 2);
+	strncpy(str_neg_err, setup + 16, 2);
 	str_neg_err[2] = '\0';
 
-	strncpy(str_pin, setup + 15, 2);
+	strncpy(str_pin, setup + 19, 2);
 	str_pin[2] = '\0';
 	
 	float base_val = atof(str_base_val);
