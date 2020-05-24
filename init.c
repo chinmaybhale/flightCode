@@ -3,16 +3,50 @@
 // Think setup() from arduino
 
 #include "headers.h"
+static void init_sensor(char *, struct sensor *);
+static void init_valve(char *, struct valve *);
 
 static void read_config(char *file_name)
 {
 	// CSV FORMAT
+	// sensor list will start with ###SENSORS###
+	// valve list will start with ###VALVES###
+	//
 	// sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
 	// or
 	// valve_name(7)[0-6], pin#(2)[8, 9]
 	//
 	// sensor_name will decide if it is a pressure or temperature or other kind of sensor.
+	
+	int i;
+	char *setup = (char *)malloc(sizeof(char) * 21);
+	FILE *file = fopen(file_name, "wr");
 
+	if(!file) {
+		printf("Unable to open file\n");
+		return;
+	}
+	
+	while(fgets(setup, 13, file)) {
+		setup[14] = '\0';
+
+		if(setup[0] == '#' && setup[3] == 'S') {
+			for(i = 0; i < 9; i++) {
+				fgets(setup, 20, file);
+				setup[20] = '\0';
+				init_sensor(setup, &s[i]);
+			}		
+		}
+		else if (setup[0] == '#' && setup[3] == 'V') {
+			for(i = 0; i < 13; i++) {
+				fgets(setup, 9, file);
+				setup[9] = '\0';
+				init_valve(setup, &v[i]);
+			}
+		}
+	}
+
+	fclose(file);
 	return;
 }
 
