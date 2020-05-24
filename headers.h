@@ -35,8 +35,8 @@ struct daq_value {
 };
 
 
-struct sensor s[9]; // for pressure values
+struct sensor s[SENSOR_NUM]; // for pressure values
 
-struct valve v[13]; // valve array
+struct valve v[VALVE_NUM]; // valve array
 
 #endif
