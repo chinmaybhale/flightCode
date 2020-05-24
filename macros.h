@@ -25,8 +25,7 @@
 #define L_PT_01 4
 #define L_PT_02 5
 #define L_PT_03 6
-
-#define R_TT_01 0
-#define L_TT_01 1
+#define R_TT_01 7
+#define L_TT_01 8
 
 #endif
