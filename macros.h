@@ -2,6 +2,9 @@
 #define __MACROS_H__
 //TODO: associate P&ID sensors/valves to index numbers 
 
+#define SENSOR_NUM 9
+#define VALVE_NUM 13
+
 // Valves
 #define N_PV_01 0
 #define N_PV_02 1
