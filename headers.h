@@ -2,7 +2,8 @@
 #define __HEADERS_H__
 //global headers
 #include <stdio.h>
-
+#include <string.h>
+#include <stdlib.h>
 /*****************************/
 // local headers
 #include "macros.h"
@@ -35,11 +36,9 @@ struct daq_value {
 };
 
 
-struct sensor p[8]; // for pressure values
-struct sensor t[5]; // for temperature values
+struct sensor s[SENSOR_NUM]; // for pressure values
 
-struct valve main_v[7];
-struct valve backup_v[5];
+struct valve v[VALVE_NUM]; // valve array
 
 short debug = 0;
 
