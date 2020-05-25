@@ -68,12 +68,24 @@ static void read_config(char *file_name)
 	// CSV FORMAT
 	// sensor list will start with ###SENSORS###
 	// valve list will start with ###VALVES###
-	//
+	// debug will start with ###DEBUG###
+	// 
 	// sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
 	// or
 	// valve_name(7)[0-6], pin#(2)[8, 9]
 	//
 	// sensor_name will decide if it is a pressure or temperature or other kind of sensor.
+	
+	/* EXAMPLE CONFIG FILE
+	 *
+	 * ###SENSORS###
+	 * N_PT_01,1000,10,5,-1
+	 * R_PT_01,500,10,10,-1
+	 * ###VALVES###
+	 * N_SV_01,0
+	 * ###DEBUG###
+	 * 1
+	 */
 	
 	int i;
 	char *setup = (char *)malloc(sizeof(char) * 25);
@@ -100,6 +112,13 @@ static void read_config(char *file_name)
 				setup[11] = '\0';
 				init_valve(setup, &v[i]);
 			}
+		}
+		else if (setup[0] == '#' && setup[3] == 'D') {
+			fgets(setup, 2, file);
+			if(setup[0] == 'y')
+				debug = 1;
+			else
+				debug = 0;
 		}
 	}
 
