@@ -19,11 +19,47 @@ static void read_data()
 	return;
 }
 
+static void read_line(char *line, size_t len)
+{
+	char *str_val = (char *)malloc(sizeof(char) * 10);
+	int curr, prev = 0, i = 0;
+
+	for(curr = 0; curr <= len; curr++) {
+		if(line[curr] == ',') {
+			strncpy(str_val, line + prev , (curr - prev));
+			str_val[curr - prev] = '\0';
+			values[i++] = atof(str_val);			
+			prev = curr + 1;	
+		}
+	}
+
+	free(str_val);
+	return;
+}
+
 static void read_file()
 {
 	// TODO: read one line, fill the 
 	// data structure
+	// CSV format
+	// sensor1,sensor2,....,sensorN
+	// using POSIX specific function getline(3)
+	// read manpages on what this function is
+	// THIS CODE WILL ONLY RUN ON *NIX SYSTEMS
+	
+	char *line = NULL;
+	size_t len = 0;
+	
+	if(getline(&line, &len, test_data) == 1) {
+		printf("End of File!\n");
+		fclose(test_data);
+		free(line);
+		return;
+	}
 
+	read_line(line, len);
+	
+	free(line);
 	return;
 }
 
