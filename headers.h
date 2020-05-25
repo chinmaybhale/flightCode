@@ -28,17 +28,18 @@ struct valve {
 	short stat; // 0 = off, 1 = on
 };
 
-struct daq_value {
-	// TODO:
-	// we need a specific data structure to store data from DAQ
-	// let's define this once we get a better idea with what
-	// we are dealing with.
-};
+//struct daq_value {
+//	// TODO:
+//	// we need a specific data structure to store data from DAQ
+//	// let's define this once we get a better idea with what
+//	// we are dealing with.
+//};
 
+typedef float daq_value; // typedef'ing for easy reference
 
 struct sensor s[SENSOR_NUM]; // for pressure values
-
 struct valve v[VALVE_NUM]; // valve array
+daq_value values[SENSOR_NUM]; // for values received from DAQ / DAQ debug
 
 short debug = 0;
 
