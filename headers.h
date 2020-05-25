@@ -41,6 +41,6 @@ struct sensor s[SENSOR_NUM]; // for pressure values
 struct valve v[VALVE_NUM]; // valve array
 daq_value values[SENSOR_NUM]; // for values received from DAQ / DAQ debug
 
-short debug = 0;
+short debug;
 
 #endif
