@@ -48,10 +48,13 @@ static void show_config(char *file_name)
 		fgets(name, 20, file);
 	}
 
+	printf("\n>>> DEBUG CONFIGURATION <<<\n\n");
+	printf("DEBUG: %s\n", ((debug)? "YES" : "NO"));
+
 	printf("\n\nConfirm configuration (y/N): ");
 	scanf("%c", &opt);
 
-	if(opt != 'y' || opt != 'Y') {
+	if(opt != 'y') {
 		printf("Exiting!\n");
 		free(name);
 		fclose(file);
@@ -115,7 +118,7 @@ static void read_config(char *file_name)
 		}
 		else if (setup[0] == '#' && setup[3] == 'D') {
 			fgets(setup, 2, file);
-			if(setup[0] == 'y')
+			if(setup[0] == '1')
 				debug = 1;
 			else
 				debug = 0;
