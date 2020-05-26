@@ -21,46 +21,48 @@ static void read_data()
 
 static void read_line(char *line, size_t len)
 {
-	char *str_val = (char *)malloc(sizeof(char) * 10);
+	// this code splits the strings into individual values
+	// and the converts them to float
+
+	char *str_val = (char *)malloc(sizeof(char) * 30);
 	int curr, prev = 0, i = 0;
 
 	for(curr = 0; curr <= len; curr++) {
-		if(line[curr] == ',') {
-			strncpy(str_val, line + prev , (curr - prev));
+		if(line[curr] == ',' || line[curr] == '\n') {
+			strncpy(str_val, line + prev, (curr - prev));
 			str_val[curr - prev] = '\0';
-			values[i++] = atof(str_val);			
+			values[i++] = atof(str_val);
 			prev = curr + 1;	
 		}
+		if(line[curr] == '\n')
+			break;
 	}
 
 	free(str_val);
 	return;
 }
 
-static void read_file()
+static int read_file()
 {
 	// TODO: read one line, fill the 
 	// data structure
 	// CSV format
 	// sensor1,sensor2,....,sensorN
-	// using POSIX specific function getline(3)
-	// read manpages on what this function is
-	// THIS CODE WILL ONLY RUN ON *NIX SYSTEMS
 	
-	char *line = NULL;
-	size_t len = 0;
-	
-	if(getline(&line, &len, test_data) == 1) {
-		printf("End of File!\n");
+	char *line = (char *)malloc(sizeof(char) * 256);
+
+	if(fgets(line, 256, test_data) == NULL) {
+		printf("End of file!\n");
 		fclose(test_data);
 		free(line);
-		return;
+		return 1;
 	}
 
-	read_line(line, len);
+
+	read_line(line, 256);
 	
 	free(line);
-	return;
+	return 0;
 }
 
 void init_file()
@@ -68,7 +70,7 @@ void init_file()
 	// TODO: read the data in a CSV format when
 	// running in debug mode
 	
-	test_data = fopen("test_data.csv", "wr");
+	test_data = fopen("test_data.csv", "r");
 
 	if(!test_data) {
 		printf("not able to open file\n");
@@ -80,8 +82,12 @@ void init_file()
 
 void get_data()
 {
+	int end;
+
 	if(debug) {
-		read_file();
+		end = read_file();
+		if(end)
+			fclose(test_data);
 	}
 	else {
 
@@ -89,6 +95,5 @@ void get_data()
 		convert();
 	}
 
-	fclose(test_data);
 	return;
 }
