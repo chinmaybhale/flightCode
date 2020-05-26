@@ -19,7 +19,7 @@ static void read_data()
 	return;
 }
 
-static void read_line(char *line, size_t len)
+static void read_line(char *line, int len)
 {
 	// this code splits the strings into individual values
 	// and the converts them to float
