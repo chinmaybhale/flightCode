@@ -30,17 +30,8 @@ UlError err = ERR_NO_ERROR;
 int i = 0;
 double data = 0;
 
-/* allocating a space in memory for all the channel data. 
- * I'll be reusing the same space for every call and this is the pointer to that space
- */
-double *sensor_data;
-
 
 void init_daq(){
-
-	//reserve a space in memory for the analog daq data 
-	sensor_data = malloc( highChan * sizeof(double));	
-
 
 	// Get descriptors for all of the available DAQ devices
 	err = ulGetDaqDeviceInventory(interfaceType, devDescriptors, &numDevs);

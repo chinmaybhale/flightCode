@@ -10,6 +10,8 @@
  * #include "utility.h" 
  */
 
+#include "uldaq.h"
+#include "utility.h"
 
 void get_data();
 void daq_init();
