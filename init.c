@@ -181,8 +181,27 @@ static void init_valve(char *setup, struct valve *v)
 	return;
 }
 
+
+void *read_r(void *var)
+{
+	//Process to run in parallel with system check, reads right side of flow chart
+
+	printf("");
+	
+	return;
+}
+
+
+
 static void system_check()
 {
+	pthread_t reader;
+
+	pthread_create(&reader, NULL, read_r, NULL);
+	//read all the stuff
+
+	pthread_join(reader, NULL);
+
 	return;
 }
 
