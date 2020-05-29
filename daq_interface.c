@@ -125,12 +125,12 @@ static void read_data()
 
 		if(err == ERR_NO_ERROR)
 		{
-			sensor_data[chan] = data;
+			values[chan] = data;
 		}
 		else
 		{
 			printf("error in reading channel %d", chan);
-			sensor_data[chan] = 9999.99; // weird number so we know which channels are not getting data
+			values[chan] = -1; // weird number so we know which channels are not getting data
 		}
 	}
 	
