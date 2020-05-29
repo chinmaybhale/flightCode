@@ -1,4 +1,4 @@
-﻿# Flight code variables scheme
+# Flight code variables scheme
 
 
 
@@ -21,9 +21,11 @@
 |        |`R_PT_01`              |**`pt[1]`**            |
 |         |`R_PT_02`    |**`pt[2]`**   |
 |     |`R_PT_03`            |**`pt[3]`**         |
-|        |`L_PT_01`              |**`pt[4]`**            |
-|         |`L_PT_02`    |**`pt[5]`**   |
-|           |`L_PT_03`            |**`pt[6]`**         |
+|	|`R_PT_04` | **`pt[4]`** 	|
+|        |`L_PT_01`              |**`pt[5]`**            |
+|         |`L_PT_02`    |**`pt[6]`**   |
+|           |`L_PT_03`            |**`pt[7]`**         |
+|	| `L_PT_04`	| **`pt[8]`** 		|
 |    Temperature transducers    |`R_TT_01`              |**`tt[0]`**            |
 |         |`L_TT_01`    |**`tt[1]`**   |
 
