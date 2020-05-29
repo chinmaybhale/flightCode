@@ -244,7 +244,7 @@ void init(char *file_name)
 	read_config(file_name);
 	show_config(file_name);
 	if(debug)
-		init_file();	
+		file_init();	
 	system_check(file_name);
 	return;
 }
