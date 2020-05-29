@@ -5,6 +5,7 @@
 #include "headers.h"
 static void init_sensor(char *, struct sensor *);
 static void init_valve(char *, struct valve *);
+static struct sensor *get_init_values(char *);
 
 static void show_config(char *file_name)
 {
@@ -14,6 +15,7 @@ static void show_config(char *file_name)
 	int i;
 	FILE *file = fopen(file_name, "r");
 	char *name = (char *)malloc(sizeof(char) * 20);
+	struct sensor *init_s = get_init_values(file_name);
 
 	if(!file) {
 		printf("Not able to open file!");
@@ -23,9 +25,29 @@ static void show_config(char *file_name)
 	printf("\n############### HELIOS ROCKETRY ##############\n");
 	printf("###### Configuration of firing sequence ######\n\n");
 	printf(">>> SENSOR CONFIGURATION <<<\n\n");
+	
+	// reading line ###SENSORS###
+	fgets(name, 20, file);
+	
+	printf("*** PRE-SEQUENCE CONFIGURATION ***\n");
 	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tPIN\t|\n");
 	printf("---------------------------------------------------------------------------------\n");
 	
+	// reading line >INTIALIZATION
+	fgets(name, 20, file);
+
+	for(i = 0; i < SENSOR_NUM; i++) {
+		fgets(name, 8, file);
+		name[8] = '\0';
+		printf("%s\t\t|\t%f\t|\t%f\t|\t%d\t|\n", name, init_s[i].max_val, init_s[i].min_val, init_s[i].pin);
+		fgets(name, 20, file);
+	}
+	
+	printf("\n*** MAIN SEQUENCE CONFIGURATION ***\n");
+	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tPIN\t|\n");
+	printf("---------------------------------------------------------------------------------\n");
+	
+	// reading line >MAIN
 	fgets(name, 20, file);
 
 	for(i = 0; i < SENSOR_NUM; i++) {
@@ -60,7 +82,7 @@ static void show_config(char *file_name)
 		fclose(file);
 		exit(EXIT_FAILURE);
 	}
-	
+
 	free(name);
 	fclose(file);
 	return;
@@ -99,18 +121,18 @@ static void read_config(char *file_name)
 		return;
 	}
 	
-	while(fgets(setup, 15, file)) {
-		setup[15] = '\0';
+	while(fgets(setup, 23, file)) {
+		setup[23] = '\0';
 
-		if(setup[0] == '#' && setup[3] == 'S') {
-			for(i = 0; i < 9; i++) {
+		if(setup[0] == '>' && setup[1] == 'M') {
+			for(i = 0; i < SENSOR_NUM; i++) {
 				fgets(setup, 23, file);
 				setup[23] = '\0';
 				init_sensor(setup, &s[i]);
-			}		
+			}
 		}
 		else if (setup[0] == '#' && setup[3] == 'V') {
-			for(i = 0; i < 13; i++) {
+			for(i = 0; i < VALVE_NUM; i++) {
 				fgets(setup, 11, file);
 				setup[11] = '\0';
 				init_valve(setup, &v[i]);
@@ -128,6 +150,33 @@ static void read_config(char *file_name)
 	free(setup);
 	fclose(file);
 	return;
+}
+
+struct sensor *get_init_values(char *file_name)
+{
+	struct sensor *init_s = (struct sensor *)malloc(sizeof(struct sensor) * SENSOR_NUM);
+	FILE *file = fopen(file_name, "r");
+	char *setup = (char *)malloc(sizeof(char) * 25);
+	int i;
+
+	while(fgets(setup, 23, file)) {
+		setup[23] = '\0';
+
+		if(setup[0] == '>' && setup[1] == 'I') {
+			for(i = 0; i < SENSOR_NUM; i++) {
+				fgets(setup, 23, file);
+				setup[23] = '\0';
+				init_sensor(setup, &init_s[i]);
+			}
+
+			break;
+		}
+	}
+
+	
+	free(setup);
+	fclose(file);
+	return init_s;
 }
 
 static void init_sensor(char *setup, struct sensor *s)
@@ -181,8 +230,12 @@ static void init_valve(char *setup, struct valve *v)
 	return;
 }
 
-static void system_check()
+static void system_check(char *file_name)
 {
+	struct sensor *init_s = get_init_values(file_name);
+	get_data(); // get the most current values from the DAQ
+
+	// TODO : free init_s array before returning
 	return;
 }
 
@@ -190,8 +243,8 @@ void init(char *file_name)
 {
 	read_config(file_name);
 	show_config(file_name);
-	system_check();
 	if(debug)
 		init_file();	
+	system_check(file_name);
 	return;
 }
