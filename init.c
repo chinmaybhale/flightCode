@@ -231,79 +231,54 @@ static void init_valve(char *setup, struct valve *v)
 }
 
 
-static void system_check(char *file_name)
+static void system_check(char *file_name, int verbose)
 {
+	/**
+	 * This function checks all the valves and transducers to make sure they are within their expected values/range
+	 * 
+	 * Args:
+	 * 	file_name (char*): Name of the file to get values from
+	 * 	verbose (int): 1 if you want stuff printed, 0 if you want only errors printed
+	 * Returns:
+	 * 	None
+	 * 
+	 **/
 	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
-	//TODO:Should we add the if statement here if there is a verbose var?
 	
-	//TODO: Check P1
-	
-	if(init_s[L_PT_02].max_val > 4500)
+	char * s_names[] = {'N_PT_01', 'R_PT_01',  'R_PT_02', 'R_PT_03', 'R_PT_04', 'L_PT_01', 'L_PT_02', 'L_PT_03', 'L_PT_04', 'R_TT_01', 'L_TT_01'};
+	char * v_names[] = {'N_PV_01', 'N_PV_02', 'R_PV_01', 'R_PV_02', 'R_PV_03', 'R_PV_04', 'R_PV_05', 'L_PV_01', 'L_SV_01', 'L_SV_02', 'L_SV_03', 'C_PV_01', 'C_PV_02'};
+
+	printf("SENSORS:\n");
+	for(int i =0; i < SENSOR_NUM; i++)
 	{
-		printf("ERROR: L_PT_02 is not less than static pressure.");
-		printf("VALUE: %f", init_s[L_PT_02].max_val);
+		if(init_s[i].min_val <= values[i] <= init_s[i].max_val)
+		{
+			if(verbose == 1)
+				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], values[i], init_s[i].min_val, init_s[i].max_val);
+		}
+		else
+		{
+			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", s_names[i], values[i], init_s[i].min_val, init_s[i].max_val);
+		}
 	}
 
-	if(init_s[L_PT_03].max_val > 4500)
+	printf("VALVES:\n");
+	//assuming all valves should be off
+	for(int i = 0; i < VALVE_NUM; i++)
 	{
-		printf("ERROR: L_PT_03 is not less than static pressure.");
-		printf("VALUE: %f", init_s[L_PT_02].max_val);
+		if(v[i].stat == 0)
+		{
+			if(verbose == 1)
+				printf("%s: Stat: %f, Expected: 0, Good: Yes\n", v_names[i], v[i].stat);
+		}
+		else
+		{
+			printf("%s: Stat: %f, Expected: 0, Good: NO\n", v_names[i], v[i].stat);
+		}
 	}
 
-	if(init_s[R_PT_02].max_val > 4500)
-	{
-		printf("ERROR: R_PT_02 is not less than static pressure.");
-		printf("VALUE: %f", init_s[L_PT_02].max_val);
-	}
-
-	if(init_s[R_PT_03].max_val > 4500)
-	{
-		printf("ERROR: L_PT_02 is not less than static pressure.");
-		printf("VALUE: %f", init_s[R_PT_02].max_val);
-	}
-
-	//TODO: read Liquid indicator here
-
-	//TODO: Make sure the expexted value is off
-	if(v[L_SV_03].stat != 0)
-	{
-		printf("ERROR: L_SV_03 is not 0");
-		printf("VALUE: %f", v[L_SV_03].stat);
-	}
-
-	if(init_s[L_PT_01].max_val != 0)
-	{
-		printf("ERROR: L_PT_01 is not 0");
-		printf("VALUE: %f", init_s[L_PT_01].max_val);
-	}
-	if(init_s[R_PT_01].max_val != 0)
-	{
-		printf("ERROR: R_PT_01 is not 0");
-		printf("VALUE: %f", init_s[R_PT_01].max_val);
-	}
-
-	//TODO: Change the expected value to ambient temp
-	if(init_s[L_TT_01].max_val != 0)
-	{
-		printf("ERROR: L_TT_01 is not 0");
-		printf("VALUE: %f", init_s[L_TT_01].max_val);
-	}
-	
-	//TODO: Change the expected value to ambient temp
-	if(init_s[R_TT_01].max_val != 0)
-	{
-		printf("ERROR: R_TT_01 is not 0");
-		printf("VALUE: %f", init_s[L_PT_01].max_val);
-	}
-
-	//TODO: Need expected value for P3
-	if(v[R_PV_05].stat != 0)
-	{
-		printf("R_PV_05 is not off");
-		printf("Value: %f", v[R_PV_03].stat);
-	}
-
+	printf("SYSTEM CHECK COMPLETE\n");
 
 	return;
 }
