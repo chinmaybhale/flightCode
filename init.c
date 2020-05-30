@@ -289,6 +289,6 @@ void init(char *file_name)
 	show_config(file_name);
 	if(debug)
 		init_file();	
-	system_check(file_name);
+	system_check(file_name, 1);
 	return;
 }
