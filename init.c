@@ -72,6 +72,9 @@ static void show_config(char *file_name)
 
 	printf("\n>>> DEBUG CONFIGURATION <<<\n\n");
 	printf("DEBUG: %s\n", ((debug)? "YES" : "NO"));
+	
+	printf("\n>>> VERBOSE <<<\n\n");
+	printf("VERBOSE: %s\n", ((verbose)? "YES" : "NO"));
 
 	printf("\n\nConfirm configuration (y/N): ");
 	scanf("%c", &opt);
@@ -144,6 +147,13 @@ static void read_config(char *file_name)
 				debug = 1;
 			else
 				debug = 0;
+		}
+		else if (setup[0] == '#' && setup[3] == 'V') {
+			fgets(setup, 2, file);
+			if(setup[0] == '1')
+				verbose = 1;
+			else
+				verbose = 0;
 		}
 	}
 
@@ -231,7 +241,7 @@ static void init_valve(char *setup, struct valve *v)
 }
 
 
-static void system_check(char *file_name, int verbose)
+static void system_check(char *file_name)
 {
 	/**
 	 * This function checks all the valves and transducers to make sure they are within their expected values/range
@@ -289,6 +299,6 @@ void init(char *file_name)
 	show_config(file_name);
 	if(debug)
 		init_file();	
-	system_check(file_name, 1);
+	system_check(file_name);
 	return;
 }
