@@ -42,5 +42,6 @@ struct valve v[VALVE_NUM]; // valve array
 daq_value values[SENSOR_NUM]; // for values received from DAQ / DAQ debug
 
 int debug;
+int verbose;
 
 #endif
