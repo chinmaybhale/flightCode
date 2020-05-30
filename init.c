@@ -134,7 +134,7 @@ static void read_config(char *file_name)
 				init_sensor(setup, &s[i]);
 			}
 		}
-		else if (setup[0] == '#' && setup[3] == 'V') {
+		else if (setup[0] == '#' && setup[4] == 'A') {
 			for(i = 0; i < VALVE_NUM; i++) {
 				fgets(setup, 11, file);
 				setup[11] = '\0';
@@ -148,7 +148,7 @@ static void read_config(char *file_name)
 			else
 				debug = 0;
 		}
-		else if (setup[0] == '#' && setup[3] == 'V') {
+		else if (setup[0] == '#' && setup[4] == 'E') {
 			fgets(setup, 2, file);
 			if(setup[0] == '1')
 				verbose = 1;
@@ -256,27 +256,32 @@ static void system_check(char *file_name)
 	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
 	char opt;
-	
+	int i, no_go = 0;
+
 	char * s_names[] = {"N_PT_01", "R_PT_01",  "R_PT_02", "R_PT_03", "R_PT_04", "L_PT_01", "L_PT_02", "L_PT_03", "L_PT_04", "R_TT_01", "L_TT_01"};
 	char * v_names[] = {"N_PV_01", "N_PV_02", "R_PV_01", "R_PV_02", "R_PV_03", "R_PV_04", "R_PV_05", "L_PV_01", "L_SV_01", "L_SV_02", "L_SV_03", "C_PV_01", "C_PV_02"};
 
-	printf("SENSORS:\n");
-	for(int i =0; i < SENSOR_NUM; i++)
+	printf("\n>>> SYSTEM CHECK START <<< \n\n");
+
+	printf(">>> SENSORS:\n");
+	for(i =0; i < SENSOR_NUM; i++)
 	{
-		if(init_s[i].min_val <= values[i] <= init_s[i].max_val)
+		if(init_s[i].min_val <= values[i] && 
+				values[i] <= init_s[i].max_val)
 		{
 			if(verbose == 1)
 				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], values[i], init_s[i].min_val, init_s[i].max_val);
 		}
 		else
 		{
+			no_go = 1;
 			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", s_names[i], values[i], init_s[i].min_val, init_s[i].max_val);
 		}
 	}
 
-	printf("VALVES:\n");
+	printf(">>> VALVES:\n");
 	//assuming all valves should be off
-	for(int i = 0; i < VALVE_NUM; i++)
+	for(i = 0; i < VALVE_NUM; i++)
 	{
 		if(v[i].stat == 0)
 		{
@@ -285,13 +290,22 @@ static void system_check(char *file_name)
 		}
 		else
 		{
+			no_go = 1;
 			printf("%s: Stat: %d, Expected: 0, Good: NO\n", v_names[i], v[i].stat);
 		}
 	}
 
-	printf("SYSTEM CHECK COMPLETE\n");
+	printf("\n>>> SYSTEM CHECK COMPLETE <<<\n");
+	
+	if (no_go) {
+		printf("ANOMALIES DETECTED: RECOMMEND NO GO\n");
+	}
+	else {
+		printf("ALL NOMINAL: SYSTEMS GO FOR MAIN SEQUENCE\n");
+	}
 
-	printf("\n\nConfirm configuration (y/N): ");
+	printf("\n\nConfirm System Check (y/N): ");
+	scanf("%c", &opt);
 	scanf("%c", &opt);
 
 	if(opt != 'y') {
