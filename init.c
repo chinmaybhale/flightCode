@@ -255,6 +255,7 @@ static void system_check(char *file_name)
 	 **/
 	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
+	char opt;
 	
 	char * s_names[] = {"N_PT_01", "R_PT_01",  "R_PT_02", "R_PT_03", "R_PT_04", "L_PT_01", "L_PT_02", "L_PT_03", "L_PT_04", "R_TT_01", "L_TT_01"};
 	char * v_names[] = {"N_PV_01", "N_PV_02", "R_PV_01", "R_PV_02", "R_PV_03", "R_PV_04", "R_PV_05", "L_PV_01", "L_SV_01", "L_SV_02", "L_SV_03", "C_PV_01", "C_PV_02"};
@@ -289,6 +290,14 @@ static void system_check(char *file_name)
 	}
 
 	printf("SYSTEM CHECK COMPLETE\n");
+
+	printf("\n\nConfirm configuration (y/N): ");
+	scanf("%c", &opt);
+
+	if(opt != 'y') {
+		printf("Exiting!\n");
+		exit(EXIT_FAILURE);
+	}
 
 	return;
 }
