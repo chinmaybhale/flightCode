@@ -256,8 +256,8 @@ static void system_check(char *file_name)
 	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
 	
-	char * s_names[] = {'N_PT_01', 'R_PT_01',  'R_PT_02', 'R_PT_03', 'R_PT_04', 'L_PT_01', 'L_PT_02', 'L_PT_03', 'L_PT_04', 'R_TT_01', 'L_TT_01'};
-	char * v_names[] = {'N_PV_01', 'N_PV_02', 'R_PV_01', 'R_PV_02', 'R_PV_03', 'R_PV_04', 'R_PV_05', 'L_PV_01', 'L_SV_01', 'L_SV_02', 'L_SV_03', 'C_PV_01', 'C_PV_02'};
+	char * s_names[] = {"N_PT_01", "R_PT_01",  "R_PT_02", "R_PT_03", "R_PT_04", "L_PT_01", "L_PT_02", "L_PT_03", "L_PT_04", "R_TT_01", "L_TT_01"};
+	char * v_names[] = {"N_PV_01", "N_PV_02", "R_PV_01", "R_PV_02", "R_PV_03", "R_PV_04", "R_PV_05", "L_PV_01", "L_SV_01", "L_SV_02", "L_SV_03", "C_PV_01", "C_PV_02"};
 
 	printf("SENSORS:\n");
 	for(int i =0; i < SENSOR_NUM; i++)
@@ -280,11 +280,11 @@ static void system_check(char *file_name)
 		if(v[i].stat == 0)
 		{
 			if(verbose == 1)
-				printf("%s: Stat: %f, Expected: 0, Good: Yes\n", v_names[i], v[i].stat);
+				printf("%s: Stat: %d, Expected: 0, Good: Yes\n", v_names[i], v[i].stat);
 		}
 		else
 		{
-			printf("%s: Stat: %f, Expected: 0, Good: NO\n", v_names[i], v[i].stat);
+			printf("%s: Stat: %d, Expected: 0, Good: NO\n", v_names[i], v[i].stat);
 		}
 	}
 
