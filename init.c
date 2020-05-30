@@ -231,27 +231,78 @@ static void init_valve(char *setup, struct valve *v)
 }
 
 
-void *read_r(void *var)
-{
-	//Process to run in parallel with system check, reads right side of flow chart
-
-	printf("");
-	
-	return NULL;
-}
-
-
-
 static void system_check(char *file_name)
 {
-	pthread_t reader;
 	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
+	//TODO:Should we add the if statement here if there is a verbose var?
+	
+	//TODO: Check P1
+	
+	if(init_s[L_PT_02].max_val > 4500)
+	{
+		printf("ERROR: L_PT_02 is not less than static pressure.");
+		printf("VALUE: %f", init_s[L_PT_02].max_val);
+	}
 
-	pthread_create(&reader, NULL, read_r, NULL);
-	//read all the stuff
+	if(init_s[L_PT_03].max_val > 4500)
+	{
+		printf("ERROR: L_PT_03 is not less than static pressure.");
+		printf("VALUE: %f", init_s[L_PT_02].max_val);
+	}
 
-	pthread_join(reader, NULL);
+	if(init_s[R_PT_02].max_val > 4500)
+	{
+		printf("ERROR: R_PT_02 is not less than static pressure.");
+		printf("VALUE: %f", init_s[L_PT_02].max_val);
+	}
+
+	if(init_s[R_PT_03].max_val > 4500)
+	{
+		printf("ERROR: L_PT_02 is not less than static pressure.");
+		printf("VALUE: %f", init_s[R_PT_02].max_val);
+	}
+
+	//TODO: read Liquid indicator here
+
+	//TODO: Make sure the expexted value is off
+	if(v[L_SV_03].stat != 0)
+	{
+		printf("ERROR: L_SV_03 is not 0");
+		printf("VALUE: %f", v[L_SV_03].stat);
+	}
+
+	if(init_s[L_PT_01].max_val != 0)
+	{
+		printf("ERROR: L_PT_01 is not 0");
+		printf("VALUE: %f", init_s[L_PT_01].max_val);
+	}
+	if(init_s[R_PT_01].max_val != 0)
+	{
+		printf("ERROR: R_PT_01 is not 0");
+		printf("VALUE: %f", init_s[R_PT_01].max_val);
+	}
+
+	//TODO: Change the expected value to ambient temp
+	if(init_s[L_TT_01].max_val != 0)
+	{
+		printf("ERROR: L_TT_01 is not 0");
+		printf("VALUE: %f", init_s[L_TT_01].max_val);
+	}
+	
+	//TODO: Change the expected value to ambient temp
+	if(init_s[R_TT_01].max_val != 0)
+	{
+		printf("ERROR: R_TT_01 is not 0");
+		printf("VALUE: %f", init_s[L_PT_01].max_val);
+	}
+
+	//TODO: Need expected value for P3
+	if(v[R_PV_05].stat != 0)
+	{
+		printf("R_PV_05 is not off");
+		printf("Value: %f", v[R_PV_03].stat);
+	}
 
 
 	return;
