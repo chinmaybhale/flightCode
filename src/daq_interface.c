@@ -1,6 +1,6 @@
 // HELIOS ROCKETRY
 // This file contains the code for interfacing with the daq
-#include "headers.h"
+#include "../include/headers.h"
 
 FILE *test_data;
 
