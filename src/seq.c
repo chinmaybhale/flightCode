@@ -1,4 +1,4 @@
-#include "headers/headers.h"
+#include "../include/headers.h"
 
 int seq()
 {

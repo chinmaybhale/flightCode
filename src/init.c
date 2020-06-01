@@ -2,7 +2,7 @@
 // Code here will only run once in the start
 // Think setup() from arduino
 
-#include "headers/headers.h"
+#include "../include/headers.h"
 static void init_sensor(char *, struct sensor *);
 static void init_valve(char *, struct valve *);
 static struct sensor *get_init_values(char *);
