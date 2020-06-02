@@ -24,12 +24,15 @@ SRC := $(wildcard $(SRC_DIR)/*.c)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CPPFLAGS := -Iinclude
-CFLAGS := -Wall
+CFLAGS := -Wall -Wextra -O3
+LDFLAGS := -Llib
+LDLIBS := -luldaq
+
 
 all: $(EXE)
 
 $(EXE): $(OBJ)
-	gcc $^ -o $@
+	gcc $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	gcc $(CPPFLAGS) $(CFLAGS) -c $< -o $@
