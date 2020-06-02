@@ -10,6 +10,8 @@
 #include "init.h"
 #include "seq.h"
 #include "daq_interface.h"
+#include "uldaq.h"
+#include "daq_utility.h"
 /*****************************/
 
 // Global variables
