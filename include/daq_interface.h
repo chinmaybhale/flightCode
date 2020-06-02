@@ -10,11 +10,11 @@
  * #include "utility.h" 
  */
 
-#include "uldaq.h"
-#include "utility.h"
+//#include "uldaq.h"
+//#include "utility.h"
 
 void get_data();
-void daq_init();
-void file_init();
+void init_daq();
+void init_file();
 
-#endif
+#endif //__DAQ_INTERFACE_H__

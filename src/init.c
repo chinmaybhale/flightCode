@@ -321,7 +321,9 @@ void init(char *file_name)
 	read_config(file_name);
 	show_config(file_name);
 	if(debug)
-		file_init();	
+		init_file();
+	else
+		init_daq();
 	system_check(file_name);
 	return;
 }
