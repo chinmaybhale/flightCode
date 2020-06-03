@@ -7,6 +7,18 @@
 
 int main(int argc, char **argv)
 {
+	/**
+	 * Main function
+	 * 
+	 * Args:
+	 * 	argc (int): Amount of command line arguments
+	 *  argv (char **): Array of strings containing command line arguments
+	 * 
+	 * Returns:
+	 * 	int: 0 if no errors
+	 * 
+	**/
+
 	if(argc < 2) {
 		printf("Need config file\n");
 		return 0;
