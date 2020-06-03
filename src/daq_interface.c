@@ -8,6 +8,16 @@ static void convert()
 {
 	// TODO: convert values from 
 	// Volts -> PSI/C/other format
+	/**
+	 * This functions converts volts to PSI/C/Other format
+	 * 
+	 * Args:
+	 * 	None -> should take a float?
+	 * 
+	 * Returns:
+	 * 	None -> should return a float?
+	 *
+	**/
 	
 	return;
 }
@@ -15,14 +25,34 @@ static void convert()
 static void read_data()
 {
 	// TODO: read code from DAQ here
-	
+	/**
+	 * This function reads data from the daq
+	 * 
+	 * Args:
+	 * 	None
+	 * 
+	 * Returns:
+	 * 	None
+	 * 
+	**/
+
 	return;
 }
 
 static void read_line(char *line, int len)
 {
-	// this code splits the strings into individual values
-	// and the converts them to float
+	/**
+	 * this code splits the strings into individual values
+	 * and the converts them to float
+	 * 
+	 * Args:
+	 * 	line(char *): The line you want to read
+	 * 	len (int): the length of the line you are reading
+	 * 
+	 * Returns:
+	 * 	None
+	 * 
+	**/
 
 	char *str_val = (char *)malloc(sizeof(char) * 30);
 	int curr, prev = 0, i = 0;
@@ -46,8 +76,17 @@ static int read_file()
 {
 	// TODO: read one line, fill the 
 	// data structure
-	// CSV format
-	// sensor1,sensor2,....,sensorN
+	/**
+	 * This function reads a file in CSV format
+	 * ex: sensor1,sensor2,....,sensorN
+	 * 
+	 * Args:
+	 *  None
+	 * 
+	 * Returns:
+	 * 	None
+	 * 
+	**/
 	
 	char *line = (char *)malloc(sizeof(char) * 256);
 
@@ -69,7 +108,16 @@ void init_file()
 {
 	// TODO: read the data in a CSV format when
 	// running in debug mode
-	
+	/**
+	 * Opens the file for reading 
+	 * 
+	 * Args:
+	 * 	None
+	 * 
+	 * Returns:
+	 * 	None
+	 * 
+	**/
 	test_data = fopen("test_data.csv", "r");
 
 	if(!test_data) {
@@ -82,6 +130,17 @@ void init_file()
 
 void get_data()
 {
+	/**
+	 * If in debug mode, this function reads the test data file. Otherwise, it calls the read data function
+	 * and converts the data
+	 * 
+	 * Args:
+	 *  None
+	 * 
+	 * Returns:
+	 * 	None
+	 * 
+	**/
 	int end;
 
 	if(debug) {
