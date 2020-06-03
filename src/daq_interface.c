@@ -15,7 +15,7 @@ static void convert()
 	 * 	None -> should take a float?
 	 * 
 	 * Returns:
-	 * 	None -> should return a float?
+	 * 	void -> should return a float?
 	 *
 	**/
 	
@@ -32,7 +32,7 @@ static void read_data()
 	 * 	None
 	 * 
 	 * Returns:
-	 * 	None
+	 * 	void
 	 * 
 	**/
 
@@ -50,7 +50,7 @@ static void read_line(char *line, int len)
 	 * 	len (int): the length of the line you are reading
 	 * 
 	 * Returns:
-	 * 	None
+	 * 	void
 	 * 
 	**/
 
@@ -84,7 +84,7 @@ static int read_file()
 	 *  None
 	 * 
 	 * Returns:
-	 * 	None
+	 * 	int: 1 if succesful, else 0
 	 * 
 	**/
 	
@@ -115,7 +115,7 @@ void init_file()
 	 * 	None
 	 * 
 	 * Returns:
-	 * 	None
+	 * 	void
 	 * 
 	**/
 	test_data = fopen("test_data.csv", "r");
@@ -138,7 +138,7 @@ void get_data()
 	 *  None
 	 * 
 	 * Returns:
-	 * 	None
+	 * 	void
 	 * 
 	**/
 	int end;
