@@ -9,8 +9,18 @@ static struct sensor *get_init_values(char *);
 
 static void show_config(char *file_name)
 {
-	// This function shows the config which has been set from the config file. Code will not execute further
-	// without conformation from user that configuration is set right.
+	/**
+	 * This function shows the config which has been set from the config file. Code will not execute further
+	 *  without conformation from user that configuration is set right.
+	 * 
+	 * Args:
+	 * 	file_name (char *): The name of the config file the program will open
+	 * 
+	 * Returns:
+	 *	Void
+
+	 */
+
 	char opt;
 	int i;
 	FILE *file = fopen(file_name, "r");
@@ -93,18 +103,18 @@ static void show_config(char *file_name)
 
 static void read_config(char *file_name)
 {
-	// CSV FORMAT
-	// sensor list will start with ###SENSORS###
-	// valve list will start with ###VALVES###
-	// debug will start with ###DEBUG###
-	// 
-	// sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
-	// or
-	// valve_name(7)[0-6], pin#(2)[8, 9]
-	//
-	// sensor_name will decide if it is a pressure or temperature or other kind of sensor.
-	
-	/* EXAMPLE CONFIG FILE
+	/** 
+	 * This function reads the CSV config file, example format is as follows:
+	 * 
+	 * CSV FORMAT
+	 * sensor list will start with ###SENSORS###
+	 * valve list will start with ###VALVES###
+	 * debug will start with ###DEBUG###
+	 * sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
+	 * or
+	 * valve_name(7)[0-6], pin#(2)[8, 9]
+	 * sensor_name will decide if it is a pressure or temperature or other kind of sensor.
+	 * EXAMPLE CONFIG FILE
 	 *
 	 * ###SENSORS###
 	 * N_PT_01,1000,10,5,-1
@@ -113,6 +123,12 @@ static void read_config(char *file_name)
 	 * N_SV_01,0
 	 * ###DEBUG###
 	 * 1
+	 * 
+	 * Args:
+	 *  file_name (char *): The name of the config file to opened
+	 * 
+	 * Returns;
+	 * 	Void
 	 */
 	
 	int i;
@@ -164,6 +180,17 @@ static void read_config(char *file_name)
 
 struct sensor *get_init_values(char *file_name)
 {
+	/**
+	 * This function gets init values from the file and creates a sensor struct
+	 * 
+	 * Args:
+	 * 	file_name (char *): The name of the config file to grab the init values from
+	 * 
+	 * Returns:
+	 * 	init_s (sensor): Returns a sensor struct with the values from the config file
+	 * 
+	**/
+	
 	struct sensor *init_s = (struct sensor *)malloc(sizeof(struct sensor) * SENSOR_NUM);
 	FILE *file = fopen(file_name, "r");
 	char *setup = (char *)malloc(sizeof(char) * 25);
@@ -191,6 +218,18 @@ struct sensor *get_init_values(char *file_name)
 
 static void init_sensor(char *setup, struct sensor *s)
 {
+	/**
+	 * This function initializes a sensor given the setup string
+	 * 
+	 * Args:
+	 * 	setup (char *): string containing the the base, +- error, and pin # of the sensor of the format: N_PT_01,1000,10,5,-1
+	 * 	s (sensor *): the sensor whose base, +- error, and pin values you want to change based on the setup string
+	 * 
+	 * Returns:
+	 * 	Void
+	 * 
+	**/
+
 	char *str_base_val = (char *)malloc(sizeof(char) * 5);
 	char *str_pos_err = (char *)malloc(sizeof(char) * 3);
 	char *str_neg_err = (char *)malloc(sizeof(char) * 3);
@@ -227,6 +266,17 @@ static void init_sensor(char *setup, struct sensor *s)
 
 static void init_valve(char *setup, struct valve *v)
 {
+	/**
+	 * This function initializes a valve v, based on the setup string
+	 * 
+	 * Args:
+	 * 	setup (char *): Description of the values you want to assosciate with the valve in a string format
+	 *  ex: N_SV_01,0
+	 * 
+	 * Returns:
+	 * 	void
+	**/
+
 	char *str_pin = (char *)malloc(sizeof(char) * 3);
 
 	strncpy(str_pin, setup + 8, 2);
@@ -248,9 +298,9 @@ static void system_check(char *file_name)
 	 * 
 	 * Args:
 	 * 	file_name (char*): Name of the file to get values from
-	 * 	verbose (int): 1 if you want stuff printed, 0 if you want only errors printed
+	 *
 	 * Returns:
-	 * 	None
+	 * 	void
 	 * 
 	 **/
 	struct sensor *init_s = get_init_values(file_name);
@@ -318,6 +368,16 @@ static void system_check(char *file_name)
 
 void init(char *file_name)
 {
+	/**
+	 * This function initializes the overall system, by making calls to the other init functions
+	 * 
+	 * Args:
+	 * 	file_name (char *): The name of the config file
+	 * 
+	 * Returns:
+	 * 	void
+	 * 
+	**/
 	read_config(file_name);
 	show_config(file_name);
 	if(debug)
