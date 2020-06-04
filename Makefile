@@ -39,4 +39,4 @@ $(OBJ_DIR):
 
 .PHONY: all clean
 clean:
-	rm -f -r $(OBJ_DIR)
+	rm -f -r $(OBJ_DIR) $(EXE)
