@@ -37,13 +37,13 @@ void init_daq(){
 	err = ulGetDaqDeviceInventory(interfaceType, devDescriptors, &numDevs);
 
 	if (err != ERR_NO_ERROR)
-		goto end;
+		goto();
 
 	// verify at least one DAQ device is detected
 	if (numDevs == 0)
 	{
 		printf("No DAQ device is detected\n");
-		goto end;
+		goto();
 	}
 
 	printf("Found %d DAQ device(s)\n", numDevs);
@@ -59,7 +59,7 @@ void init_daq(){
 	if (daqDeviceHandle == 0)
 	{
 		printf ("\nUnable to create a handle to the specified DAQ device\n");
-		goto end;
+		goto();
 	}
 
 	// verify the specified DAQ device supports analog input
@@ -67,7 +67,7 @@ void init_daq(){
 	if (!hasAI)
 	{
 		printf("\nThe specified DAQ device does not support analog input\n");
-		goto end;
+		goto();
 	}
 
 	printf("\nConnecting to device %s - please wait ...\n", devDescriptors[descriptorIndex].devString);
@@ -76,7 +76,7 @@ void init_daq(){
 	err = ulConnectDaqDevice(daqDeviceHandle);
 
 	if (err != ERR_NO_ERROR)
-		goto end;
+		goto();
 
 	// i think we have to manipulate this line
 	// get the first supported analog input mode
@@ -88,21 +88,6 @@ void init_daq(){
 		// get the first supported analog input range
 	err = getAiInfoFirstSupportedRange(daqDeviceHandle, inputMode, &range, rangeStr);
 
-
-
-	end:
-
-	// release the handle to the DAQ device
-	if(daqDeviceHandle)
-		ulReleaseDaqDevice(daqDeviceHandle);
-
-	if(err != ERR_NO_ERROR)
-	{
-		char errMsg[ERR_MSG_LEN];
-		ulGetErrMsg(err, errMsg);
-		printf("Error Code: %d \n", err);
-		printf("Error Message: %s \n", errMsg);
-	}
 
 }
 
@@ -274,3 +259,22 @@ void get_data()
 
 	return;
 }
+
+void goto()
+{
+
+	// release the handle to the DAQ device
+	if(daqDeviceHandle)
+		ulReleaseDaqDevice(daqDeviceHandle);
+
+	if(err != ERR_NO_ERROR)
+	{
+		char errMsg[ERR_MSG_LEN];
+		ulGetErrMsg(err, errMsg);
+		printf("Error Code: %d \n", err);
+		printf("Error Message: %s \n", errMsg);
+	}
+
+}
+
+
