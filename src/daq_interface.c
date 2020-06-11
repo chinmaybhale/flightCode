@@ -277,6 +277,3 @@ void get_data()
 
 	return;
 }
-
-
-
