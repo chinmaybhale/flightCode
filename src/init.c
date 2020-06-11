@@ -252,6 +252,10 @@ static void init_sensor(char *setup, struct sensor *s)
 	float neg_err = atof(str_pos_err) / 100.0f;
 	int pin = atoi(str_pin);
 
+	s->base_val = base_val;
+	s->pos_err = pos_err;
+	s->neg_err = neg_err;
+
 	s->max_val = base_val + (base_val * pos_err);
 	s->min_val = base_val - (base_val * neg_err);
 	s->pin = pin;
