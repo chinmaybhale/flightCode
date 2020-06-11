@@ -5,35 +5,36 @@
 #define MAX_DEV_COUNT 100
 #define MAX_STR_LENGTH 64 
 
-#define SENSOR_NUM 11 
-#define VALVE_NUM 13
+#define VALVE_NUM 11
+#define SENSOR_NUM 13 
+
 
 // Valves
-#define N_PV_01 0
-#define N_PV_02 1
-#define R_PV_01 2
-#define R_PV_02 3
-#define R_PV_03 4
-#define R_PV_04 5
-#define R_PV_05 6
-#define L_PV_01 7
-#define L_SV_01 8
-#define L_SV_02 9
-#define L_SV_03 10
-#define C_PV_01 11
-#define C_PV_02 12
+#define P_EV_01 0
+#define P_EV_02 1
+#define P_EV_03 2
+#define P_EV_04 3
+#define P_EV_05 4
+#define F_EV_01 5
+#define F_EV_02 6
+#define F_EV_03 7
+#define O_SV_01 8
+#define O_SV_02 9
+#define O_SV_03 10
 
 //Sensors
-#define N_PT_01 0
-#define R_PT_01 1
-#define R_PT_02 2
-#define R_PT_03 3
-#define R_PT_04 4
-#define L_PT_01 5
-#define L_PT_02 6
-#define L_PT_03 7
-#define L_PT_04 8
-#define R_TT_01 9
-#define L_TT_01 10
+#define P_PT_01 0
+#define P_PT_02 1
+#define P_PT_03 2
+#define O_PT_01 3
+#define O_PT_02 4
+#define O_PT_03 5
+#define F_PT_01 6
+#define F_PT_02 7
+#define F_PT_03 8
+#define O_TT_01 9
+#define F_TT_01 10
+#define O_LT_01 11
+#define F_LT_01 12
 
 #endif
