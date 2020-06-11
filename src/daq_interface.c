@@ -107,6 +107,8 @@ static void free_daq()
 		printf("Error Message: %s \n", errMsg);
 	}
 
+	exit(EXIT_FAILURE);
+
 }
 
 static void convert()
