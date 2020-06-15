@@ -21,8 +21,6 @@ int seq()
 	return 0;
 }
 
-
-
 static void read_verified()
 {
 	/**
