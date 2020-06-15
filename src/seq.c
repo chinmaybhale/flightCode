@@ -23,7 +23,7 @@ int seq()
 
 
 
-void read_verified()
+static void read_verified()
 {
 	/**
 	 * this function is called whenever you want to get the next line of the verified/expected
