@@ -40,6 +40,7 @@ typedef float daq_value; // typedef'ing for easy reference
 
 struct sensor s[SENSOR_NUM]; // for pressure values
 struct valve v[VALVE_NUM]; // valve array
+struct sensor verified_data[SENSOR_NUM]; // for verified/expected sensor data
 daq_value values[SENSOR_NUM]; // for values received from DAQ / DAQ debug
 
 int debug;
