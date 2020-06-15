@@ -35,6 +35,8 @@ void read_verified()
 	if ( fgets(line, len, verified_file) == NULL)
 	{
 		printf("end of verified file");
+		free(line);
+		fclose(verified_file);
 		return;
 	}
 	else
