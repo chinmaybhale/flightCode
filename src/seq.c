@@ -1,8 +1,7 @@
 #include "../include/headers.h"
 
 
-float *verified_data;
-FILE verified_file;
+FILE *verified_file;
 char *line;
 
 
@@ -31,8 +30,9 @@ void read_verified()
 	 * values for the sensors
 	 */
 	char str_val[30];
-	
-	if ( fgets(line, 256, verified_file) == NULL)
+	int len = 256;
+
+	if ( fgets(line, len, verified_file) == NULL)
 	{
 		printf("end of verified file");
 		return;
@@ -73,7 +73,7 @@ void init_verified_file()
 	line = (char *) malloc(sizeof(char) * 256);
 
 	if (fgets(line, 256, verified_file) == NULL)
-		printf("no data in verified file")
+		printf("no data in verified file");
 
 	return;
 }
