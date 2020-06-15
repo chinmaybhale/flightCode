@@ -3,5 +3,6 @@
 
 // global declarations go here
 int seq();
+void init_verified_file();
 
 #endif
