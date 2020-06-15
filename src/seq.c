@@ -1,7 +1,6 @@
 #include "../include/headers.h"
 
 
-int *verified_data;
 float *verified_data;
 FILE verified_file;
 char *line;
@@ -31,6 +30,7 @@ void read_verified()
 	 * this function is called whenever you want to get the next line of the verified/expected
 	 * values for the sensors
 	 */
+	char str_val[30];
 	
 	if ( fgets(line, 256, verified_file) == NULL)
 	{
@@ -39,7 +39,7 @@ void read_verified()
 	}
 	else
 	{
-		char *str_val = (char *)malloc(sizeof(char) * 30);
+		
 		int curr, prev = 0, i = 0;
 
 		for(curr = 0; curr <= len; curr++) 
