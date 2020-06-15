@@ -35,7 +35,7 @@ void set_val(float val, struct sensor *s)
 	int t_total = 32;//(t_total), total burn time in seconds
 	double dt = .1;//Time step in seconds
 	double t[320];//time duration array
-	//fills time duration array
+  //fills time duration array
 	for(double i = .1; i<=(double)(t_total+.1); i = i + .1)
 		{
 			t[(int)(i*10) - 1] = i;
@@ -63,7 +63,35 @@ void set_val(float val, struct sensor *s)
 	double m_i = 111.4107; // = n*M;
 	rho[0] = density_n2; // initial density
 	double m_old = m_i;
+	double dm;
+	double m_new;
+	double p_new;
+
+	for (int i = 0; i < 320;)
+	{
+		V2[i] = sqrt(((p1[i]-p2)/rho[i]*2));// velocity at exit point in streamline [m/s]
+		
+		m_dot[i] = rho[i]*V2[i]*Area; // mass flow rate at t = 0s [kg/s]
+		dm = m_dot[i] * dt;// change of mass [kg]
+		m_new = m_old - dm;// New mass [kg]
+		i = i+1;
+		if(i != 319)
+		{
+		rho[i] = m_new / Volume; 
+		n = m_new / M;
+		p_new = (n*R*T) / Volume;
+		p1[i] = p_new;// reassigning pressure 1 to new pressure [Pa]
+		}
+		m_old = m_new;
+	}
+
+	double p11[320];
+
+	//next loop can possibly be simplified by adding it to the first for loop
+	for(int i = 0; i< 320; i++)
+	{
+		p11[i] = p1[i]/6895;
+	}
 
 	return;
-
 }
