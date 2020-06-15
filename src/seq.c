@@ -4,6 +4,7 @@
 FILE *verified_file;
 char *line;
 
+static int read_verified();
 
 int seq()
 {
@@ -21,7 +22,7 @@ int seq()
 	return 0;
 }
 
-static void read_verified()
+static int read_verified()
 {
 	/**
 	 * this function is called whenever you want to get the next line of the verified/expected
@@ -35,7 +36,7 @@ static void read_verified()
 		printf("end of verified file");
 		free(line);
 		fclose(verified_file);
-		return;
+		return 0;
 	}
 	else
 	{
@@ -55,6 +56,8 @@ static void read_verified()
 				break;
 		}
 	}
+
+	return 1;
 	
 }
 
