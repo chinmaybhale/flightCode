@@ -26,21 +26,26 @@ void loop() {
   CurrentSignal = digitalRead(inputRead);                             
   if (CurrentSignal == HIGH && PreviousSignal == LOW) {
       valveState = HIGH;
+      digitalWrite(solenoidPin, valveState);
       delay(2000);
       valveState = LOW;
+      digitalWrite(solenoidPin, valveState);
   }
   else if (CurrentSignal == HIGH && PreviousSignal == HIGH) {
       valveState = LOW;
+      digitalWrite(solenoidPin, valveState);
     }
     else if (CurrentSignal == LOW && PreviousSignal ==HIGH){
       valveState = HIGH;
+        digitalWrite(solenoidPin, valveState);
       delay(2000);
       valveState = LOW;
+        digitalWrite(solenoidPin, valveState);
     }
     else{
       valveState = LOW;
+        digitalWrite(solenoidPin, valveState);
     }
 
-  digitalWrite(solenoidPin, valveState);
   PreviousSignal = CurrentSignal;
 }
