@@ -8,6 +8,9 @@
 #define VALVE_NUM 11
 #define SENSOR_NUM 13 
 
+// Valve status
+#define OFF 0
+#define ON 1
 
 // Valves
 #define P_EV_01 0
