@@ -1,7 +1,20 @@
 #ifndef __DAQ_INTERFACE_H__
 #define __DAQ_INTERFACE_H__
 
-void init_file();
-void get_data();
+/* TODO: include these headers which are found in the daq library 
+    and match it to file location of the daq library. 
 
-#endif
+ * #include <stdio.h>
+ * #include <stdlib.h>
+ * #include "uldaq.h"
+ * #include "utility.h" 
+ */
+
+//#include "uldaq.h"
+//#include "utility.h"
+
+void get_data();
+void init_daq();
+void init_file();
+
+#endif //__DAQ_INTERFACE_H__

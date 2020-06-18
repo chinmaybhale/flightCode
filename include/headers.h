@@ -10,6 +10,8 @@
 #include "init.h"
 #include "seq.h"
 #include "daq_interface.h"
+#include "uldaq.h"
+#include "daq_utility.h"
 /*****************************/
 
 // Global variables
@@ -18,8 +20,13 @@
 
 // max and min values decided by percentage when initializing
 struct sensor {
+	float base_val;
+	int pos_err;
+	int neg_err;
+
 	float max_val;
 	float min_val;
+	
 	short pin; // not all sensors will have this, set to -1
 };
 
@@ -28,17 +35,12 @@ struct valve {
 	short stat; // 0 = off, 1 = on
 };
 
-//struct daq_value {
-//	// TODO:
-//	// we need a specific data structure to store data from DAQ
-//	// let's define this once we get a better idea with what
-//	// we are dealing with.
-//};
 
 typedef float daq_value; // typedef'ing for easy reference
 
 struct sensor s[SENSOR_NUM]; // for pressure values
 struct valve v[VALVE_NUM]; // valve array
+struct sensor verified_data[SENSOR_NUM]; // for verified/expected sensor data
 daq_value values[SENSOR_NUM]; // for values received from DAQ / DAQ debug
 
 int debug;
