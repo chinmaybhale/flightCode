@@ -19,6 +19,46 @@ int seq()
 	 * 
 	**/
 
+	if(values[P_PT_01] >= s[P_PT_01].min_val
+	&& values[P_PT_01] <= s[P_PT_01].max_val) {
+	
+		if(v[P_EV_02].stat == OFF) {
+			// TODO: open valve
+			v[P_EV_02].stat = ON;
+		}
+	}
+	else {
+		// TODO: Backup sequence
+	}
+
+	if(values[P_PT_02] >= s[P_PT_02].min_val
+	&& values[P_PT_02] <= s[P_PT_02].max_val
+	&& values[O_TT_01] >= s[O_TT_01].min_val
+	&& values[O_TT_01] <= s[O_TT_01].max_val) {
+		
+		if(v[P_EV_03].stat == OFF) {
+			// TODO: open valve
+			v[P_EV_03].stat = ON;
+		}
+	}
+	else {
+		// TODO: Backup sequence
+	}
+	
+	if(values[P_PT_03] >= s[P_PT_03].min_val
+	&& values[P_PT_03] <= s[P_PT_03].max_val
+	&& values[F_TT_01] >= s[F_TT_01].min_val
+	&& values[F_TT_01] <= s[F_TT_01].max_val) {
+		
+		if(v[P_EV_05].stat == OFF) {
+			// TODO: open valve
+			v[P_EV_05].stat = ON;
+		}
+	}
+	else {
+		// TODO: Backup sequence
+	}
+	
 	return 0;
 }
 
