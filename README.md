@@ -28,9 +28,9 @@ To compile code for debugging, type "make debug" in the terminal.
 To create a fresh solution in case of a bad compile, or to recompile, type "make clean" and then type one
 of the above in the terminal.
 
-config file format</br>
-<sensor name>,<base_val>,<pos_val_err>,<neg_val_err>,<base_trend>,<pos_trend_err>,<neg_trend_err>,<pin>
-or
+config file format </br>
+<sensor_name>,<base_val>,<pos_val_err>,<neg_val_err>,<base_trend>,<pos_trend_err>,<neg_trend_err>,<pin> </br>
+or</br>
 <valve name>,<pin>
 
 verifiedValue format
