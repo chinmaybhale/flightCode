@@ -3,10 +3,12 @@
 //TODO: associate P&ID sensors/valves to index numbers 
 
 #define MAX_DEV_COUNT 100
-#define MAX_STR_LENGTH 64 
+#define MAX_STR_LENGTH 64
 
-#define VALVE_NUM 11
-#define SENSOR_NUM 13 
+#define MAX_DATA_LENGTH 512
+
+#define VALVE_COUNT 11
+#define SENSOR_COUNT 13 
 
 // Valve status
 #define OFF 0
