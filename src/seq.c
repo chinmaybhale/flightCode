@@ -18,46 +18,85 @@ int seq()
 	 * 	int: 0 
 	 * 
 	**/
-
-	if(values[P_PT_01] >= s[P_PT_01].min_val
-	&& values[P_PT_01] <= s[P_PT_01].max_val) {
 	
-		if(v[P_EV_02].stat == OFF) {
-			// TODO: open valve
+	get_data();
+
+	if (v[P_EV_02].stat == OFF) {
+		// Valve is off, check absolute pressure values
+		if (daq_val[P_PT_01].curr >= s[P_PT_01].max_val
+				&& daq_val[P_PT_01].curr <= s[P_PT_01].min_val) {
+			// open valve;
 			v[P_EV_02].stat = ON;
+
+			// get new data before proceeding
+			get_data();
 		}
 	}
 	else {
-		// TODO: Backup sequence
+		// valve is on, check trends
+		if (!(daq_val[P_PT_01].trend >= s[P_PT_01].max_trend)
+				&& !(daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)) {
+			// trends are not nominal
+			// initiate backup?
+		}
 	}
 
-	if(values[P_PT_02] >= s[P_PT_02].min_val
-	&& values[P_PT_02] <= s[P_PT_02].max_val
-	&& values[O_TT_01] >= s[O_TT_01].min_val
-	&& values[O_TT_01] <= s[O_TT_01].max_val) {
+	if (v[P_EV_02].stat == ON) {
+		// main pressurant valve is on
+		// check trend for increase of pressure
 		
-		if(v[P_EV_03].stat == OFF) {
-			// TODO: open valve
-			v[P_EV_03].stat = ON;
+		
+		// open P_EV_03 when absolute pressure is correct and P_EV_02 is completely open
+
+		if (daq_val[P_PT_02].trend >= s[P_PT_02].min_trend
+				&& daq_val[P_PT_02].trend <= s[P_PT_02].max_trend) {
+			if (v[P_EV_03].stat == OFF // only go here if the valve isn't open
+					&& daq_val[P_PT_02].curr >= s[P_PT_02].min_val
+					&& daq_val[P_PT_02].curr <= s[P_PT_02].max_val
+					&& daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+					&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend) {
+				// all pressures are right, trends are right
+				// open the valve
+				v[P_EV_03].stat = ON;
+
+				// get new data
+				get_data();
+				
+			}
+			// trends are right, continue
+			// valve open or not open does not matter
+		}
+		else {
+			// trends are not right, initiate backup
+		}
+		
+		
+		// open P_EV_05 when absolute pressure is correct and P_EV_02 is completely open
+
+		if (daq_val[P_PT_03].trend >= s[P_PT_03].min_trend
+				&& daq_val[P_PT_03].trend <= s[P_PT_03].max_trend) {
+			if (v[P_EV_05].stat == OFF // only go here if the valve isn't open
+					&& daq_val[P_PT_03].curr >= s[P_PT_03].min_val
+					&& daq_val[P_PT_03].curr <= s[P_PT_03].max_val
+					&& daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+					&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend) {
+				// all pressures are right, trends are right
+				// open the valve
+				v[P_EV_05].stat = ON;
+
+				// get new data
+				get_data();
+				
+			}
+			// trends are right, continue
+			// valve open or not open does not matter
+		}
+		else {
+			// trends are not right, initiate backup
 		}
 	}
-	else {
-		// TODO: Backup sequence
-	}
-	
-	if(values[P_PT_03] >= s[P_PT_03].min_val
-	&& values[P_PT_03] <= s[P_PT_03].max_val
-	&& values[F_TT_01] >= s[F_TT_01].min_val
-	&& values[F_TT_01] <= s[F_TT_01].max_val) {
-		
-		if(v[P_EV_05].stat == OFF) {
-			// TODO: open valve
-			v[P_EV_05].stat = ON;
-		}
-	}
-	else {
-		// TODO: Backup sequence
-	}
+	// else = do nothing, valve is not open, no need to check
+
 	
 	return 0;
 }
