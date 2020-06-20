@@ -49,10 +49,10 @@ struct daq_value {
 };
 
 
-struct sensor s[SENSOR_NUM]; // for pressure values
-struct valve v[VALVE_NUM]; // valve array
-struct sensor verified_data[SENSOR_NUM]; // for verified/expected sensor data
-daq_value daq_val[SENSOR_NUM]; // for values received from DAQ / DAQ debug
+struct sensor s[SENSOR_COUNT]; // for pressure values
+struct valve v[VALVE_COUNT]; // valve array
+struct sensor verified_data[SENSOR_COUNT]; // for verified/expected sensor data
+struct daq_value daq_val[SENSOR_COUNT]; // for values received from DAQ / DAQ debug
 
 int debug;
 int verbose;
