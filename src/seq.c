@@ -21,24 +21,23 @@ int seq()
 	
 	get_data();
 
-	if (v[P_EV_02].stat == OFF) {
-		// Valve is off, check absolute pressure values
-		if (daq_val[P_PT_01].curr >= s[P_PT_01].max_val
-				&& daq_val[P_PT_01].curr <= s[P_PT_01].min_val) {
-			// open valve;
+
+	if (daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+			&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend) {
+		if (v[P_EV_02].stat == OFF // only go here if the valve isn't open
+				&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val
+				&& daq_val[P_PT_01].curr <= s[P_PT_01].max_val) {
+			// all pressures nominal
+			// open valve
 			v[P_EV_02].stat = ON;
 
-			// get new data before proceeding
+			// get new data
 			get_data();
 		}
+		// otherwise all trends nominal, continue running
 	}
 	else {
-		// valve is on, check trends
-		if (!(daq_val[P_PT_01].trend >= s[P_PT_01].max_trend)
-				&& !(daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)) {
-			// trends are not nominal
-			// initiate backup?
-		}
+		// abnormal trends, initiate backup
 	}
 
 	if (v[P_EV_02].stat == ON) {
