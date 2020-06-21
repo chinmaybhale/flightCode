@@ -13,7 +13,7 @@ unsigned int numDevs = MAX_DEV_COUNT;
 
 // highChan specifies the range of channels on the daq. so data will be gathered between channel 0 to 4 here
 int lowChan = 0;
-int highChan = 3;
+int highChan = SENSOR_COUNT;
 int chan = 0;
 AiInputMode inputMode;
 Range range;
