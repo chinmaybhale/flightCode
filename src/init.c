@@ -252,7 +252,6 @@ static void system_check(char *file_name)
 	 * 	void
 	 * 
 	 **/
-	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
 	char opt;
 	int i, no_go = 0;
@@ -265,8 +264,8 @@ static void system_check(char *file_name)
 	printf(">>> SENSORS:\n");
 	for(i =0; i < SENSOR_COUNT; i++)
 	{
-		if(init_s[i].min_val <= values[i] && 
-				values[i] <= init_s[i].max_val)
+		if(s[i].min_val <= values[i] && 
+				values[i] <= s[i].max_val)
 		{
 			if(verbose == 1)
 				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], values[i], s[i].min_val, s[i].max_val);
