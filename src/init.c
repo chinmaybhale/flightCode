@@ -39,7 +39,7 @@ static void show_config(char *file_name)
 	// reading line >MAIN
 	fgets(name, 20, file);
 
-	for(i = 0; i < SENSOR_NUM; i++) {
+	for(i = 0; i < SENSOR_COUNT; i++) {
 		fgets(name, 8, file);
 		name[8] = '\0';
 		printf("%s\t\t|\t%f\t|\t%f\t|\t%d\t|\n", name, s[i].max_val, s[i].min_val, s[i].pin);
@@ -52,7 +52,7 @@ static void show_config(char *file_name)
 
 	fgets(name, 20, file);
 
-	for(i = 0; i < VALVE_NUM; i++) {
+	for(i = 0; i < VALVE_COUNT; i++) {
 		fgets(name, 8, file);
 		name[8] = '\0';
 		printf("%s\t\t|\t%d\t|\t%s\t|\n", name, v[i].pin, ((v[i].stat)? "on" : "off" ));
@@ -124,7 +124,7 @@ static void read_config(char *file_name)
 
 		// sensors
 		if(setup[0] == '#' && setup[3] == 'S') {
-			for(i = 0; i < SENSOR_NUM; i++) {
+			for(i = 0; i < SENSOR_COUNT; i++) {
 				fgets(setup, 23, file);
 				setup[23] = '\0';
 				init_sensor(setup, &s[i]);
@@ -132,7 +132,7 @@ static void read_config(char *file_name)
 		}
 		// valves
 		else if (setup[0] == '#' && setup[4] == 'A') {
-			for(i = 0; i < VALVE_NUM; i++) {
+			for(i = 0; i < VALVE_COUNT; i++) {
 				fgets(setup, 11, file);
 				setup[11] = '\0';
 				init_valve(setup, &v[i]);
@@ -263,7 +263,7 @@ static void system_check(char *file_name)
 	printf("\n>>> SYSTEM CHECK START <<< \n\n");
 
 	printf(">>> SENSORS:\n");
-	for(i =0; i < SENSOR_NUM; i++)
+	for(i =0; i < SENSOR_COUNT; i++)
 	{
 		if(init_s[i].min_val <= values[i] && 
 				values[i] <= init_s[i].max_val)
@@ -280,7 +280,7 @@ static void system_check(char *file_name)
 
 	printf(">>> VALVES:\n");
 	//assuming all valves should be off
-	for(i = 0; i < VALVE_NUM; i++)
+	for(i = 0; i < VALVE_COUNT; i++)
 	{
 		if(v[i].stat == 0)
 		{
