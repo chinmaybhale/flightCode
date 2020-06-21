@@ -149,12 +149,14 @@ static void read_data()
 
 		if(err == ERR_NO_ERROR)
 		{
-			values[chan] = data;
+			daq_val[chan].prev = daq_val[chan].curr;
+			daq_val[chan].curr = data;
+			daq_val[chan].trend = daq_val[chan].curr - daq_val[chan].prev;
 		}
 		else
 		{
 			printf("error in reading channel %d", chan);
-			values[chan] = -1; // weird number so we know which channels are not getting data
+			daq_val[chan].curr = -1; // weird number so we know which channels are not getting data
 		}
 	}
 	
@@ -184,8 +186,11 @@ static void read_line(char *line, int len)
 		if(line[curr] == ',' || line[curr] == '\n') {
 			strncpy(str_val, line + prev, (curr - prev));
 			str_val[curr - prev] = '\0';
-			values[i++] = atof(str_val);
-			prev = curr + 1;	
+			daq_val[i].prev = daq_val[i].curr;
+			daq_val[i].curr = atof(str_val);
+			daq_val[i].trend = daq_val[i].curr - daq_val[i].prev;
+			prev = curr + 1;
+			i++;
 		}
 		if(line[curr] == '\n')
 			break;

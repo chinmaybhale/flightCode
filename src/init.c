@@ -264,16 +264,16 @@ static void system_check(char *file_name)
 	printf(">>> SENSORS:\n");
 	for(i =0; i < SENSOR_COUNT; i++)
 	{
-		if(s[i].min_val <= values[i] && 
-				values[i] <= s[i].max_val)
+		if(s[i].min_val <= daq_val[i].curr && 
+				daq_val[i].curr <= s[i].max_val)
 		{
 			if(verbose == 1)
-				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], values[i], s[i].min_val, s[i].max_val);
+				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", s_names[i], values[i], s[i].min_val, s[i].max_val);
+			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", s_names[i], daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 	}
 
