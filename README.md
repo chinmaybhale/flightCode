@@ -1,4 +1,4 @@
-# flightCode
+# Helios Rocketry AFCP- _Avionics Flight Computer Program_
 
 ### main.c:
 the main entry point into the code, should not contain any actual code, other than function calls and the definition for reading the config
