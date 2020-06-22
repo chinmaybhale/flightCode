@@ -1,10 +1,13 @@
-//  Helios Rocketry- Avionics- Static Fire flight computer- Electric Ball Valve control
+// Helios Rocketry AFCP/mc_code
+// Ball_Valve_Control.ino- Arduino code to program Atmel ATTiny45 using an Arduino UNO as an ISP.
 
 // The purpose of this code is to control a ball valve locally by accepting a high signal from the main R-Pi
 // Current version is only subject to the Electrically Actuated Ball valves
 // The main computer needs to give a high signal to actuate the open valve. The valve shall stay open until
 // high signal is given.
 
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
 int valvePin = 4;         // Local pin connection to the solenoid
 int inputRead = 7;        // Pin connected to R-Pi
 int valveState = LOW;     // State of the valve
@@ -18,6 +21,7 @@ void setup()
   pinMode(inputRead, INPUT); // Setting input pin
   pinMode(valvePin, OUTPUT); // Setting output pin
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 void loop()
 {
@@ -52,3 +56,6 @@ void loop()
 
   PreviousSignal = CurrentSignal;
 }
+
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------

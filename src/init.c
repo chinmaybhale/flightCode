@@ -1,7 +1,8 @@
-// HELIOS ROCKETRY
-// Code here will only run once in the start
-// Think setup() from arduino
+// Helios Rocketry AFCP/src/
+// init.c- Initialize systems program to be run at the very beginning of main.c (Similar to 'void setup() in Arduino)
 
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
 #include "../include/headers.h"
 static void init_sensor(char *, struct sensor *);
 static void init_valve(char *, struct valve *);
@@ -25,7 +26,8 @@ static void show_config(char *file_name)
 	FILE *file = fopen(file_name, "r");
 	char *name = (char *)malloc(sizeof(char) * 20);
 
-	if(!file) {
+	if (!file)
+	{
 		printf("Not able to open file!");
 		return;
 	}
@@ -35,11 +37,12 @@ static void show_config(char *file_name)
 	printf(">>> SENSOR CONFIGURATION <<<\n\n");
 	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tPIN\t|\n");
 	printf("---------------------------------------------------------------------------------\n");
-	
+
 	// reading line >MAIN
 	fgets(name, 20, file);
 
-	for(i = 0; i < SENSOR_COUNT; i++) {
+	for (i = 0; i < SENSOR_COUNT; i++)
+	{
 		fgets(name, 8, file);
 		name[8] = '\0';
 		printf("%s\t\t|\t%f\t|\t%f\t|\t%d\t|\n", name, s[i].max_val, s[i].min_val, s[i].pin);
@@ -52,23 +55,25 @@ static void show_config(char *file_name)
 
 	fgets(name, 20, file);
 
-	for(i = 0; i < VALVE_COUNT; i++) {
+	for (i = 0; i < VALVE_COUNT; i++)
+	{
 		fgets(name, 8, file);
 		name[8] = '\0';
-		printf("%s\t\t|\t%d\t|\t%s\t|\n", name, v[i].pin, ((v[i].stat)? "on" : "off" ));
+		printf("%s\t\t|\t%d\t|\t%s\t|\n", name, v[i].pin, ((v[i].stat) ? "on" : "off"));
 		fgets(name, 20, file);
 	}
 
 	printf("\n>>> DEBUG CONFIGURATION <<<\n\n");
-	printf("DEBUG: %s\n", ((debug)? "YES" : "NO"));
-	
+	printf("DEBUG: %s\n", ((debug) ? "YES" : "NO"));
+
 	printf("\n>>> VERBOSE <<<\n\n");
-	printf("VERBOSE: %s\n", ((verbose)? "YES" : "NO"));
+	printf("VERBOSE: %s\n", ((verbose) ? "YES" : "NO"));
 
 	printf("\n\nConfirm configuration (y/N): ");
 	scanf("%c", &opt);
 
-	if(opt != 'y') {
+	if (opt != 'y')
+	{
 		printf("Exiting!\n");
 		free(name);
 		fclose(file);
@@ -109,47 +114,55 @@ static void read_config(char *file_name)
 	 * Returns;
 	 * 	Void
 	 */
-	
+
 	int i;
 	char *setup = (char *)malloc(sizeof(char) * 25);
 	FILE *file = fopen(file_name, "r");
 
-	if(!file) {
+	if (!file)
+	{
 		printf("Unable to open file\n");
 		return;
 	}
-	
-	while(fgets(setup, 23, file)) {
+
+	while (fgets(setup, 23, file))
+	{
 		setup[23] = '\0';
 
 		// sensors
-		if(setup[0] == '#' && setup[3] == 'S') {
-			for(i = 0; i < SENSOR_COUNT; i++) {
+		if (setup[0] == '#' && setup[3] == 'S')
+		{
+			for (i = 0; i < SENSOR_COUNT; i++)
+			{
 				fgets(setup, 23, file);
 				setup[23] = '\0';
 				init_sensor(setup, &s[i]);
 			}
 		}
 		// valves
-		else if (setup[0] == '#' && setup[4] == 'A') {
-			for(i = 0; i < VALVE_COUNT; i++) {
+		else if (setup[0] == '#' && setup[4] == 'A')
+		{
+			for (i = 0; i < VALVE_COUNT; i++)
+			{
 				fgets(setup, 11, file);
 				setup[11] = '\0';
 				init_valve(setup, &v[i]);
 			}
 		}
 		// debug
-		else if (setup[0] == '#' && setup[3] == 'D') {
+		else if (setup[0] == '#' && setup[3] == 'D')
+		{
 			fgets(setup, 2, file);
-			if(setup[0] == '1')
+			if (setup[0] == '1')
 				debug = 1;
 			else
 				debug = 0;
 		}
 		// verbose
-		else if (setup[0] == '#' && setup[4] == 'E') {
+		else if (setup[0] == '#' && setup[4] == 'E')
+		{
 			fgets(setup, 2, file);
-			if(setup[0] == '1')
+			if (setup[0] == '1')
 				verbose = 1;
 			else
 				verbose = 0;
@@ -191,7 +204,7 @@ static void init_sensor(char *setup, struct sensor *s)
 
 	strncpy(str_pin, setup + 19, 2);
 	str_pin[2] = '\0';
-	
+
 	float base_val = atof(str_base_val);
 	float pos_err = atof(str_pos_err) / 100.0f;
 	float neg_err = atof(str_pos_err) / 100.0f;
@@ -204,7 +217,7 @@ static void init_sensor(char *setup, struct sensor *s)
 	s->max_val = base_val + (base_val * pos_err);
 	s->min_val = base_val - (base_val * neg_err);
 	s->pin = pin;
-	
+
 	free(str_base_val);
 	free(str_pos_err);
 	free(str_neg_err);
@@ -239,7 +252,6 @@ static void init_valve(char *setup, struct valve *v)
 	return;
 }
 
-
 static void system_check(char *file_name)
 {
 	/**
@@ -256,18 +268,18 @@ static void system_check(char *file_name)
 	char opt;
 	int i, no_go = 0;
 
-	char * s_names[] = {"P_PT_01", "P_PT_02",  "P_PT_03", "O_PT_01", "O_PT_02", "O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", "O_LT_01", "F_LT_01"};
-	char * v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", "F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
+	char *s_names[] = {"P_PT_01", "P_PT_02", "P_PT_03", "O_PT_01", "O_PT_02", "O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", "O_LT_01", "F_LT_01"};
+	char *v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", "F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
 
 	printf("\n>>> SYSTEM CHECK START <<< \n\n");
 
 	printf(">>> SENSORS:\n");
-	for(i =0; i < SENSOR_COUNT; i++)
+	for (i = 0; i < SENSOR_COUNT; i++)
 	{
-		if(s[i].min_val <= daq_val[i].curr && 
-				daq_val[i].curr <= s[i].max_val)
+		if (s[i].min_val <= daq_val[i].curr &&
+			daq_val[i].curr <= s[i].max_val)
 		{
-			if(verbose == 1)
+			if (verbose == 1)
 				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 		else
@@ -279,11 +291,11 @@ static void system_check(char *file_name)
 
 	printf(">>> VALVES:\n");
 	//assuming all valves should be off
-	for(i = 0; i < VALVE_COUNT; i++)
+	for (i = 0; i < VALVE_COUNT; i++)
 	{
-		if(v[i].stat == 0)
+		if (v[i].stat == 0)
 		{
-			if(verbose == 1)
+			if (verbose == 1)
 				printf("%s: Stat: %d, Expected: 0, Good: Yes\n", v_names[i], v[i].stat);
 		}
 		else
@@ -294,11 +306,13 @@ static void system_check(char *file_name)
 	}
 
 	printf("\n>>> SYSTEM CHECK COMPLETE <<<\n");
-	
-	if (no_go) {
+
+	if (no_go)
+	{
 		printf("ANOMALIES DETECTED: RECOMMEND NO GO\n");
 	}
-	else {
+	else
+	{
 		printf("ALL NOMINAL: SYSTEMS GO FOR MAIN SEQUENCE\n");
 	}
 
@@ -306,7 +320,8 @@ static void system_check(char *file_name)
 	scanf("%c", &opt);
 	scanf("%c", &opt); // hacky way, ignoring newline
 
-	if(opt != 'y') {
+	if (opt != 'y')
+	{
 		printf("Exiting!\n");
 		exit(EXIT_FAILURE);
 	}
@@ -328,7 +343,7 @@ void init(char *file_name)
 	**/
 	read_config(file_name);
 	show_config(file_name);
-	if(debug)
+	if (debug)
 		init_file();
 	else
 		init_daq();
@@ -336,3 +351,5 @@ void init(char *file_name)
 	init_verified_file();
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
