@@ -1,10 +1,11 @@
-// Helios Rocketry AFCP/include
-// headers.h- Header file including all the 'header' files in the program as well as class definitions for the main sequence
-// and global variables for 'debug' and 'verbose'
-
-// Any updates or additions in 'AFCP/include' must be updated here accordingly
-// Any changes in the format and/or information in the config file must be reflected here as well
-
+/*
+* Helios Rocketry AFCP/include
+* headers.h- Header file including all the 'header' files in the program as well as class definitions for the main sequence
+* and global variables for 'debug' and 'verbose'
+*
+* NOTE: Any updates or additions in 'AFCP/include' must be updated here accordingly
+* NOTE: Any changes in the format and/or information in the config file must be reflected here as well
+*/
 //---------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------
 #ifndef __HEADERS_H__

@@ -1,5 +1,6 @@
 // Helios Rocketry AFCP/src/
 // init.c- Initialize systems program to be run at the very beginning of main.c (Similar to 'void setup() in Arduino)
+// The program consists of several static functions that are being called one by one in the main sequence. 
 
 //---------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------
@@ -23,23 +24,24 @@ static void show_config(char *file_name)
 
 	char opt;
 	int i;
-	FILE *file = fopen(file_name, "r");
-	char *name = (char *)malloc(sizeof(char) * 20);
+	FILE *file = fopen(file_name, "r");					
+	char *name = (char *)malloc(sizeof(char) * 20);	
 
-	if (!file)
-	{
+	if (!file)                                // File not accessible
+	{ 
 		printf("Not able to open file!");
 		return;
 	}
 
+	// Displaying configuration file in an ordered manner
 	printf("\n############### HELIOS ROCKETRY ##############\n");
 	printf("###### Configuration of firing sequence ######\n\n");
 	printf(">>> SENSOR CONFIGURATION <<<\n\n");
 	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tPIN\t|\n");
 	printf("---------------------------------------------------------------------------------\n");
 
-	// reading line >MAIN
-	fgets(name, 20, file);
+
+	fgets(name, 20, file);				   	// reading line >MAIN
 
 	for (i = 0; i < SENSOR_COUNT; i++)
 	{
@@ -63,6 +65,7 @@ static void show_config(char *file_name)
 		fgets(name, 20, file);
 	}
 
+	// User input for debug and verbose
 	printf("\n>>> DEBUG CONFIGURATION <<<\n\n");
 	printf("DEBUG: %s\n", ((debug) ? "YES" : "NO"));
 
@@ -84,6 +87,7 @@ static void show_config(char *file_name)
 	fclose(file);
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void read_config(char *file_name)
 {
@@ -173,6 +177,7 @@ static void read_config(char *file_name)
 	fclose(file);
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void init_sensor(char *setup, struct sensor *s)
 {
@@ -225,6 +230,7 @@ static void init_sensor(char *setup, struct sensor *s)
 
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void init_valve(char *setup, struct valve *v)
 {
@@ -251,6 +257,7 @@ static void init_valve(char *setup, struct valve *v)
 
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void system_check(char *file_name)
 {
@@ -307,6 +314,7 @@ static void system_check(char *file_name)
 
 	printf("\n>>> SYSTEM CHECK COMPLETE <<<\n");
 
+	// SYSTEMS CHECK- User input to abort!
 	if (no_go)
 	{
 		printf("ANOMALIES DETECTED: RECOMMEND NO GO\n");
@@ -328,6 +336,7 @@ static void system_check(char *file_name)
 
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 void init(char *file_name)
 {

@@ -1,7 +1,8 @@
-// HELIOS ROCKETRY
-// Entry point of the flight code.
-// Please try to limit definitions over here.
-// Code will either be defined in init or seq.
+// Helios Rocketry AFCP/src/
+// main.c- Entry point of AFCP. Please limits definitions and programs in here; they should go in /src/init.c and /src/seq.c
+
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
 
 #include "../include/headers.h"
 
@@ -31,3 +32,5 @@ int main(int argc, char **argv)
 	
 	return 0;
 }
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
