@@ -39,6 +39,7 @@ struct sensor {
 
 struct valve {
 	short pin;
+	short feedback;
 	short stat; // 0 = off, 1 = on
 };
 
