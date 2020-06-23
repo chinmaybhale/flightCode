@@ -1,4 +1,4 @@
-# Flight code variables scheme
+# Helios Rocketry- Flight Program Variables
 
 
 
