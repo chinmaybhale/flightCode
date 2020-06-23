@@ -256,8 +256,11 @@ static void system_check(char *file_name)
 	char opt;
 	int i, no_go = 0;
 
-	char * s_names[] = {"P_PT_01", "P_PT_02",  "P_PT_03", "O_PT_01", "O_PT_02", "O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", "O_LT_01", "F_LT_01"};
-	char * v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", "F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
+	char * s_names[] = {"P_PT_01", "P_PT_02",  "P_PT_03", "O_PT_01", "O_PT_02", 
+		"O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", 
+		"O_LT_01", "F_LT_01"};
+	char * v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", 
+		"F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
 
 	printf("\n>>> SYSTEM CHECK START <<< \n\n");
 
