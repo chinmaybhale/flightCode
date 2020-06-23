@@ -30,7 +30,7 @@ C -- Initialize systems and perform checks --> init.c
 C -- Control algorithm for flight --> seq.c
 C -- Read and format sensor data --> daq_interface.c
 C -- Source code for the DAQ --> daq_utility.c
-
+```
 ### main.c:
 
 The main entry point into the code, should not contain any actual code, other than function calls and the definition for reading the config
