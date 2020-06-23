@@ -239,16 +239,22 @@ static void init_valve(char *setup, struct valve *v)
 	 * 	void
 	**/
 
-	char *str_pin = (char *)malloc(sizeof(char) * 3);
+	char pin[3];
 
-	strncpy(str_pin, setup + 8, 2);
-	str_pin[2] = '\0';
+	// reading output pin number
+	strncpy(pin, setup + 8, 2);
+	pin[2] = '\0';
 
-	v->pin = atoi(str_pin);
+	v->pin = atoi(pin);
+
+	// reading feedback pin number
+	strncpy(pin, setup + 11, 2);
+	pin[2] = '\0';
+
+	v->pin = atoi(pin);
+
 	v->stat = 0;
-
-	free(str_pin);
-
+	
 	return;
 }
 
