@@ -8,595 +8,590 @@
 /****************************************************************************
  * Enum Conversion Functions
  ****************************************************************************/
-void ConvertInputModeToString(AiInputMode inputMode, char* modeStr)
+void ConvertInputModeToString(AiInputMode inputMode, char *modeStr)
 {
-	switch(inputMode)
+	switch (inputMode)
 	{
-	case(AI_DIFFERENTIAL):
+	case (AI_DIFFERENTIAL):
 		strcpy(modeStr, "AI_DIFFERENTIAL");
 		break;
-	case(AI_SINGLE_ENDED):
+	case (AI_SINGLE_ENDED):
 		strcpy(modeStr, "AI_SINGLE_ENDED");
 		break;
-	case(AI_PSEUDO_DIFFERENTIAL):
+	case (AI_PSEUDO_DIFFERENTIAL):
 		strcpy(modeStr, "AI_PSEUDO_DIFFERENTIAL");
 		break;
 	}
 }
 
-
-void ConvertRangeToString(Range range, char* rangeStr)
+void ConvertRangeToString(Range range, char *rangeStr)
 {
-	switch(range)
+	switch (range)
 	{
-	case(BIP60VOLTS):
+	case (BIP60VOLTS):
 		strcpy(rangeStr, "BIP60VOLTS");
 		break;
-	case(BIP30VOLTS):
+	case (BIP30VOLTS):
 		strcpy(rangeStr, "BIP30VOLTS");
 		break;
-	case(BIP15VOLTS):
+	case (BIP15VOLTS):
 		strcpy(rangeStr, "BIP15VOLTS");
 		break;
-	case(BIP20VOLTS):
+	case (BIP20VOLTS):
 		strcpy(rangeStr, "BIP20VOLTS");
 		break;
-	case(BIP10VOLTS):
+	case (BIP10VOLTS):
 		strcpy(rangeStr, "BIP10VOLTS");
 		break;
-	case(BIP5VOLTS):
+	case (BIP5VOLTS):
 		strcpy(rangeStr, "BIP5VOLTS");
 		break;
-	case(BIP4VOLTS):
+	case (BIP4VOLTS):
 		strcpy(rangeStr, "BIP4VOLTS");
 		break;
-	case(BIP2PT5VOLTS):
+	case (BIP2PT5VOLTS):
 		strcpy(rangeStr, "BIP2PT5VOLTS");
 		break;
-	case(BIP2VOLTS):
+	case (BIP2VOLTS):
 		strcpy(rangeStr, "BIP2VOLTS");
 		break;
-	case(BIP1PT25VOLTS):
+	case (BIP1PT25VOLTS):
 		strcpy(rangeStr, "BIP1PT25VOLTS");
 		break;
-	case(BIP1VOLTS):
+	case (BIP1VOLTS):
 		strcpy(rangeStr, "BIP1VOLTS");
 		break;
-	case(BIPPT625VOLTS):
+	case (BIPPT625VOLTS):
 		strcpy(rangeStr, "BIPPT625VOLTS");
 		break;
-	case(BIPPT5VOLTS):
+	case (BIPPT5VOLTS):
 		strcpy(rangeStr, "BIPPT5VOLTS");
 		break;
-	case(BIPPT25VOLTS):
+	case (BIPPT25VOLTS):
 		strcpy(rangeStr, "BIPPT25VOLTS");
 		break;
-	case(BIPPT125VOLTS):
+	case (BIPPT125VOLTS):
 		strcpy(rangeStr, "BIPPT125VOLTS");
 		break;
-	case(BIPPT2VOLTS):
+	case (BIPPT2VOLTS):
 		strcpy(rangeStr, "BIPPT2VOLTS");
 		break;
-	case(BIPPT1VOLTS):
+	case (BIPPT1VOLTS):
 		strcpy(rangeStr, "BIPPT1VOLTS");
 		break;
-	case(BIPPT078VOLTS):
+	case (BIPPT078VOLTS):
 		strcpy(rangeStr, "BIPPT078VOLTS");
 		break;
-	case(BIPPT05VOLTS):
+	case (BIPPT05VOLTS):
 		strcpy(rangeStr, "BIPPT05VOLTS");
 		break;
-	case(BIPPT01VOLTS):
+	case (BIPPT01VOLTS):
 		strcpy(rangeStr, "BIPPT01VOLTS");
 		break;
-	case(BIPPT005VOLTS):
+	case (BIPPT005VOLTS):
 		strcpy(rangeStr, "BIPPT005VOLTS");
 		break;
-	case(BIP3VOLTS):
+	case (BIP3VOLTS):
 		strcpy(rangeStr, "BIP3VOLTS");
 		break;
-	case(BIPPT312VOLTS):
+	case (BIPPT312VOLTS):
 		strcpy(rangeStr, "BIPPT312VOLTS");
 		break;
-	case(BIPPT156VOLTS):
+	case (BIPPT156VOLTS):
 		strcpy(rangeStr, "BIPPT156VOLTS");
 		break;
-	case(UNI60VOLTS):
+	case (UNI60VOLTS):
 		strcpy(rangeStr, "UNI60VOLTS");
 		break;
-	case(UNI30VOLTS):
+	case (UNI30VOLTS):
 		strcpy(rangeStr, "UNI30VOLTS");
 		break;
-	case(UNI15VOLTS):
+	case (UNI15VOLTS):
 		strcpy(rangeStr, "UNI15VOLTS");
 		break;
-	case(UNI20VOLTS):
+	case (UNI20VOLTS):
 		strcpy(rangeStr, "UNI20VOLTS");
 		break;
-	case(UNI10VOLTS):
+	case (UNI10VOLTS):
 		strcpy(rangeStr, "UNI10VOLTS");
 		break;
-	case(UNI5VOLTS):
+	case (UNI5VOLTS):
 		strcpy(rangeStr, "UNI5VOLTS");
 		break;
-	case(UNI4VOLTS):
+	case (UNI4VOLTS):
 		strcpy(rangeStr, "UNI4VOLTS");
 		break;
-	case(UNI2PT5VOLTS):
+	case (UNI2PT5VOLTS):
 		strcpy(rangeStr, "UNI2PT5VOLTS");
 		break;
-	case(UNI2VOLTS):
+	case (UNI2VOLTS):
 		strcpy(rangeStr, "UNI2VOLTS");
 		break;
-	case(UNI1PT25VOLTS):
+	case (UNI1PT25VOLTS):
 		strcpy(rangeStr, "UNI1PT25VOLTS");
 		break;
-	case(UNI1VOLTS):
+	case (UNI1VOLTS):
 		strcpy(rangeStr, "UNI1VOLTS");
 		break;
-	case(UNIPT625VOLTS):
+	case (UNIPT625VOLTS):
 		strcpy(rangeStr, "UNIPT625VOLTS");
 		break;
-	case(UNIPT5VOLTS):
+	case (UNIPT5VOLTS):
 		strcpy(rangeStr, "UNIPT5VOLTS");
 		break;
-	case(UNIPT25VOLTS):
+	case (UNIPT25VOLTS):
 		strcpy(rangeStr, "UNIPT25VOLTS");
 		break;
-	case(UNIPT125VOLTS):
+	case (UNIPT125VOLTS):
 		strcpy(rangeStr, "UNIPT125VOLTS");
 		break;
-	case(UNIPT2VOLTS):
+	case (UNIPT2VOLTS):
 		strcpy(rangeStr, "UNIPT2VOLTS");
 		break;
-	case(UNIPT1VOLTS):
+	case (UNIPT1VOLTS):
 		strcpy(rangeStr, "UNIPT1VOLTS");
 		break;
-	case(UNIPT078VOLTS):
+	case (UNIPT078VOLTS):
 		strcpy(rangeStr, "UNIPT078VOLTS");
 		break;
-	case(UNIPT05VOLTS):
+	case (UNIPT05VOLTS):
 		strcpy(rangeStr, "UNIPT05VOLTS");
 		break;
-	case(UNIPT01VOLTS):
+	case (UNIPT01VOLTS):
 		strcpy(rangeStr, "UNIPT01VOLTS");
 		break;
-	case(UNIPT005VOLTS):
+	case (UNIPT005VOLTS):
 		strcpy(rangeStr, "UNIPT005VOLTS");
 		break;
-	case(MA0TO20):
+	case (MA0TO20):
 		strcpy(rangeStr, "MA0TO20");
 		break;
 	}
 }
 
-
-void ConvertRangeToMinMax(Range range, double* min, double* max)
+void ConvertRangeToMinMax(Range range, double *min, double *max)
 {
-	switch(range)
+	switch (range)
 	{
-	case(BIP60VOLTS):
+	case (BIP60VOLTS):
 		*min = -60.0;
 		*max = 60.0;
 		break;
-	case(BIP30VOLTS):
+	case (BIP30VOLTS):
 		*min = -30.0;
 		*max = 30.0;
 		break;
-	case(BIP15VOLTS):
+	case (BIP15VOLTS):
 		*min = -15.0;
 		*max = 15.0;
 		break;
-	case(BIP20VOLTS):
+	case (BIP20VOLTS):
 		*min = -20.0;
 		*max = 20.0;
 		break;
-	case(BIP10VOLTS):
+	case (BIP10VOLTS):
 		*min = -10.0;
 		*max = 10.0;
 		break;
-	case(BIP5VOLTS):
+	case (BIP5VOLTS):
 		*min = -5.0;
 		*max = 5.0;
 		break;
-	case(BIP4VOLTS):
+	case (BIP4VOLTS):
 		*min = -4.0;
 		*max = 4.0;
 		break;
-	case(BIP2PT5VOLTS):
+	case (BIP2PT5VOLTS):
 		*min = -2.5;
 		*max = 2.5;
 		break;
-	case(BIP2VOLTS):
+	case (BIP2VOLTS):
 		*min = -2.0;
 		*max = 2.0;
 		break;
-	case(BIP1PT25VOLTS):
+	case (BIP1PT25VOLTS):
 		*min = -1.25;
 		*max = 1.25;
 		break;
-	case(BIP1VOLTS):
+	case (BIP1VOLTS):
 		*min = -1.0;
 		*max = 1.0;
 		break;
-	case(BIPPT625VOLTS):
+	case (BIPPT625VOLTS):
 		*min = -0.625;
 		*max = 0.625;
 		break;
-	case(BIPPT5VOLTS):
+	case (BIPPT5VOLTS):
 		*min = -0.5;
 		*max = 0.5;
 		break;
-	case(BIPPT25VOLTS):
+	case (BIPPT25VOLTS):
 		*min = -0.25;
 		*max = 0.25;
 		break;
-	case(BIPPT125VOLTS):
+	case (BIPPT125VOLTS):
 		*min = -0.125;
 		*max = 0.125;
 		break;
-	case(BIPPT2VOLTS):
+	case (BIPPT2VOLTS):
 		*min = -0.2;
 		*max = 0.2;
 		break;
-	case(BIPPT1VOLTS):
+	case (BIPPT1VOLTS):
 		*min = -0.1;
 		*max = 0.1;
 		break;
-	case(BIPPT078VOLTS):
+	case (BIPPT078VOLTS):
 		*min = -0.078;
 		*max = 0.078;
 		break;
-	case(BIPPT05VOLTS):
+	case (BIPPT05VOLTS):
 		*min = -0.05;
 		*max = 0.05;
 		break;
-	case(BIPPT01VOLTS):
+	case (BIPPT01VOLTS):
 		*min = -0.01;
 		*max = 0.01;
 		break;
-	case(BIPPT005VOLTS):
+	case (BIPPT005VOLTS):
 		*min = -0.005;
 		*max = 0.005;
 		break;
-	case(BIP3VOLTS):
+	case (BIP3VOLTS):
 		*min = -3.0;
 		*max = 3.0;
 		break;
-	case(BIPPT312VOLTS):
+	case (BIPPT312VOLTS):
 		*min = -0.312;
 		*max = 0.312;
 		break;
-	case(BIPPT156VOLTS):
+	case (BIPPT156VOLTS):
 		*min = -0.156;
 		*max = 0.156;
 		break;
 
-	case(UNI60VOLTS):
+	case (UNI60VOLTS):
 		*min = 0.0;
 		*max = 60.0;
 		break;
-	case(UNI30VOLTS):
+	case (UNI30VOLTS):
 		*min = 0.0;
 		*max = 30.0;
 		break;
-	case(UNI15VOLTS):
+	case (UNI15VOLTS):
 		*min = 0.0;
 		*max = 15.0;
 		break;
-	case(UNI20VOLTS):
+	case (UNI20VOLTS):
 		*min = 0.0;
 		*max = 20.0;
 		break;
-	case(UNI10VOLTS):
+	case (UNI10VOLTS):
 		*min = 0.0;
 		*max = 10.0;
 		break;
-	case(UNI5VOLTS):
+	case (UNI5VOLTS):
 		*min = 0.0;
 		*max = 5.0;
 		break;
-	case(UNI4VOLTS):
+	case (UNI4VOLTS):
 		*min = 0.0;
 		*max = 4.0;
 		break;
-	case(UNI2PT5VOLTS):
+	case (UNI2PT5VOLTS):
 		*min = 0.0;
 		*max = 2.5;
 		break;
-	case(UNI2VOLTS):
+	case (UNI2VOLTS):
 		*min = 0.0;
 		*max = 2.0;
 		break;
-	case(UNI1PT25VOLTS):
+	case (UNI1PT25VOLTS):
 		*min = 0.0;
 		*max = 1.25;
 		break;
-	case(UNI1VOLTS):
+	case (UNI1VOLTS):
 		*min = 0.0;
 		*max = 1.0;
 		break;
-	case(UNIPT625VOLTS):
+	case (UNIPT625VOLTS):
 		*min = 0.0;
 		*max = 0.625;
 		break;
-	case(UNIPT5VOLTS):
+	case (UNIPT5VOLTS):
 		*min = 0.0;
 		*max = 0.5;
 		break;
-	case(UNIPT25VOLTS):
+	case (UNIPT25VOLTS):
 		*min = 0.0;
 		*max = 0.25;
 		break;
-	case(UNIPT125VOLTS):
+	case (UNIPT125VOLTS):
 		*min = 0.0;
 		*max = 0.125;
 		break;
-	case(UNIPT2VOLTS):
+	case (UNIPT2VOLTS):
 		*min = 0.0;
 		*max = 0.2;
 		break;
-	case(UNIPT1VOLTS):
+	case (UNIPT1VOLTS):
 		*min = 0.0;
 		*max = 0.1;
 		break;
-	case(UNIPT078VOLTS):
+	case (UNIPT078VOLTS):
 		*min = 0.0;
 		*max = 0.078;
 		break;
-	case(UNIPT05VOLTS):
+	case (UNIPT05VOLTS):
 		*min = 0.0;
 		*max = 0.05;
 		break;
-	case(UNIPT01VOLTS):
+	case (UNIPT01VOLTS):
 		*min = 0.0;
 		*max = 0.1;
 		break;
-	case(UNIPT005VOLTS):
+	case (UNIPT005VOLTS):
 		*min = 0.0;
 		*max = 0.005;
 		break;
-	case(MA0TO20):
+	case (MA0TO20):
 		*min = 0.0;
 		*max = 20.0;
 		break;
 	}
 }
 
-
-void ConvertTriggerTypeToString(TriggerType triggerType, char* triggerTypeStr)
+void ConvertTriggerTypeToString(TriggerType triggerType, char *triggerTypeStr)
 {
-	switch(triggerType)
+	switch (triggerType)
 	{
-	case(TRIG_NONE):
+	case (TRIG_NONE):
 		strcpy(triggerTypeStr, "TRIG_NONE");
 		break;
-	case(TRIG_POS_EDGE):
+	case (TRIG_POS_EDGE):
 		strcpy(triggerTypeStr, "TRIG_POS_EDGE");
 		break;
-	case(TRIG_NEG_EDGE):
+	case (TRIG_NEG_EDGE):
 		strcpy(triggerTypeStr, "TRIG_NEG_EDGE");
 		break;
-	case(TRIG_HIGH):
+	case (TRIG_HIGH):
 		strcpy(triggerTypeStr, "TRIG_HIGH");
 		break;
-	case(TRIG_LOW):
+	case (TRIG_LOW):
 		strcpy(triggerTypeStr, "TRIG_LOW");
 		break;
-	case(GATE_HIGH):
+	case (GATE_HIGH):
 		strcpy(triggerTypeStr, "GATE_HIGH");
 		break;
-	case(GATE_LOW):
+	case (GATE_LOW):
 		strcpy(triggerTypeStr, "GATE_LOW");
 		break;
-	case(TRIG_RISING):
+	case (TRIG_RISING):
 		strcpy(triggerTypeStr, "TRIG_RISING");
 		break;
-	case(TRIG_FALLING):
+	case (TRIG_FALLING):
 		strcpy(triggerTypeStr, "TRIG_FALLING");
 		break;
-	case(TRIG_ABOVE):
+	case (TRIG_ABOVE):
 		strcpy(triggerTypeStr, "TRIG_ABOVE");
 		break;
-	case(TRIG_BELOW):
+	case (TRIG_BELOW):
 		strcpy(triggerTypeStr, "TRIG_BELOW");
 		break;
-	case(GATE_ABOVE):
+	case (GATE_ABOVE):
 		strcpy(triggerTypeStr, "GATE_ABOVE");
 		break;
-	case(GATE_BELOW):
+	case (GATE_BELOW):
 		strcpy(triggerTypeStr, "GATE_BELOW");
 		break;
-	case(GATE_IN_WINDOW):
+	case (GATE_IN_WINDOW):
 		strcpy(triggerTypeStr, "GATE_IN_WINDOW");
 		break;
-	case(GATE_OUT_WINDOW):
+	case (GATE_OUT_WINDOW):
 		strcpy(triggerTypeStr, "GATE_OUT_WINDOW");
 		break;
-	case(TRIG_PATTERN_EQ):
+	case (TRIG_PATTERN_EQ):
 		strcpy(triggerTypeStr, "TRIG_PATTERN_EQ");
 		break;
-	case(TRIG_PATTERN_NE):
+	case (TRIG_PATTERN_NE):
 		strcpy(triggerTypeStr, "TRIG_PATTERN_NE");
 		break;
-	case(TRIG_PATTERN_ABOVE):
+	case (TRIG_PATTERN_ABOVE):
 		strcpy(triggerTypeStr, "TRIG_PATTERN_ABOVE");
 		break;
-	case(TRIG_PATTERN_BELOW):
+	case (TRIG_PATTERN_BELOW):
 		strcpy(triggerTypeStr, "TRIG_PATTERN_BELOW");
 		break;
 	}
 }
 
-
-void ConvertPortTypeToString(DigitalPortType portType, char* portTypeStr)
+void ConvertPortTypeToString(DigitalPortType portType, char *portTypeStr)
 {
-	switch(portType)
+	switch (portType)
 	{
-	case(AUXPORT0):
+	case (AUXPORT0):
 		strcpy(portTypeStr, "AUXPORT0");
 		break;
-	case(AUXPORT1):
+	case (AUXPORT1):
 		strcpy(portTypeStr, "AUXPORT1");
 		break;
-	case(AUXPORT2):
+	case (AUXPORT2):
 		strcpy(portTypeStr, "AUXPORT2");
 		break;
-	case(FIRSTPORTA):
+	case (FIRSTPORTA):
 		strcpy(portTypeStr, "FIRSTPORTA");
 		break;
-	case(FIRSTPORTB):
+	case (FIRSTPORTB):
 		strcpy(portTypeStr, "FIRSTPORTB");
 		break;
-	case(FIRSTPORTCL):
+	case (FIRSTPORTCL):
 		strcpy(portTypeStr, "FIRSTPORTCL");
 		break;
-	case(FIRSTPORTCH):
+	case (FIRSTPORTCH):
 		strcpy(portTypeStr, "FIRSTPORTCH");
 		break;
-	case(SECONDPORTA):
+	case (SECONDPORTA):
 		strcpy(portTypeStr, "SECONDPORTA");
 		break;
-	case(SECONDPORTB):
+	case (SECONDPORTB):
 		strcpy(portTypeStr, "SECONDPORTBA");
 		break;
-	case(SECONDPORTCL):
+	case (SECONDPORTCL):
 		strcpy(portTypeStr, "SECONDPORTCL");
 		break;
-	case(SECONDPORTCH):
+	case (SECONDPORTCH):
 		strcpy(portTypeStr, "SECONDPORTCH");
 		break;
-	case(THIRDPORTA):
+	case (THIRDPORTA):
 		strcpy(portTypeStr, "THIRDPORTA");
 		break;
-	case(THIRDPORTB):
+	case (THIRDPORTB):
 		strcpy(portTypeStr, "THIRDPORTB");
 		break;
-	case(THIRDPORTCL):
+	case (THIRDPORTCL):
 		strcpy(portTypeStr, "THIRDPORTCL");
 		break;
-	case(THIRDPORTCH):
+	case (THIRDPORTCH):
 		strcpy(portTypeStr, "THIRDPORTCH");
 		break;
-	case(FOURTHPORTA):
+	case (FOURTHPORTA):
 		strcpy(portTypeStr, "FOURTHPORTA");
 		break;
-	case(FOURTHPORTB):
+	case (FOURTHPORTB):
 		strcpy(portTypeStr, "FOURTHPORTB");
 		break;
-	case(FOURTHPORTCL):
+	case (FOURTHPORTCL):
 		strcpy(portTypeStr, "FOURTHPORTCL");
 		break;
-	case(FOURTHPORTCH):
+	case (FOURTHPORTCH):
 		strcpy(portTypeStr, "FOURTHPORTCH");
 		break;
-	case(FIFTHPORTA):
+	case (FIFTHPORTA):
 		strcpy(portTypeStr, "FIFTHPORTA");
 		break;
-	case(FIFTHPORTB):
+	case (FIFTHPORTB):
 		strcpy(portTypeStr, "FIFTHPORTB");
 		break;
-	case(FIFTHPORTCL):
+	case (FIFTHPORTCL):
 		strcpy(portTypeStr, "FIFTHPORTCL");
 		break;
-	case(FIFTHPORTCH):
+	case (FIFTHPORTCH):
 		strcpy(portTypeStr, "FIFTHPORTCH");
 		break;
-	case(SIXTHPORTA):
+	case (SIXTHPORTA):
 		strcpy(portTypeStr, "SIXTHPORTA");
 		break;
-	case(SIXTHPORTB):
+	case (SIXTHPORTB):
 		strcpy(portTypeStr, "SIXTHPORTB");
 		break;
-	case(SIXTHPORTCL):
+	case (SIXTHPORTCL):
 		strcpy(portTypeStr, "SIXTHPORTCL");
 		break;
-	case(SIXTHPORTCH):
+	case (SIXTHPORTCH):
 		strcpy(portTypeStr, "SIXTHPORTCH");
 		break;
-	case(SEVENTHPORTA):
+	case (SEVENTHPORTA):
 		strcpy(portTypeStr, "SEVENTHPORTA");
 		break;
-	case(SEVENTHPORTB):
+	case (SEVENTHPORTB):
 		strcpy(portTypeStr, "SEVENTHPORTB");
 		break;
-	case(SEVENTHPORTCL):
+	case (SEVENTHPORTCL):
 		strcpy(portTypeStr, "SEVENTHPORTCL");
 		break;
-	case(SEVENTHPORTCH):
+	case (SEVENTHPORTCH):
 		strcpy(portTypeStr, "SEVENTHPORTCH");
 		break;
-	case(EIGHTHPORTA):
+	case (EIGHTHPORTA):
 		strcpy(portTypeStr, "EIGHTHPORTA");
 		break;
-	case(EIGHTHPORTB):
+	case (EIGHTHPORTB):
 		strcpy(portTypeStr, "EIGHTHPORTB");
 		break;
-	case(EIGHTHPORTCL):
+	case (EIGHTHPORTCL):
 		strcpy(portTypeStr, "EIGHTHPORTCL");
 		break;
-	case(EIGHTHPORTCH):
+	case (EIGHTHPORTCH):
 		strcpy(portTypeStr, "EIGHTHPORTCH");
 		break;
 	}
 }
 
-
-void ConvertPortIoTypeToString(DigitalPortIoType portIoType, char* portIoTypeStr)
+void ConvertPortIoTypeToString(DigitalPortIoType portIoType, char *portIoTypeStr)
 {
-	switch(portIoType)
+	switch (portIoType)
 	{
-	case(DPIOT_IN):
+	case (DPIOT_IN):
 		strcpy(portIoTypeStr, "DPIOT_IN");
 		break;
-	case(DPIOT_OUT):
+	case (DPIOT_OUT):
 		strcpy(portIoTypeStr, "DPIOT_OUT");
 		break;
-	case(DPIOT_IO):
+	case (DPIOT_IO):
 		strcpy(portIoTypeStr, "DPIOT_IO");
 		break;
-	case(DPIOT_BITIO):
+	case (DPIOT_BITIO):
 		strcpy(portIoTypeStr, "DPIOT_BITIO");
 		break;
-	case(DPIOT_NONCONFIG):
+	case (DPIOT_NONCONFIG):
 		strcpy(portIoTypeStr, "DPIOT_NONCONFIG");
 		break;
 	}
 }
 
-
-void ConvertEventTypesToString(DaqEventType eventType, char* eventTypeStr)
+void ConvertEventTypesToString(DaqEventType eventType, char *eventTypeStr)
 {
-	switch(eventType)
+	switch (eventType)
 	{
-	case(DE_NONE):
+	case (DE_NONE):
 		strcpy(eventTypeStr, "DE_NONE");
 		break;
-	case(DE_ON_DATA_AVAILABLE):
+	case (DE_ON_DATA_AVAILABLE):
 		strcpy(eventTypeStr, "DE_ON_DATA_AVAILABLE");
 		break;
-	case(DE_ON_INPUT_SCAN_ERROR):
+	case (DE_ON_INPUT_SCAN_ERROR):
 		strcpy(eventTypeStr, "DE_ON_INPUT_SCAN_ERROR");
 		break;
-	case(DE_ON_END_OF_INPUT_SCAN):
+	case (DE_ON_END_OF_INPUT_SCAN):
 		strcpy(eventTypeStr, "DE_ON_END_OF_INPUT_SCAN");
 		break;
-	case(DE_ON_OUTPUT_SCAN_ERROR):
+	case (DE_ON_OUTPUT_SCAN_ERROR):
 		strcpy(eventTypeStr, "DE_ON_OUTPUT_SCAN_ERROR");
 		break;
-	case(DE_ON_END_OF_OUTPUT_SCAN):
+	case (DE_ON_END_OF_OUTPUT_SCAN):
 		strcpy(eventTypeStr, "DE_ON_END_OF_OUTPUT_SCAN");
 		break;
 	}
 }
 
-void ConvertScanOptionsToString(ScanOption scanOptions, char* scanOptionsStr)
+void ConvertScanOptionsToString(ScanOption scanOptions, char *scanOptionsStr)
 {
 	strcpy(scanOptionsStr, "");
 
 	if (scanOptions == 0)
 		strcat(scanOptionsStr, "Default");
-	else {
+	else
+	{
 		if (scanOptions & SO_SINGLEIO)
 			strcat(scanOptionsStr, "SO_SINGLEIO, ");
 		if (scanOptions & SO_BLOCKIO)
@@ -615,97 +610,96 @@ void ConvertScanOptionsToString(ScanOption scanOptions, char* scanOptionsStr)
 			strcat(scanOptionsStr, "SO_BURSTMODE, ");
 		if (scanOptions & SO_PACEROUT)
 			strcat(scanOptionsStr, "SO_PACEROUT, ");
-		*strrchr(scanOptionsStr, ',')= '\0';
-		}
+		*strrchr(scanOptionsStr, ',') = '\0';
+	}
 }
 
-void ConvertDaqIChanTypeToString(DaqInChanType daqiChanType, char* daqiChanTypeStr)
+void ConvertDaqIChanTypeToString(DaqInChanType daqiChanType, char *daqiChanTypeStr)
 {
-	switch(daqiChanType)
+	switch (daqiChanType)
 	{
-	case(DAQI_ANALOG_DIFF):
+	case (DAQI_ANALOG_DIFF):
 		strcpy(daqiChanTypeStr, "DAQI_ANALOG_DIFF");
 		break;
-	case(DAQI_ANALOG_SE):
+	case (DAQI_ANALOG_SE):
 		strcpy(daqiChanTypeStr, "DAQI_ANALOG_SE");
 		break;
-	case(DAQI_DIGITAL):
+	case (DAQI_DIGITAL):
 		strcpy(daqiChanTypeStr, "DAQI_DIGITAL");
 		break;
-	case(DAQI_CTR16):
+	case (DAQI_CTR16):
 		strcpy(daqiChanTypeStr, "DAQI_CTR16");
 		break;
-	case(DAQI_CTR32):
+	case (DAQI_CTR32):
 		strcpy(daqiChanTypeStr, "DAQI_CTR32");
 		break;
-	case(DAQI_CTR48):
+	case (DAQI_CTR48):
 		strcpy(daqiChanTypeStr, "DAQI_CTR48");
 		break;
-	case(DAQI_DAC):
+	case (DAQI_DAC):
 		strcpy(daqiChanTypeStr, "DAQI_DAC");
 		break;
 	}
 }
 
-
-void ConvertDaqOChanTypeToString(DaqOutChanType daqoChanType, char* daqoChanTypeStr)
+void ConvertDaqOChanTypeToString(DaqOutChanType daqoChanType, char *daqoChanTypeStr)
 {
-	switch(daqoChanType)
+	switch (daqoChanType)
 	{
-	case(DAQI_ANALOG_DIFF):
+	case (DAQI_ANALOG_DIFF):
 		strcpy(daqoChanTypeStr, "DAQO_ANALOG");
 		break;
-	case(DAQI_ANALOG_SE):
+	case (DAQI_ANALOG_SE):
 		strcpy(daqoChanTypeStr, "DAQO_DIGITAL");
 		break;
 	}
 }
 
-void ConvertTCTypeToString(TcType type, char* typeStr)
+void ConvertTCTypeToString(TcType type, char *typeStr)
 {
-	switch(type)
+	switch (type)
 	{
-	case(TC_J):
+	case (TC_J):
 		strcpy(typeStr, "J");
 		break;
-	case(TC_K):
+	case (TC_K):
 		strcpy(typeStr, "K");
 		break;
-	case(TC_T):
+	case (TC_T):
 		strcpy(typeStr, "T");
 		break;
-	case(TC_E):
+	case (TC_E):
 		strcpy(typeStr, "E");
 		break;
-	case(TC_R):
+	case (TC_R):
 		strcpy(typeStr, "R");
 		break;
-	case(TC_S):
+	case (TC_S):
 		strcpy(typeStr, "S");
 		break;
-	case(TC_B):
+	case (TC_B):
 		strcpy(typeStr, "B");
 		break;
-	case(TC_N):
+	case (TC_N):
 		strcpy(typeStr, "N");
 		break;
 	}
 }
 
-void ConvertSensorConnectionTypeToString(SensorConnectionType type, char* typeStr)
+void ConvertSensorConnectionTypeToString(SensorConnectionType type, char *typeStr)
 {
-	switch(type)
+	switch (type)
 	{
-	case(SCT_2_WIRE_1):
+	case (SCT_2_WIRE_1):
 		strcpy(typeStr, "2-wire (1 sensor)");
 		break;
-	case(SCT_2_WIRE_2):
+	case (SCT_2_WIRE_2):
 		strcpy(typeStr, "2-wire (2 sensors)");
 		break;
-	case(SCT_3_WIRE):
+	case (SCT_3_WIRE):
 		strcpy(typeStr, "3-wire");
 		break;
-	case(SCT_4_WIRE):
+	case (SCT_4_WIRE):
 		strcpy(typeStr, "4-wire");
 		break;
 	}
@@ -714,7 +708,7 @@ void ConvertSensorConnectionTypeToString(SensorConnectionType type, char* typeSt
 /****************************************************************************
  * Device Info Functions
  ****************************************************************************/
-UlError getDevInfoHasAi(DaqDeviceHandle daqDeviceHandle, int* hasAi)
+UlError getDevInfoHasAi(DaqDeviceHandle daqDeviceHandle, int *hasAi)
 {
 	long long aiSupported;
 	UlError err = ERR_NO_ERROR;
@@ -726,7 +720,7 @@ UlError getDevInfoHasAi(DaqDeviceHandle daqDeviceHandle, int* hasAi)
 	return err;
 }
 
-UlError getDevInfoHasAo(DaqDeviceHandle daqDeviceHandle, int* hasAo)
+UlError getDevInfoHasAo(DaqDeviceHandle daqDeviceHandle, int *hasAo)
 {
 	long long aoSupported;
 	UlError err = ERR_NO_ERROR;
@@ -738,7 +732,7 @@ UlError getDevInfoHasAo(DaqDeviceHandle daqDeviceHandle, int* hasAo)
 	return err;
 }
 
-UlError getDevInfoHasDio(DaqDeviceHandle daqDeviceHandle, int* hasDio)
+UlError getDevInfoHasDio(DaqDeviceHandle daqDeviceHandle, int *hasDio)
 {
 	long long dioSupported;
 	UlError err = ERR_NO_ERROR;
@@ -750,7 +744,7 @@ UlError getDevInfoHasDio(DaqDeviceHandle daqDeviceHandle, int* hasDio)
 	return err;
 }
 
-UlError getDevInfoHasCtr(DaqDeviceHandle daqDeviceHandle, int* hasCtr)
+UlError getDevInfoHasCtr(DaqDeviceHandle daqDeviceHandle, int *hasCtr)
 {
 	long long ctrSupported;
 	UlError err = ERR_NO_ERROR;
@@ -762,7 +756,7 @@ UlError getDevInfoHasCtr(DaqDeviceHandle daqDeviceHandle, int* hasCtr)
 	return err;
 }
 
-UlError getDevInfoHasTmr(DaqDeviceHandle daqDeviceHandle, int* hasTmr)
+UlError getDevInfoHasTmr(DaqDeviceHandle daqDeviceHandle, int *hasTmr)
 {
 	long long tmrSupported;
 	UlError err = ERR_NO_ERROR;
@@ -774,7 +768,7 @@ UlError getDevInfoHasTmr(DaqDeviceHandle daqDeviceHandle, int* hasTmr)
 	return err;
 }
 
-UlError getDevInfoHasDaqi(DaqDeviceHandle daqDeviceHandle, int* hasDaqi)
+UlError getDevInfoHasDaqi(DaqDeviceHandle daqDeviceHandle, int *hasDaqi)
 {
 	long long daqiSupported;
 	UlError err = ERR_NO_ERROR;
@@ -786,7 +780,7 @@ UlError getDevInfoHasDaqi(DaqDeviceHandle daqDeviceHandle, int* hasDaqi)
 	return err;
 }
 
-UlError getDevInfoHasDaqo(DaqDeviceHandle daqDeviceHandle, int* hasDaqo)
+UlError getDevInfoHasDaqo(DaqDeviceHandle daqDeviceHandle, int *hasDaqo)
 {
 	long long daqoSupported;
 	UlError err = ERR_NO_ERROR;
@@ -798,12 +792,10 @@ UlError getDevInfoHasDaqo(DaqDeviceHandle daqDeviceHandle, int* hasDaqo)
 	return err;
 }
 
-
-
 /****************************************************************************
  * Analog Input Info Functions
  ****************************************************************************/
-UlError getAiInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int* hasPacer)
+UlError getAiInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int *hasPacer)
 {
 	long long pacerSupported;
 	UlError err = ERR_NO_ERROR;
@@ -815,8 +807,7 @@ UlError getAiInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int* hasPacer)
 	return err;
 }
 
-
-UlError getAiInfoFirstTriggerType(DaqDeviceHandle daqDeviceHandle, TriggerType* triggerType, char* triggerTypeStr)
+UlError getAiInfoFirstTriggerType(DaqDeviceHandle daqDeviceHandle, TriggerType *triggerType, char *triggerTypeStr)
 {
 	UlError err = ERR_NO_ERROR;
 
@@ -838,7 +829,7 @@ UlError getAiInfoFirstTriggerType(DaqDeviceHandle daqDeviceHandle, TriggerType* 
 	return err;
 }
 
-UlError getAiInfoRanges(DaqDeviceHandle daqDeviceHandle, AiInputMode inputMode, int *numberOfRanges, Range* ranges)
+UlError getAiInfoRanges(DaqDeviceHandle daqDeviceHandle, AiInputMode inputMode, int *numberOfRanges, Range *ranges)
 {
 	UlError err = ERR_NO_ERROR;
 	int i = 0;
@@ -854,9 +845,9 @@ UlError getAiInfoRanges(DaqDeviceHandle daqDeviceHandle, AiInputMode inputMode, 
 		err = ulAIGetInfo(daqDeviceHandle, AI_INFO_NUM_DIFF_RANGES, 0, &numRanges);
 	}
 
-	if(numRanges <= *numberOfRanges)
+	if (numRanges <= *numberOfRanges)
 	{
-		for (i=0; i<numRanges; i++)
+		for (i = 0; i < numRanges; i++)
 		{
 			if (inputMode == AI_SINGLE_ENDED)
 			{
@@ -876,7 +867,7 @@ UlError getAiInfoRanges(DaqDeviceHandle daqDeviceHandle, AiInputMode inputMode, 
 	return err;
 }
 
-UlError getAiInfoFirstSupportedInputMode(DaqDeviceHandle daqDeviceHandle, int* numberOfChannels, AiInputMode *inputMode, char* inputModeStr)
+UlError getAiInfoFirstSupportedInputMode(DaqDeviceHandle daqDeviceHandle, int *numberOfChannels, AiInputMode *inputMode, char *inputModeStr)
 {
 	UlError err = ERR_NO_ERROR;
 
@@ -902,7 +893,7 @@ UlError getAiInfoFirstSupportedInputMode(DaqDeviceHandle daqDeviceHandle, int* n
 	return err;
 }
 
-UlError getAiInfoFirstSupportedRange(DaqDeviceHandle daqDeviceHandle, AiInputMode inputMode, Range* range, char* rangeStr)
+UlError getAiInfoFirstSupportedRange(DaqDeviceHandle daqDeviceHandle, AiInputMode inputMode, Range *range, char *rangeStr)
 {
 	UlError err = ERR_NO_ERROR;
 	long long rng;
@@ -923,7 +914,7 @@ UlError getAiInfoFirstSupportedRange(DaqDeviceHandle daqDeviceHandle, AiInputMod
 	return err;
 }
 
-UlError getAiInfoQueueTypes(DaqDeviceHandle daqDeviceHandle, int* queueTypes)
+UlError getAiInfoQueueTypes(DaqDeviceHandle daqDeviceHandle, int *queueTypes)
 {
 	UlError err = ERR_NO_ERROR;
 	long long qTypes;
@@ -935,7 +926,7 @@ UlError getAiInfoQueueTypes(DaqDeviceHandle daqDeviceHandle, int* queueTypes)
 	return err;
 }
 
-UlError getAiInfoHasTempChan(DaqDeviceHandle daqDeviceHandle, int* hasTempChan, int* numberOfChannels)
+UlError getAiInfoHasTempChan(DaqDeviceHandle daqDeviceHandle, int *hasTempChan, int *numberOfChannels)
 {
 	long long chanTypeMask = 0;
 	long long tempChanCount = 0;
@@ -945,21 +936,21 @@ UlError getAiInfoHasTempChan(DaqDeviceHandle daqDeviceHandle, int* hasTempChan, 
 
 	err = ulAIGetInfo(daqDeviceHandle, AI_INFO_CHAN_TYPES, 0, &chanTypeMask);
 
-	if(chanTypeMask & (AI_TC  | AI_RTD | AI_THERMISTOR | AI_SEMICONDUCTOR))
+	if (chanTypeMask & (AI_TC | AI_RTD | AI_THERMISTOR | AI_SEMICONDUCTOR))
 		*hasTempChan = 1;
 	else
 		*hasTempChan = 0;
 
-	if(*hasTempChan)
+	if (*hasTempChan)
 	{
 		err = ulAIGetInfo(daqDeviceHandle, AI_INFO_NUM_CHANS_BY_TYPE, AI_TC, &tempChanCount);
 		*numberOfChannels = tempChanCount;
-	}	
+	}
 
 	return err;
 }
 
-UlError getAiInfoIepeSupported(DaqDeviceHandle daqDeviceHandle, int* iepeSupported)
+UlError getAiInfoIepeSupported(DaqDeviceHandle daqDeviceHandle, int *iepeSupported)
 {
 	long long supportsIepe;
 	UlError err = ERR_NO_ERROR;
@@ -971,7 +962,7 @@ UlError getAiInfoIepeSupported(DaqDeviceHandle daqDeviceHandle, int* iepeSupport
 	return err;
 }
 
-UlError getAiConfigTempChanConfig(DaqDeviceHandle daqDeviceHandle, int chan, char* chanTypeStr, char* sensorStr)
+UlError getAiConfigTempChanConfig(DaqDeviceHandle daqDeviceHandle, int chan, char *chanTypeStr, char *sensorStr)
 {
 	UlError err = ERR_NO_ERROR;
 	long long chanTypeMask = 0;
@@ -982,9 +973,9 @@ UlError getAiConfigTempChanConfig(DaqDeviceHandle daqDeviceHandle, int chan, cha
 
 	err = ulAIGetConfig(daqDeviceHandle, AI_CFG_CHAN_TYPE, chan, &chanType);
 
-	if(err == ERR_NO_ERROR)
+	if (err == ERR_NO_ERROR)
 	{
-		if(chanType == AI_TC)
+		if (chanType == AI_TC)
 		{
 			strcpy(typeStr, "Thermocouple");
 
@@ -992,35 +983,35 @@ UlError getAiConfigTempChanConfig(DaqDeviceHandle daqDeviceHandle, int chan, cha
 
 			ConvertTCTypeToString((TcType)cfg, cfgStr);
 		}
-		else if(chanType == AI_RTD || chanType == AI_THERMISTOR)
+		else if (chanType == AI_RTD || chanType == AI_THERMISTOR)
 		{
-			if(chanType == AI_RTD)
+			if (chanType == AI_RTD)
 				strcpy(typeStr, "RTD");
 			else
 				strcpy(typeStr, "Thermistor");
 
 			err = ulAIGetConfig(daqDeviceHandle, AI_CFG_CHAN_SENSOR_CONNECTION_TYPE, chan, &cfg);
 
-			ConvertSensorConnectionTypeToString((SensorConnectionType) cfg, cfgStr);
+			ConvertSensorConnectionTypeToString((SensorConnectionType)cfg, cfgStr);
 		}
-		else if(chanType == AI_SEMICONDUCTOR)
+		else if (chanType == AI_SEMICONDUCTOR)
 		{
 			strcpy(typeStr, "Semicoductor");
 		}
-		else if(chanType == AI_VOLTAGE)
+		else if (chanType == AI_VOLTAGE)
 		{
 			strcpy(typeStr, "Voltage");
 		}
-		else if(chanType == AI_DISABLED)
+		else if (chanType == AI_DISABLED)
 		{
 			strcpy(typeStr, "Disabled");
 		}
 	}
-	else if(err == ERR_CONFIG_NOT_SUPPORTED) // channel is not configurable
+	else if (err == ERR_CONFIG_NOT_SUPPORTED) // channel is not configurable
 	{
 		err = ulAIGetInfo(daqDeviceHandle, AI_INFO_CHAN_TYPES, 0, &chanTypeMask);
 
-		if(chanTypeMask & AI_TC)
+		if (chanTypeMask & AI_TC)
 		{
 			strcpy(typeStr, "Thermocouple");
 
@@ -1036,11 +1027,10 @@ UlError getAiConfigTempChanConfig(DaqDeviceHandle daqDeviceHandle, int chan, cha
 	return err;
 }
 
-
 /****************************************************************************
  * Analog Output Info Functions
  ****************************************************************************/
-UlError getAoInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int* hasPacer)
+UlError getAoInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int *hasPacer)
 {
 	UlError err = ERR_NO_ERROR;
 	long long pacerSupport;
@@ -1052,7 +1042,7 @@ UlError getAoInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int* hasPacer)
 	return err;
 }
 
-UlError getAoInfoFirstSupportedRange(DaqDeviceHandle daqDeviceHandle, Range* range, char* rangeStr)
+UlError getAoInfoFirstSupportedRange(DaqDeviceHandle daqDeviceHandle, Range *range, char *rangeStr)
 {
 	UlError err = ERR_NO_ERROR;
 	long long rng;
@@ -1066,11 +1056,10 @@ UlError getAoInfoFirstSupportedRange(DaqDeviceHandle daqDeviceHandle, Range* ran
 	return err;
 }
 
-
 /****************************************************************************
  * Digital I/O Info Functions
  ****************************************************************************/
-UlError getDioInfoHasPacer(DaqDeviceHandle daqDeviceHandle, DigitalDirection direction, int* hasPacer)
+UlError getDioInfoHasPacer(DaqDeviceHandle daqDeviceHandle, DigitalDirection direction, int *hasPacer)
 {
 	UlError err = ERR_NO_ERROR;
 	long long pacerSupport;
@@ -1082,7 +1071,7 @@ UlError getDioInfoHasPacer(DaqDeviceHandle daqDeviceHandle, DigitalDirection dir
 	return err;
 }
 
-UlError getDioInfoFirstSupportedPortType(DaqDeviceHandle daqDeviceHandle, DigitalPortType* portType, char* portTypeStr)
+UlError getDioInfoFirstSupportedPortType(DaqDeviceHandle daqDeviceHandle, DigitalPortType *portType, char *portTypeStr)
 {
 	UlError err = ERR_NO_ERROR;
 	long long pType = 0;
@@ -1096,7 +1085,7 @@ UlError getDioInfoFirstSupportedPortType(DaqDeviceHandle daqDeviceHandle, Digita
 	return err;
 }
 
-UlError getDioInfoNumberOfBitsForFirstPort(DaqDeviceHandle daqDeviceHandle, int* bitsPerPort)
+UlError getDioInfoNumberOfBitsForFirstPort(DaqDeviceHandle daqDeviceHandle, int *bitsPerPort)
 {
 	UlError err = ERR_NO_ERROR;
 	long long numBits;
@@ -1108,7 +1097,7 @@ UlError getDioInfoNumberOfBitsForFirstPort(DaqDeviceHandle daqDeviceHandle, int*
 	return err;
 }
 
-UlError getDioInfoFirstSupportedPortIoType(DaqDeviceHandle daqDeviceHandle, DigitalPortIoType* portIoType, char* portIoTypeStr)
+UlError getDioInfoFirstSupportedPortIoType(DaqDeviceHandle daqDeviceHandle, DigitalPortIoType *portIoType, char *portIoTypeStr)
 {
 	UlError err = ERR_NO_ERROR;
 	long long ioType;
@@ -1122,11 +1111,10 @@ UlError getDioInfoFirstSupportedPortIoType(DaqDeviceHandle daqDeviceHandle, Digi
 	return err;
 }
 
-
 /****************************************************************************
  * Counter Info Functions
  ****************************************************************************/
-UlError getCtrInfoNumberOfChannels(DaqDeviceHandle daqDeviceHandle, int* numberOfCtrChannels)
+UlError getCtrInfoNumberOfChannels(DaqDeviceHandle daqDeviceHandle, int *numberOfCtrChannels)
 {
 	UlError err = ERR_NO_ERROR;
 	long long numChans;
@@ -1138,7 +1126,7 @@ UlError getCtrInfoNumberOfChannels(DaqDeviceHandle daqDeviceHandle, int* numberO
 	return err;
 }
 
-UlError getCtrInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int* hasPacer)
+UlError getCtrInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int *hasPacer)
 {
 	UlError err = ERR_NO_ERROR;
 	long long pacerSupport;
@@ -1150,7 +1138,7 @@ UlError getCtrInfoHasPacer(DaqDeviceHandle daqDeviceHandle, int* hasPacer)
 	return err;
 }
 
-UlError getCtrInfoSupportedEventCounters(DaqDeviceHandle daqDeviceHandle, int* eventCounters, int* numberOfEventCounters)
+UlError getCtrInfoSupportedEventCounters(DaqDeviceHandle daqDeviceHandle, int *eventCounters, int *numberOfEventCounters)
 {
 	UlError err = ERR_NO_ERROR;
 	int i = 0;
@@ -1169,7 +1157,7 @@ UlError getCtrInfoSupportedEventCounters(DaqDeviceHandle daqDeviceHandle, int* e
 
 		if (measurementTypes & CMT_COUNT)
 		{
-			if(numEvntCtrs < *numberOfEventCounters)
+			if (numEvntCtrs < *numberOfEventCounters)
 			{
 				*eventCounters++ = i;
 			}
@@ -1183,7 +1171,7 @@ UlError getCtrInfoSupportedEventCounters(DaqDeviceHandle daqDeviceHandle, int* e
 	return err;
 }
 
-UlError getCtrInfoSupportedEncoderCounters(DaqDeviceHandle daqDeviceHandle, int* encoders, int* numberOfEncoders)
+UlError getCtrInfoSupportedEncoderCounters(DaqDeviceHandle daqDeviceHandle, int *encoders, int *numberOfEncoders)
 {
 	UlError err = ERR_NO_ERROR;
 	int i = 0;
@@ -1202,7 +1190,7 @@ UlError getCtrInfoSupportedEncoderCounters(DaqDeviceHandle daqDeviceHandle, int*
 
 		if (measurementTypes & CMT_ENCODER)
 		{
-			if(numEncCtrs < *numberOfEncoders)
+			if (numEncCtrs < *numberOfEncoders)
 			{
 				*encoders++ = i;
 			}
@@ -1216,7 +1204,7 @@ UlError getCtrInfoSupportedEncoderCounters(DaqDeviceHandle daqDeviceHandle, int*
 	return err;
 }
 
-UlError getCtrInfoMeasurementTypes(DaqDeviceHandle daqDeviceHandle, long long counterNumber, int* measurementTypes)
+UlError getCtrInfoMeasurementTypes(DaqDeviceHandle daqDeviceHandle, long long counterNumber, int *measurementTypes)
 {
 	UlError err = ERR_NO_ERROR;
 	long long measTypes;
@@ -1228,11 +1216,10 @@ UlError getCtrInfoMeasurementTypes(DaqDeviceHandle daqDeviceHandle, long long co
 	return err;
 }
 
-
 /****************************************************************************
  * DAQI Info Functions
  ****************************************************************************/
-UlError getDaqiChannelTypes(DaqDeviceHandle daqDeviceHandle, int* chanTypesMask)
+UlError getDaqiChannelTypes(DaqDeviceHandle daqDeviceHandle, int *chanTypesMask)
 {
 	UlError err = ERR_NO_ERROR;
 	long long ctMask;
@@ -1244,8 +1231,7 @@ UlError getDaqiChannelTypes(DaqDeviceHandle daqDeviceHandle, int* chanTypesMask)
 	return err;
 }
 
-
-UlError getDaqiInfoFirstTriggerType(DaqDeviceHandle daqDeviceHandle, TriggerType* triggerType, char* triggerTypeStr)
+UlError getDaqiInfoFirstTriggerType(DaqDeviceHandle daqDeviceHandle, TriggerType *triggerType, char *triggerTypeStr)
 {
 	UlError err = ERR_NO_ERROR;
 
@@ -1267,11 +1253,10 @@ UlError getDaqiInfoFirstTriggerType(DaqDeviceHandle daqDeviceHandle, TriggerType
 	return err;
 }
 
-
 /****************************************************************************
  * DAQO Info Functions
  ****************************************************************************/
-UlError getDaqoChannelTypes(DaqDeviceHandle daqDeviceHandle, int* chanTypesMask)
+UlError getDaqoChannelTypes(DaqDeviceHandle daqDeviceHandle, int *chanTypesMask)
 {
 	UlError err = ERR_NO_ERROR;
 	long long ctMask;
@@ -1283,43 +1268,44 @@ UlError getDaqoChannelTypes(DaqDeviceHandle daqDeviceHandle, int* chanTypesMask)
 	return err;
 }
 
-void resetCursor() {printf("\033[1;1H");}
-void clearEOL() {printf("\033[2K");}
-void cursorUp() {printf("\033[A");}
+void resetCursor() { printf("\033[1;1H"); }
+void clearEOL() { printf("\033[2K"); }
+void cursorUp() { printf("\033[A"); }
 
 void flush_stdin(void)
 {
-    int c;
-    do {
-        c = getchar();
-    } while (c != '\n' && c != EOF);
+	int c;
+	do
+	{
+		c = getchar();
+	} while (c != '\n' && c != EOF);
 }
 
 int enter_press()
 {
 	int stdin_value = 0;
-    struct timeval tv;
-    fd_set fds;
-    tv.tv_sec = 0;
-    tv.tv_usec = 0;
-    FD_ZERO(&fds);
-    FD_SET(STDIN_FILENO, &fds); //STDIN_FILENO is 0
-    select(STDIN_FILENO+1, &fds, NULL, NULL, &tv);
-    stdin_value = FD_ISSET(STDIN_FILENO, &fds);
-    if (stdin_value != 0)
-    	flush_stdin();
-    return stdin_value;
+	struct timeval tv;
+	fd_set fds;
+	tv.tv_sec = 0;
+	tv.tv_usec = 0;
+	FD_ZERO(&fds);
+	FD_SET(STDIN_FILENO, &fds); //STDIN_FILENO is 0
+	select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+	stdin_value = FD_ISSET(STDIN_FILENO, &fds);
+	if (stdin_value != 0)
+		flush_stdin();
+	return stdin_value;
 }
 
 int selectDAQDevice(int numberOfDAQDevices)
 {
 	int daqDeviceIndex = 0;
 	int ret;
-	while(1)
+	while (1)
 	{
 		printf("\nPlease select a DAQ device, enter a number between 0 and %d: ", numberOfDAQDevices - 1);
-		ret = scanf("%d",&daqDeviceIndex);
-		if(!ret || daqDeviceIndex < 0 || daqDeviceIndex >= numberOfDAQDevices)
+		ret = scanf("%d", &daqDeviceIndex);
+		if (!ret || daqDeviceIndex < 0 || daqDeviceIndex >= numberOfDAQDevices)
 		{
 			printf("Invalid device number\n");
 		}
@@ -1331,5 +1317,5 @@ int selectDAQDevice(int numberOfDAQDevices)
 		flush_stdin();
 	}
 
-	return 	daqDeviceIndex;
+	return daqDeviceIndex;
 }
