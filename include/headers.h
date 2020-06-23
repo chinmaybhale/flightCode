@@ -46,10 +46,12 @@ struct sensor
 	short pin;                             // not all sensors will have this, set to -1
 };
 
-struct valve
-{									       // VALVES (Electric & Solenoid)
-	short pin;							   // Connection GPIO pin on the Main computer
-	short stat; 						   // 0 = off, 1 = on
+<
+struct valve 
+{                       // VALVES (Electric & Solenoid)
+	short pin;            // Connection GPIO pin on the Main computer
+	short feedback;       // Feedback from microcontroller to Main computer
+	short stat;           // 0 = off, 1 = on
 };
 
 struct daq_value

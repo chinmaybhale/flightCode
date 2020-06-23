@@ -78,7 +78,7 @@ of the above in the terminal.
 
 or
 
-`<valve_name>,<pin>`
+`<valve_name>,<pin>,<feedback>`
 
   
 

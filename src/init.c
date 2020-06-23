@@ -193,40 +193,53 @@ static void init_sensor(char *setup, struct sensor *s)
 	 * 
 	**/
 
-	char *str_base_val = (char *)malloc(sizeof(char) * 5);
-	char *str_pos_err = (char *)malloc(sizeof(char) * 3);
-	char *str_neg_err = (char *)malloc(sizeof(char) * 3);
-	char *str_pin = (char *)malloc(sizeof(char) * 3);
+	// declaring generic variables
+	char str_base[5], str_pos_err[3], str_neg_err[3], str_pin[3];
+	float base, pos_err, neg_err;
 
-	strncpy(str_base_val, setup + 8, 4);
-	str_base_val[4] = '\0';
+	// reading absolute values and errors
+	strncpy(str_base, setup + 8, 4);
+	str_base[4] = '\0';
 
 	strncpy(str_pos_err, setup + 13, 2);
 	str_pos_err[2] = '\0';
 
 	strncpy(str_neg_err, setup + 16, 2);
 	str_neg_err[2] = '\0';
+	
+	base = atof(str_base);
+ 	pos_err = atof(str_pos_err) / 100.0f;
+ 	neg_err = atof(str_pos_err) / 100.0f;
 
-	strncpy(str_pin, setup + 19, 2);
+	s->base_val = base;
+	s->pos_val_err = pos_err;
+	s->neg_val_err = neg_err;
+
+	s->max_val = base + (base * pos_err);
+	s->min_val = base - (base * neg_err);
+
+	// reading trends and errors
+	strncpy(str_base, setup + 19, 4);
+	str_base[4] = '\0';
+
+	strncpy(str_pos_err, setup + 24, 2);
+	str_pos_err[2] = '\0';
+
+	strncpy(str_neg_err, setup + 27, 2);
+	str_neg_err[2] = '\0';
+
+	s->base_trend = base;
+	s->pos_trend_err = pos_err;
+	s->neg_trend_err = neg_err;
+
+	s->max_trend = base + (base * pos_err);
+	s->min_trend = base - (base * neg_err);
+	
+	// reading pin number
+	strncpy(str_pin, setup + 30, 2);
 	str_pin[2] = '\0';
 
-	float base_val = atof(str_base_val);
-	float pos_err = atof(str_pos_err) / 100.0f;
-	float neg_err = atof(str_pos_err) / 100.0f;
-	int pin = atoi(str_pin);
-
-	s->base_val = base_val;
-	s->pos_err = pos_err;
-	s->neg_err = neg_err;
-
-	s->max_val = base_val + (base_val * pos_err);
-	s->min_val = base_val - (base_val * neg_err);
-	s->pin = pin;
-
-	free(str_base_val);
-	free(str_pos_err);
-	free(str_neg_err);
-	free(str_pin);
+	s->pin = atoi(str_pin);	
 
 	return;
 }
@@ -245,16 +258,22 @@ static void init_valve(char *setup, struct valve *v)
 	 * 	void
 	**/
 
-	char *str_pin = (char *)malloc(sizeof(char) * 3);
+	char pin[3];
 
-	strncpy(str_pin, setup + 8, 2);
-	str_pin[2] = '\0';
+	// reading output pin number
+	strncpy(pin, setup + 8, 2);
+	pin[2] = '\0';
 
-	v->pin = atoi(str_pin);
+	v->pin = atoi(pin);
+
+	// reading feedback pin number
+	strncpy(pin, setup + 11, 2);
+	pin[2] = '\0';
+
+	v->pin = atoi(pin);
+
 	v->stat = 0;
-
-	free(str_pin);
-
+	
 	return;
 }
 //---------------------------------------------------------------------------------------------------------------------------
@@ -275,8 +294,11 @@ static void system_check(char *file_name)
 	char opt;
 	int i, no_go = 0;
 
-	char *s_names[] = {"P_PT_01", "P_PT_02", "P_PT_03", "O_PT_01", "O_PT_02", "O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", "O_LT_01", "F_LT_01"};
-	char *v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", "F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
+	char * s_names[] = {"P_PT_01", "P_PT_02",  "P_PT_03", "O_PT_01", "O_PT_02", 
+		"O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", 
+		"O_LT_01", "F_LT_01"};
+	char * v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", 
+		"F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
 
 	printf("\n>>> SYSTEM CHECK START <<< \n\n");
 
