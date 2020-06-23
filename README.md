@@ -30,7 +30,7 @@ of the above in the terminal.
 #### config file format 
 `<sensor_name>,<base_val>,<pos_val_err>,<neg_val_err>,<base_trend>,<pos_trend_err>,<neg_trend_err>,<pin>`
 or
-`<valve_name>,<pin>`
+`<valve_name>,<pin>,<feedback>`
 
 #### verifiedValue.csv format
 `<base_val_sensor_1>,<pos_val_err>,<neg_val_err>,...`
