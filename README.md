@@ -11,7 +11,7 @@ Please comment your code!!!!
 
   
 
-```mermaid
+
 graph LR
 A[AFCP] -- Header files  --> B((include))
 A -- Source Code--> C(src)
@@ -30,7 +30,6 @@ C -- Initialize systems and perform checks --> init.c
 C -- Control algorithm for flight --> seq.c
 C -- Read and format sensor data --> daq_interface.c
 C -- Source code for the DAQ --> daq_utility.c
-```
 
 ### main.c:
 
