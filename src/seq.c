@@ -37,10 +37,12 @@ int seq()
 	get_data();
 
 	// P_EV_02 is the valve right after the pressurant tank.
-	if (daq_val[P_PT_01].trend >= s[P_PT_01].min_trend && daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+	if (daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+		&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
 	{
 		if (v[P_EV_02].stat == OFF // only go here if the valve isn't open
-			&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val && daq_val[P_PT_01].curr <= s[P_PT_01].max_val)
+			&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val
+			&& daq_val[P_PT_01].curr <= s[P_PT_01].max_val)
 		{
 			// all pressures nominal
 			// open valve
@@ -63,11 +65,21 @@ int seq()
 
 		// open P_EV_03 when absolute pressure is correct and P_EV_02 is completely open
 
-		if (daq_val[P_PT_02].trend >= s[P_PT_02].min_trend && daq_val[P_PT_02].trend <= s[P_PT_02].max_trend && daq_val[O_TT_01].trend >= s[O_TT_01].min_trend && daq_val[O_TT_01].trend <= s[O_TT_01].max_trend)
+		if (daq_val[P_PT_02].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_02].trend <= s[P_PT_02].max_trend
+			&& daq_val[O_TT_01].trend >= s[O_TT_01].min_trend
+			&& daq_val[O_TT_01].trend <= s[O_TT_01].max_trend)
 		{
 
 			if (v[P_EV_03].stat == OFF // only go here if the valve isn't open
-				&& daq_val[P_PT_02].curr >= s[P_PT_02].min_val && daq_val[P_PT_02].curr <= s[P_PT_02].max_val && daq_val[O_TT_01].curr >= s[O_TT_01].min_val && daq_val[O_TT_01].curr <= s[O_TT_01].max_val && daq_val[P_PT_01].curr >= s[P_PT_01].min_val && daq_val[P_PT_01].curr <= s[P_PT_01].max_val && daq_val[P_PT_01].trend >= s[P_PT_01].min_trend && daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+				&& daq_val[P_PT_02].curr >= s[P_PT_02].min_val 
+				&& daq_val[P_PT_02].curr <= s[P_PT_02].max_val 
+				&& daq_val[O_TT_01].curr >= s[O_TT_01].min_val 
+				&& daq_val[O_TT_01].curr <= s[O_TT_01].max_val 
+				&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val 
+				&& daq_val[P_PT_01].curr <= s[P_PT_01].max_val 
+				&& daq_val[P_PT_01].trend >= s[P_PT_01].min_trend 
+				&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
 			{
 
 				// all pressures are right, trends are right
@@ -87,11 +99,21 @@ int seq()
 
 		// open P_EV_05 when absolute pressure is correct and P_EV_02 is completely open
 
-		if (daq_val[P_PT_03].trend >= s[P_PT_03].min_trend && daq_val[P_PT_03].trend <= s[P_PT_03].max_trend && daq_val[F_TT_01].trend >= s[F_TT_01].min_trend && daq_val[F_TT_01].trend <= s[F_TT_01].max_trend)
+		if (daq_val[P_PT_03].trend >= s[P_PT_03].min_trend 
+			&& daq_val[P_PT_03].trend <= s[P_PT_03].max_trend 
+			&& daq_val[F_TT_01].trend >= s[F_TT_01].min_trend 
+			&& daq_val[F_TT_01].trend <= s[F_TT_01].max_trend)
 		{
 
 			if (v[P_EV_05].stat == OFF // only go here if the valve isn't open
-				&& daq_val[P_PT_03].curr >= s[P_PT_03].min_val && daq_val[P_PT_03].curr <= s[P_PT_03].max_val && daq_val[F_TT_01].curr >= s[F_TT_01].min_val && daq_val[F_TT_01].curr <= s[F_TT_01].max_val && daq_val[P_PT_01].curr >= s[P_PT_01].min_val && daq_val[P_PT_01].curr <= s[P_PT_01].max_val && daq_val[P_PT_01].trend >= s[P_PT_01].min_trend && daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+				&& daq_val[P_PT_03].curr >= s[P_PT_03].min_val 
+				&& daq_val[P_PT_03].curr <= s[P_PT_03].max_val 
+				&& daq_val[F_TT_01].curr >= s[F_TT_01].min_val 
+				&& daq_val[F_TT_01].curr <= s[F_TT_01].max_val 
+				&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val 
+				&& daq_val[P_PT_01].curr <= s[P_PT_01].max_val 
+				&& daq_val[P_PT_01].trend >= s[P_PT_01].min_trend 
+				&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
 			{
 				// all pressures are right, trends are right
 				// open the valve
@@ -113,11 +135,25 @@ int seq()
 		// only start checking values if LOX and RP-1 pressurant lines are open
 
 		// start checking trends of LOX line
-		if (daq_val[O_PT_01].trend >= s[O_PT_01].min_trend && daq_val[O_PT_01].trend <= s[O_PT_01].max_trend && daq_val[O_PT_02].trend >= s[O_PT_02].min_trend && daq_val[O_PT_02].trend <= s[O_PT_02].max_trend && daq_val[O_PT_03].trend >= s[O_PT_03].min_trend && daq_val[O_PT_03].trend <= s[O_PT_03].max_trend)
+		if (daq_val[O_PT_01].trend >= s[O_PT_01].min_trend 
+		&& daq_val[O_PT_01].trend <= s[O_PT_01].max_trend 
+		&& daq_val[O_PT_02].trend >= s[O_PT_02].min_trend 
+		&& daq_val[O_PT_02].trend <= s[O_PT_02].max_trend 
+		&& daq_val[O_PT_03].trend >= s[O_PT_03].min_trend 
+		&& daq_val[O_PT_03].trend <= s[O_PT_03].max_trend)
 		{
 
 			if (v[O_SV_03].stat == OFF // only go here if valve not open
-				&& daq_val[O_PT_01].curr >= s[O_PT_01].min_val && daq_val[O_PT_01].curr <= s[O_PT_01].max_val && daq_val[O_PT_02].curr >= s[O_PT_02].min_val && daq_val[O_PT_02].curr <= s[O_PT_02].max_val && daq_val[O_PT_03].curr >= s[O_PT_03].min_val && daq_val[O_PT_03].curr <= s[O_PT_03].max_val && daq_val[P_PT_01].curr >= s[P_PT_01].min_val && daq_val[P_PT_01].curr <= s[P_PT_01].max_val && daq_val[P_PT_01].trend >= s[P_PT_01].min_trend && daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+				&& daq_val[O_PT_01].curr >= s[O_PT_01].min_val 
+				&& daq_val[O_PT_01].curr <= s[O_PT_01].max_val 
+				&& daq_val[O_PT_02].curr >= s[O_PT_02].min_val 
+				&& daq_val[O_PT_02].curr <= s[O_PT_02].max_val 
+				&& daq_val[O_PT_03].curr >= s[O_PT_03].min_val 
+				&& daq_val[O_PT_03].curr <= s[O_PT_03].max_val 
+				&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val 
+				&& daq_val[P_PT_01].curr <= s[P_PT_01].max_val 
+				&& daq_val[P_PT_01].trend >= s[P_PT_01].min_trend 
+				&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
 			{
 
 				// all conditions nominal, open valve
@@ -134,11 +170,25 @@ int seq()
 		}
 
 		// start checking trends of RP-1 line
-		if (daq_val[F_PT_01].trend >= s[F_PT_01].min_trend && daq_val[F_PT_01].trend <= s[F_PT_01].max_trend && daq_val[F_PT_02].trend >= s[F_PT_02].min_trend && daq_val[F_PT_02].trend <= s[F_PT_02].max_trend && daq_val[F_PT_03].trend >= s[F_PT_03].min_trend && daq_val[F_PT_03].trend <= s[F_PT_03].max_trend)
+		if (daq_val[F_PT_01].trend >= s[F_PT_01].min_trend 
+			&& daq_val[F_PT_01].trend <= s[F_PT_01].max_trend 
+			&& daq_val[F_PT_02].trend >= s[F_PT_02].min_trend 
+			&& daq_val[F_PT_02].trend <= s[F_PT_02].max_trend 
+			&& daq_val[F_PT_03].trend >= s[F_PT_03].min_trend 
+			&& daq_val[F_PT_03].trend <= s[F_PT_03].max_trend)
 		{
 
 			if (v[F_EV_03].stat == OFF // only go here if valve not open
-				&& daq_val[F_PT_01].curr >= s[F_PT_01].min_val && daq_val[F_PT_01].curr <= s[F_PT_01].max_val && daq_val[F_PT_02].curr >= s[F_PT_02].min_val && daq_val[F_PT_02].curr <= s[F_PT_02].max_val && daq_val[F_PT_03].curr >= s[F_PT_03].min_val && daq_val[F_PT_03].curr <= s[F_PT_03].max_val && daq_val[P_PT_01].curr >= s[P_PT_01].min_val && daq_val[P_PT_01].curr <= s[P_PT_01].max_val && daq_val[P_PT_01].trend >= s[P_PT_01].min_trend && daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+				&& daq_val[F_PT_01].curr >= s[F_PT_01].min_val 
+				&& daq_val[F_PT_01].curr <= s[F_PT_01].max_val 
+				&& daq_val[F_PT_02].curr >= s[F_PT_02].min_val 
+				&& daq_val[F_PT_02].curr <= s[F_PT_02].max_val 
+				&& daq_val[F_PT_03].curr >= s[F_PT_03].min_val 
+				&& daq_val[F_PT_03].curr <= s[F_PT_03].max_val 
+				&& daq_val[P_PT_01].curr >= s[P_PT_01].min_val 
+				&& daq_val[P_PT_01].curr <= s[P_PT_01].max_val 
+				&& daq_val[P_PT_01].trend >= s[P_PT_01].min_trend 
+				&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
 			{
 
 				// all conditions nominal, open valve

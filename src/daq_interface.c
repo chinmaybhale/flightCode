@@ -43,7 +43,8 @@ double data = 0;
 static void free_daq();
 //---------------------------------------------------------------------------------------------------------------------------
 
-void init_daq(){
+void init_daq()
+{
 
 	// Get descriptors for all of the available DAQ devices
 	err = ulGetDaqDeviceInventory(interfaceType, devDescriptors, &numDevs);
@@ -59,10 +60,10 @@ void init_daq(){
 	}
 
 	printf("Found %d DAQ device(s)\n", numDevs);
-	for (i = 0; i < (int) numDevs; i++)
+	for (i = 0; i < (int)numDevs; i++)
 		printf("  [%d] %s: (%s)\n", i, devDescriptors[i].productName, devDescriptors[i].uniqueId);
 
-	if(numDevs > 1)
+	if (numDevs > 1)
 		descriptorIndex = selectDAQDevice(numDevs);
 
 	// get a handle to the DAQ device associated with the first descriptor
@@ -70,7 +71,7 @@ void init_daq(){
 
 	if (daqDeviceHandle == 0)
 	{
-		printf ("\nUnable to create a handle to the specified DAQ device\n");
+		printf("\nUnable to create a handle to the specified DAQ device\n");
 		free_daq();
 	}
 
@@ -97,10 +98,8 @@ void init_daq(){
 	if (highChan >= numberOfChannels)
 		highChan = numberOfChannels - 1;
 
-		// get the first supported analog input range
+	// get the first supported analog input range
 	err = getAiInfoFirstSupportedRange(daqDeviceHandle, inputMode, &range, rangeStr);
-
-
 }
 //---------------------------------------------------------------------------------------------------------------------------
 
@@ -108,10 +107,10 @@ static void free_daq()
 {
 
 	// release the handle to the DAQ device
-	if(daqDeviceHandle)
+	if (daqDeviceHandle)
 		ulReleaseDaqDevice(daqDeviceHandle);
 
-	if(err != ERR_NO_ERROR)
+	if (err != ERR_NO_ERROR)
 	{
 		char errMsg[ERR_MSG_LEN];
 		ulGetErrMsg(err, errMsg);
@@ -120,13 +119,12 @@ static void free_daq()
 	}
 
 	exit(EXIT_FAILURE);
-
 }
 //---------------------------------------------------------------------------------------------------------------------------
 
 static void convert()
 {
-	// TODO: convert values from 
+	// TODO: convert values from
 	// Volts -> PSI/C/other format
 	/**
 	 * This functions converts volts to PSI/C/Other format
@@ -138,7 +136,7 @@ static void convert()
 	 * 	void -> should return a float?
 	 *
 	**/
-	
+
 	return;
 }
 //---------------------------------------------------------------------------------------------------------------------------
@@ -161,7 +159,7 @@ static void read_data()
 	{
 		err = ulAIn(daqDeviceHandle, chan, inputMode, range, flags, &data);
 
-		if(err == ERR_NO_ERROR)
+		if (err == ERR_NO_ERROR)
 		{
 			daq_val[chan].prev = daq_val[chan].curr;
 			daq_val[chan].curr = data;
@@ -173,7 +171,6 @@ static void read_data()
 			daq_val[chan].curr = -1; // weird number so we know which channels are not getting data
 		}
 	}
-	
 
 	return;
 }
@@ -197,8 +194,10 @@ static void read_line(char *line, int len)
 	char *str_val = (char *)malloc(sizeof(char) * 30);
 	int curr, prev = 0, i = 0;
 
-	for(curr = 0; curr <= len; curr++) {
-		if(line[curr] == ',' || line[curr] == '\n') {
+	for (curr = 0; curr <= len; curr++)
+	{
+		if (line[curr] == ',' || line[curr] == '\n')
+		{
 			strncpy(str_val, line + prev, (curr - prev));
 			str_val[curr - prev] = '\0';
 			daq_val[i].prev = daq_val[i].curr;
@@ -207,7 +206,7 @@ static void read_line(char *line, int len)
 			prev = curr + 1;
 			i++;
 		}
-		if(line[curr] == '\n')
+		if (line[curr] == '\n')
 			break;
 	}
 
@@ -218,7 +217,7 @@ static void read_line(char *line, int len)
 
 static int read_file()
 {
-	// TODO: read one line, fill the 
+	// TODO: read one line, fill the
 	// data structure
 	/**
 	 * This function reads a file in CSV format
@@ -231,19 +230,19 @@ static int read_file()
 	 * 	int: 1 if succesful, else 0
 	 * 
 	**/
-	
+
 	char *line = (char *)malloc(sizeof(char) * 256);
 
-	if(fgets(line, 256, test_data) == NULL) {
+	if (fgets(line, 256, test_data) == NULL)
+	{
 		printf("End of file!\n");
 		fclose(test_data);
 		free(line);
 		return 1;
 	}
 
-
 	read_line(line, 256);
-	
+
 	free(line);
 	return 0;
 }
@@ -265,7 +264,8 @@ void init_file()
 	**/
 	test_data = fopen("test_data.csv", "r");
 
-	if(!test_data) {
+	if (!test_data)
+	{
 		printf("not able to open file\n");
 		return;
 	}
@@ -289,12 +289,14 @@ void get_data()
 	**/
 	int end;
 
-	if(debug) {
+	if (debug)
+	{
 		end = read_file();
-		if(end)
+		if (end)
 			fclose(test_data);
 	}
-	else {
+	else
+	{
 
 		read_data();
 		convert();
