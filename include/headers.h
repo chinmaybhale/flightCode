@@ -46,7 +46,6 @@ struct sensor
 	short pin;                             // not all sensors will have this, set to -1
 };
 
-<
 struct valve 
 {                       // VALVES (Electric & Solenoid)
 	short pin;            // Connection GPIO pin on the Main computer
