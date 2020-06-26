@@ -17,6 +17,7 @@
 //---------------------------------------------------------------------------------------------------------------------------
 
 FILE *verified_file;
+FILE *verified_trends;
 char *line;
 
 static int read_verified();
@@ -270,3 +271,86 @@ void init_verified_file()
 }
 //---------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------
+
+void init_verified_trends_file()
+{
+	/**
+	 * this function is used to initiate the process of storing 
+	 * the verified/expected values FOR ARRAY S[]
+	 */
+
+	verified_trends = fopen("verifiedTrends.csv", "r");
+
+	if (!verified_trends)
+		printf("unable to open verifiedTrends.csv");
+
+	line = (char *)malloc(sizeof(char) * 256);
+
+	if (fgets(line, 256, verified_trends) == NULL)
+		printf("no data in verified trends file");
+
+	return;
+}
+
+static int read_verified_trends()
+{
+	/**
+	 * this function is called whenever you want to get the next line of the verified trends file
+	 */
+	char str_val[30];
+	int len = 256;
+
+	if (fgets(line, len, verified_trends) == NULL)
+	{
+		printf("end of verified file");
+		free(line);
+		fclose(verified_trends);
+		return 0;
+	}
+	else
+	{
+
+		int curr, prev = 0, i = 0, s_position = 0;
+
+		for (curr = 0; curr <= len; curr++)
+		{
+			if (line[curr] == ',' || line[curr] == '\n')
+			{
+				strncpy(str_val, line + prev, (curr - prev));
+				str_val[curr - prev] = '\0';
+
+				switch (i)
+				{
+				case 5:
+					s[s_position].base_trend = atof(str_val);
+					break;
+				case 6:
+					s[s_position].pos_trend_err = atof(str_val);
+					break;
+				case 7:
+					s[s_position].neg_trend_err = atof(str_val);
+					break;
+				case 8:
+					s[s_position].max_trend = atof(str_val);
+					break;
+
+				case 9:
+					s[s_position].min_trend = atof(str_val);
+					break;
+				default:
+					break;
+				}
+				prev = curr + 1;
+				if (i == 9){
+					s_position++; // moves up 1 sensor since we went through all 10 struct values already
+				} 
+
+				i = (i + 1) % 10; // this keeps track of which value is being read in a single line 
+			}
+			if (line[curr] == '\n')
+				break;
+		}
+	}
+
+	return 1;
+}
