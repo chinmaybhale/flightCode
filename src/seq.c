@@ -18,7 +18,9 @@
 
 FILE *verified_file;
 FILE *verified_val_file;
+char *verified_val_line;
 char *line;
+
 
 static int read_verified();
 
@@ -280,28 +282,51 @@ static int read_verified_value()
 	char str_val[30];
 	int len = 256;
 
-	if (fgets(line, len, verified_file) == NULL)
+	if (fgets(verified_val_line, len, verified_val_file) == NULL)
 	{
-		printf("end of verified value file");
-		free(line);
-		fclose(verified_file);
+		printf("End of verified value file!\n");
+		free(verified_val_line);
+		fclose(verified_val_file);
 		return 0;
 	}
 	else
 	{
-
 		int curr, prev = 0, i = 0;
+    	int count = 1;
 
 		for (curr = 0; curr <= len; curr++)
 		{
-			if (line[curr] == ',' || line[curr] == '\n')
+			if (verified_val_line[curr] == ',' || verified_val_line[curr] == '\n')
 			{
-				strncpy(str_val, line + prev, (curr - prev));
+				strncpy(str_val, verified_val_line + prev, (curr - prev));
 				str_val[curr - prev] = '\0';
-				verified_data[i++].base_val = atof(str_val);
+				switch(count)
+				{
+				case 1 :
+					//the first value we encounter is the base value
+					s[i].base_val = atof(str_val);
+					count++;
+					break;
+				
+				case 2 :
+					//the next value we encounter is the pos error
+					s[i].pos_val_err = atoi(str_val);
+					count++;
+					break;
+				
+				case 3 :
+					//the final value we encounter is the neg err, then we reset count to 1
+					s[i++].neg_val_err = atoi(str_val);
+					count = 1;
+					break;
+				
+				default :
+					break;
+				}
 				prev = curr + 1;
 			}
-			if (line[curr] == '\n')
+
+			if (verified_val_line[curr] == '\n')
 				break;
 		}
 	}
@@ -315,18 +340,21 @@ void init_verified_value_file()
 	/**
 	 * this function is used to initiate the process of storing 
 	 * the verified/expected values for our sensors.
+	 * 
+	 * File must have a string header as the first line and in the following format:
+	 * 
+	 * <base_val_sensor_1>,<pos_val_err>,<neg_val_err>,...
 	 */
 
-	verified_file = fopen("verifiedValueFile.csv", "r");
+	verified_val_file = fopen("verifiedValueFile.csv", "r");
 
-	if (!verified_file)
-		printf("unable to open verifiedFile.csv");
+	if (!verified_val_file)
+		printf("Unable to open verifiedValueFile.csv!");
 
-	line = (char *)malloc(sizeof(char) * 256);
+	verified_val_line = (char *)malloc(sizeof(char) * 256);
 
-	if (fgets(line, 256, verified_file) == NULL)
-		printf("no data in verified file");
+	if (fgets(verified_val_line, 256, verified_val_file) == NULL)
+		printf("No data in verified file!\n");
 
 	return;
 }
-//---------------------------------------------------------------------------------------------------------------------------
