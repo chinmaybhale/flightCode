@@ -25,40 +25,41 @@
 #include "daq_utility.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
-// Class declarations for global variables of the program
+// Struct declarations for global variables of the program
 // BE ADVISED: max and min values decided by percentage when initializing
 struct sensor
-{										 // TRANSDUCERS
-	float base_val;	 					 // Estimated value
-	int pos_val_err;					 // Error  margins
-	int neg_val_err;
+{				// TRANSDUCERS
+	float base_val;	 	// Estimated value
+	int pos_val_err;	// Positive error margins
+	int neg_val_err; 	// Negative error margin
 
-	float max_val;
-	float min_val;
+	float max_val; 		// Maximum estimated value				
+	float min_val; 		// Minimum estimated value
 
-	float base_trend;
-	int pos_trend_err;
-	int neg_trend_err;
+	float base_trend; 	// Estimated trend
+	int pos_trend_err; 	// Positive error margin
+	int neg_trend_err; 	// Negative error margin
 
-	float max_trend;
-	float min_trend;
+	float max_trend; 	// Maximum estimated trend
+	float min_trend; 	// Minimum estimated trend
 
-	short pin;                             // not all sensors will have this, set to -1
+	short pin;              // not all sensors will have this, set to -1
 };
 
 
 struct valve 
-{                       // VALVES (Electric & Solenoid)
-	short pin;            // Connection GPIO pin on the Main computer
-	short feedback;       // Feedback from microcontroller to Main computer
-	short stat;           // 0 = off, 1 = on
+{                       	// VALVES (Electric & Solenoid)
+	short pin;            	// Connection GPIO pin on the Main computer
+	short feedback; 	// Feedback from microcontroller to Main computer
+	short fb_pin; 		// Pin for reading feedback
+	short stat;           	// 0 = off, 1 = on
 };
 
 struct daq_value
 {
-	float curr;
-	float prev;
-	float trend;
+	float curr; 		// Current sensor value
+	float prev; 		// Previous sensor value
+	float trend; 		// Sensor value trend
 };
 //---------------------------------------------------------------------------------------------------------------------------
 

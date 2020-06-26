@@ -25,7 +25,7 @@ static void show_config(char *file_name)
 	char opt;
 	int i;
 	FILE *file = fopen(file_name, "r");					
-	char *name = (char *)malloc(sizeof(char) * 20);	
+	char *name = (char *)malloc(sizeof(char) * 31);	
 
 	if (!file)                                // File not accessible
 	{ 
@@ -41,28 +41,28 @@ static void show_config(char *file_name)
 	printf("---------------------------------------------------------------------------------\n");
 
 
-	fgets(name, 20, file);				   	// reading line >MAIN
+	fgets(name, 31, file);				   	// reading line >MAIN
 
 	for (i = 0; i < SENSOR_COUNT; i++)
 	{
 		fgets(name, 8, file);
 		name[8] = '\0';
 		printf("%s\t\t|\t%f\t|\t%f\t|\t%d\t|\n", name, s[i].max_val, s[i].min_val, s[i].pin);
-		fgets(name, 20, file);
+		fgets(name, 31, file);
 	}
 
 	printf("\n>>> VALVE CONFIGURATION <<<\n\n");
-	printf("VALVE NAME\t|\tPIN\t|\tSTATUS\t|\n");
-	printf("-------------------------------------------------\n");
+	printf("VALVE NAME\t|\tPIN\t|\tSTATUS\t|\tFEEDBACK PIN\t|\tFEEDBACK STATUS\t|\n");
+	printf("------------------------------------------------------------------------------\n");
 
-	fgets(name, 20, file);
+	fgets(name, 31, file);
 
 	for (i = 0; i < VALVE_COUNT; i++)
 	{
 		fgets(name, 8, file);
 		name[8] = '\0';
-		printf("%s\t\t|\t%d\t|\t%s\t|\n", name, v[i].pin, ((v[i].stat) ? "on" : "off"));
-		fgets(name, 20, file);
+		printf("%s\t\t|\t%d\t|\t%s\t|\t%d\t|\t%s\t|\n", name, v[i].pin, ((v[i].stat) ? "on" : "off"), v[i].fb_pin, ((v[i].feedback) ? "on" : "off"));
+		fgets(name, 31, file);
 	}
 
 	// User input for debug and verbose
@@ -98,20 +98,29 @@ static void read_config(char *file_name)
 	 * sensor list will start with ###SENSORS###
 	 * valve list will start with ###VALVES###
 	 * debug will start with ###DEBUG###
-	 * sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
+	 * verbose will start with ###VERBOSE###
+	 *
+	 * sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17].
+	 * 	base_trend(4)[19-22], +ve trend error(2)[24, 25], -ve trend error(2)[27, 28], pin# (if availabe, -1 otherwise)(2)[30, 31]
+	 * 
 	 * or
-	 * valve_name(7)[0-6], pin#(2)[8, 9]
+	 * 
+	 * valve_name(7)[0-6], pin#(2)[8, 9],feedback_pin#(2)[11, 12]
+	 * 
 	 * sensor_name will decide if it is a pressure or temperature or other kind of sensor.
+	 * ------------------------------------------------------------------------------------------------------------------------------
 	 * EXAMPLE CONFIG FILE
 	 *
 	 * ###SENSORS###
-	 * N_PT_01,1000,10,5,-1
-	 * R_PT_01,500,10,10,-1
+	 * P_PT_01,1000,10,5,50,2,2,-1
+	 * F_PT_01,500,10,10,20,2,2-1
 	 * ###VALVES###
-	 * N_SV_01,0
+	 * P_EV_02,0,1
 	 * ###DEBUG###
 	 * 1
-	 * 
+	 * ###VERBOSE###
+	 * 1
+	 * -----------------------------------------------------------------------------------------------------------------------------
 	 * Args:
 	 *  file_name (char *): The name of the config file to opened
 	 * 
@@ -270,7 +279,7 @@ static void init_valve(char *setup, struct valve *v)
 	strncpy(pin, setup + 11, 2);
 	pin[2] = '\0';
 
-	v->pin = atoi(pin);
+	v->fb_pin = atoi(pin);
 
 	v->stat = 0;
 	
