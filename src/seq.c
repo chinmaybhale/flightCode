@@ -16,10 +16,27 @@
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
-FILE *verified_file;
+FILE *verified_file, *output;
 char *line;
 
 static int read_verified();
+
+static void write_output()
+{
+	// TODO : make a string which contains the status of all valves
+	// print string as csv in seq_output.csv
+}
+
+void init_seq_output()
+{
+	output = fopen("seq_output.csv", "w");
+
+	if (!output)
+	{
+		printf("Not able to create output file!\n");
+		exit(EXIT_FAILURE);
+	}
+}
 
 int seq()
 {
