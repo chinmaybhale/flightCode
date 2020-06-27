@@ -394,7 +394,8 @@ void init(char *file_name)
 	else
 		init_daq();
 	system_check(file_name);
-	init_verified_file();
+	init_verified_value_file();
+	
 	return;
 }
 //---------------------------------------------------------------------------------------------------------------------------
