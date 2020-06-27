@@ -239,6 +239,7 @@ void init_file()
 	 * 
 	**/
 	test_data = fopen("test_data.csv", "r");
+	line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
 
 	if (!test_data)
 	{
