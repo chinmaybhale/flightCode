@@ -390,9 +390,13 @@ void init(char *file_name)
 	read_config(file_name);
 	show_config(file_name);
 	if (debug)
+	{
 		init_file();
+		init_seq_output();
+	}
 	else
 		init_daq();
+	
 	system_check(file_name);
 	init_verified_file();
 	return;
