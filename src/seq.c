@@ -352,9 +352,9 @@ void init_verified_value_file()
 	if (!verified_val_file)
 		printf("Unable to open verifiedValueFile.csv!");
 
-	verified_val_line = (char *)malloc(sizeof(char) * 256);
+	verified_val_line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
 
-	if (fgets(verified_val_line, 256, verified_val_file) == NULL)
+	if (fgets(verified_val_line, MAX_DATA_LENGTH, verified_val_file) == NULL)
 		printf("No data in verified file!\n");
 
 	return;
