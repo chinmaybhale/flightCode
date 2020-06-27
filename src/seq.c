@@ -310,14 +310,14 @@ static int read_verified_value()
 				case 2 :
 					//the next value we encounter is the pos error
 					s[i].pos_val_err = atoi(str_val);
-					s[i].max_val = s[i].base_val + s[i].pos_val_err;
+					s[i].max_val = s[i].base_val + (s[i].base_val * s[i].pos_val_err);
 					count++;
 					break;
 				
 				case 3 :
 					//the final value we encounter is the neg err, then we reset count to 1
 					s[i].neg_val_err = atoi(str_val);
-					s[i++].min_val = s[i].base_val - s[i].neg_val_err;
+					s[i++].min_val = s[i].base_val - (s[i].base_val * s[i].neg_val_err);
 					count = 1;
 					break;
 				
