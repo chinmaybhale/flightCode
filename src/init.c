@@ -420,7 +420,7 @@ void init(char *file_name)
 		init_daq();
 	system_check(file_name);
 	init_verified_value_file();
-	
+	init_verified_trends_file();	
 	return;
 }
 //---------------------------------------------------------------------------------------------------------------------------
