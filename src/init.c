@@ -333,12 +333,12 @@ static void system_check(char *file_name)
 			daq_val[i].curr <= s[i].max_val)
 		{
 			if (verbose == 1)
-				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
+				printf("%s\t->\tVal: %f,\tMin: %f,\tMax: %f,\tGood: Yes\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
+			printf("%s\t->\tVal: %f,\tMin: %f,\tMax: %f,\tGood: NO\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 		
 		// skipping the rest of the contents of the line and moving to the next sensor name
@@ -359,12 +359,12 @@ static void system_check(char *file_name)
 		if (v[i].stat == 0)
 		{
 			if (verbose == 1)
-				printf("%s: Stat: %d, Expected: 0, Good: Yes\n", name, v[i].stat);
+				printf("%s\t->\tStat: %d,\tExpected: 0,\tGood: Yes\n", name, v[i].stat);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Stat: %d, Expected: 0, Good: NO\n", name, v[i].stat);
+			printf("%s\t->\tStat: %d,\tExpected: 0,\tGood: NO\n", name, v[i].stat);
 		}
 
 		// skipping the rest of the contents of the line and moving to the next valve name
