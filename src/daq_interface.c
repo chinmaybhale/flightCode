@@ -13,6 +13,8 @@
 //---------------------------------------------------------------------------------------------------------------------------
 
 FILE *test_data;
+char *line;
+
 
 // variables needed to get analog data
 int descriptorIndex = 0;
@@ -176,46 +178,7 @@ static void read_data()
 }
 //---------------------------------------------------------------------------------------------------------------------------
 
-static void read_line(char *line, int len)
-{
-	/**
-	 * this code splits the strings into individual values
-	 * and the converts them to float
-	 * 
-	 * Args:
-	 * 	line(char *): The line you want to read
-	 * 	len (int): the length of the line you are reading
-	 * 
-	 * Returns:
-	 * 	void
-	 * 
-	**/
-
-	char *str_val = (char *)malloc(sizeof(char) * 30);
-	int curr, prev = 0, i = 0;
-
-	for (curr = 0; curr <= len; curr++)
-	{
-		if (line[curr] == ',' || line[curr] == '\n')
-		{
-			strncpy(str_val, line + prev, (curr - prev));
-			str_val[curr - prev] = '\0';
-			daq_val[i].prev = daq_val[i].curr;
-			daq_val[i].curr = atof(str_val);
-			daq_val[i].trend = daq_val[i].curr - daq_val[i].prev;
-			prev = curr + 1;
-			i++;
-		}
-		if (line[curr] == '\n')
-			break;
-	}
-
-	free(str_val);
-	return;
-}
-//---------------------------------------------------------------------------------------------------------------------------
-
-static int read_file()
+static int read_DAQ_file()
 {
 	// TODO: read one line, fill the
 	// data structure
@@ -231,19 +194,32 @@ static int read_file()
 	 * 
 	**/
 
-	char *line = (char *)malloc(sizeof(char) * 256);
+	char str_val[30];
+	int curr, prev = 0, i = 0;
 
-	if (fgets(line, 256, test_data) == NULL)
+	if (fgets(line, MAX_DATA_LENGTH, test_data) == NULL)
 	{
 		printf("End of file!\n");
-		fclose(test_data);
 		free(line);
 		return 1;
 	}
 
-	read_line(line, 256);
+	for (curr = 0; curr <= MAX_DATA_LENGTH; curr++)
+	{
+		if (line[curr] == ',' || line[curr] == '\n')
+		{
+			strncpy(str_val, line + prev, (curr - prev));
+			str_val[curr - prev] = '\0';
+			daq_val[i].prev = daq_val[i].curr;
+			daq_val[i].curr = atof(str_val);
+			daq_val[i].trend = daq_val[i].curr - daq_val[i].prev;
+			prev = curr + 1;
+			i++;
+		}
+		if (line[curr] == '\n')
+			break;
+	}
 
-	free(line);
 	return 0;
 }
 //---------------------------------------------------------------------------------------------------------------------------
@@ -291,7 +267,7 @@ void get_data()
 
 	if (debug)
 	{
-		end = read_file();
+		end = read_DAQ_file();
 		if (end)
 			fclose(test_data);
 	}
