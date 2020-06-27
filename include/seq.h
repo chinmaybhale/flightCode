@@ -10,7 +10,7 @@
 // Global declarations go here
 int seq();
 void init_verified_file();
-static int read_verified_value();
+int read_verified_value();
 void init_verified_value_file();
 #endif
 //---------------------------------------------------------------------------------------------------------------------------

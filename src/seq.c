@@ -280,9 +280,8 @@ static int read_verified_value()
 	 * values for the sensors
 	 */
 	char str_val[30];
-	int len = 256;
 
-	if (fgets(verified_val_line, len, verified_val_file) == NULL)
+	if (fgets(verified_val_line, MAX_DATA_LENGTH, verified_val_file) == NULL)
 	{
 		printf("End of verified value file!\n");
 		free(verified_val_line);
@@ -294,7 +293,7 @@ static int read_verified_value()
 		int curr, prev = 0, i = 0;
     	int count = 1;
 
-		for (curr = 0; curr <= len; curr++)
+		for (curr = 0; curr <= MAX_DATA_LENGTH; curr++)
 		{
 			if (verified_val_line[curr] == ',' || verified_val_line[curr] == '\n')
 			{
@@ -311,12 +310,14 @@ static int read_verified_value()
 				case 2 :
 					//the next value we encounter is the pos error
 					s[i].pos_val_err = atoi(str_val);
+					s[i].max_val = s[i].base_val + s[i].pos_val_err;
 					count++;
 					break;
 				
 				case 3 :
 					//the final value we encounter is the neg err, then we reset count to 1
-					s[i++].neg_val_err = atoi(str_val);
+					s[i].neg_val_err = atoi(str_val);
+					s[i++].min_val = s[i].base_val - s[i].neg_val_err;
 					count = 1;
 					break;
 				
