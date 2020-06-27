@@ -17,7 +17,7 @@
 
 // Total variables
 #define VALVE_COUNT 11              // Total # of valves
-#define SENSOR_COUNT 13             // Total # of transducers
+#define SENSOR_COUNT 15             // Total # of transducers
 
 // Valve status
 #define OFF 0
@@ -33,9 +33,9 @@
 #define F_EV_01 5
 #define F_EV_02 6
 #define F_EV_03 7
-#define O_SV_01 8
-#define O_SV_02 9
-#define O_SV_03 10
+#define O_EV_01 8
+#define O_EV_02 9
+#define O_SV_01 10
 
 // TRANSDUCERS- Pressure, temperature & Level transducers being read by AFCP
 #define P_PT_01 0
@@ -47,10 +47,12 @@
 #define F_PT_01 6
 #define F_PT_02 7
 #define F_PT_03 8
-#define O_TT_01 9
-#define F_TT_01 10
-#define O_LT_01 11
-#define F_LT_01 12
+#define P_TT_01 9
+#define P_TT_02 10
+#define P_TT_03 11
+#define O_TT_01 12
+#define F_TT_01 13
+#define F_TT_02 14
 
 #endif
 //---------------------------------------------------------------------------------------------------------------------------
