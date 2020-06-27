@@ -25,6 +25,7 @@ static void write_output()
 {
 	// TODO : make a string which contains the status of all valves
 	// print string as csv in seq_output.csv
+	
 }
 
 void init_seq_output()
@@ -236,6 +237,11 @@ int seq()
 		}
 	}
 	// else = do nothing, valve is not open, no need to check
+
+	if (debug) 
+	{
+		write_output();
+	}
 
 	return 0;
 }
