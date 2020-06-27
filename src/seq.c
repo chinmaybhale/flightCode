@@ -23,9 +23,21 @@ static int read_verified();
 
 static void write_output()
 {
-	// TODO : make a string which contains the status of all valves
-	// print string as csv in seq_output.csv
+	// this function makes a csv string of the status of every valve
+	// and the prints it into the output file seq_output.css
 	
+	char buff[2 * VALVE_COUNT - 1];
+	int i, ptr = 0;
+
+	for (i = 0; i < VALVE_COUNT - 1; i++)
+	{
+		snprintf(buff + ptr, sizeof(2), "%d,", v[i].stat);
+		ptr += 2;
+	}
+
+	snprintf(buff + ptr, 1, "%d", v[VALVE_COUNT - 1].stat);
+
+	fprintf(output, "%s", buff);
 }
 
 void init_seq_output()
