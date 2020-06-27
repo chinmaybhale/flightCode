@@ -284,9 +284,9 @@ void init_verified_trends_file()
 	if (!verified_trends)
 		printf("unable to open verifiedTrends.csv");
 
-	line = (char *)malloc(sizeof(char) * 256);
+	line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
 
-	if (fgets(line, 256, verified_trends) == NULL)
+	if (fgets(line, MAX_DATA_LENGTH, verified_trends) == NULL)
 		printf("no data in verified trends file");
 
 	return;
@@ -298,9 +298,8 @@ static int read_verified_trends()
 	 * this function is called whenever you want to get the next line of the verified trends file
 	 */
 	char str_val[30];
-	int len = 256;
 
-	if (fgets(line, len, verified_trends) == NULL)
+	if (fgets(line, MAX_DATA_LENGTH, verified_trends) == NULL)
 	{
 		printf("end of verified file");
 		free(line);
@@ -312,7 +311,7 @@ static int read_verified_trends()
 
 		int curr, prev = 0, i = 0, s_position = 0;
 
-		for (curr = 0; curr <= len; curr++)
+		for (curr = 0; curr <= MAX_DATA_LENGTH; curr++)
 		{
 			if (line[curr] == ',' || line[curr] == '\n')
 			{
@@ -321,31 +320,29 @@ static int read_verified_trends()
 
 				switch (i)
 				{
-				case 5:
+				case 1:
 					s[s_position].base_trend = atof(str_val);
+					i++;
 					break;
-				case 6:
+				case 2:
 					s[s_position].pos_trend_err = atof(str_val);
+					s[s_position].max_trend = s[s_position].base_trend + 
+						(s[s_position].base_trend * s[s_position].pos_trend_err);
+					i++;
 					break;
-				case 7:
+				case 3:
 					s[s_position].neg_trend_err = atof(str_val);
-					break;
-				case 8:
-					s[s_position].max_trend = atof(str_val);
-					break;
-
-				case 9:
-					s[s_position].min_trend = atof(str_val);
+					s[s_position].min_trend = s[s_position].base_trend - 
+						(s[s_position].base_trend * s[s_position].neg_trend_err);
+					i = 1;
 					break;
 				default:
 					break;
 				}
+			
 				prev = curr + 1;
-				if (i == 9){
-					s_position++; // moves up 1 sensor since we went through all 10 struct values already
-				} 
-
-				i = (i + 1) % 10; // this keeps track of which value is being read in a single line 
+				s_position++;
+			
 			}
 			if (line[curr] == '\n')
 				break;
