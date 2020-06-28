@@ -149,8 +149,8 @@ static void read_config(char *file_name)
 		{
 			for (i = 0; i < SENSOR_COUNT; i++)
 			{
-				fgets(setup, 33, file);
-				setup[33] = '\0';
+				fgets(setup, 34, file);
+				setup[34] = '\0';
 				init_sensor(setup, &s[i]);
 			}
 		}
@@ -306,48 +306,73 @@ static void system_check(char *file_name)
 	 * 
 	 **/
 	get_data(); // get the most current values from the DAQ
-	char opt;
+	char name[33], opt;
 	int i, no_go = 0;
+	
+	FILE *config_file = fopen(file_name, "r");
 
-	char * s_names[] = {"P_PT_01", "P_PT_02",  "P_PT_03", "O_PT_01", "O_PT_02", 
-		"O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", 
-		"O_LT_01", "F_LT_01"};
-	char * v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", 
-		"F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
+	if (!config_file)
+	{
+		printf("Unable to open file!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	// reading line ###SENSORS### 
+	fgets(name, 33, config_file);
 
 	printf("\n>>> SYSTEM CHECK START <<< \n\n");
 
 	printf(">>> SENSORS:\n");
 	for (i = 0; i < SENSOR_COUNT; i++)
 	{
+		// reading the sensor name
+		fgets(name, 8, config_file);
+		name[8] = '\0';
+
 		if (s[i].min_val <= daq_val[i].curr &&
 			daq_val[i].curr <= s[i].max_val)
 		{
 			if (verbose == 1)
-				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], daq_val[i].curr, s[i].min_val, s[i].max_val);
+				printf("%s\t->\tVal: %f,\tMin: %f,\tMax: %f,\tGood: Yes\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", s_names[i], daq_val[i].curr, s[i].min_val, s[i].max_val);
+			printf("%s\t->\tVal: %f,\tMin: %f,\tMax: %f,\tGood: NO\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
+		
+		// skipping the rest of the contents of the line and moving to the next sensor name
+		fgets(name, 33, config_file);
 	}
+
+	// reading line ###VALVES###
+	fgets(name, 33, config_file);
 
 	printf(">>> VALVES:\n");
 	//assuming all valves should be off
 	for (i = 0; i < VALVE_COUNT; i++)
 	{
+		// reading the valve name
+		fgets(name, 8, config_file);
+		name[8] = '\0';
+
 		if (v[i].stat == 0)
 		{
 			if (verbose == 1)
-				printf("%s: Stat: %d, Expected: 0, Good: Yes\n", v_names[i], v[i].stat);
+				printf("%s\t->\tStat: %d,\tExpected: 0,\tGood: Yes\n", name, v[i].stat);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Stat: %d, Expected: 0, Good: NO\n", v_names[i], v[i].stat);
+			printf("%s\t->\tStat: %d,\tExpected: 0,\tGood: NO\n", name, v[i].stat);
 		}
+
+		// skipping the rest of the contents of the line and moving to the next valve name
+		fgets(name, 33, config_file);
 	}
+
+	// no need to read anything else from file, closing it
+	fclose(config_file);
 
 	printf("\n>>> SYSTEM CHECK COMPLETE <<<\n");
 
@@ -398,7 +423,8 @@ void init(char *file_name)
 		init_daq();
 	
 	system_check(file_name);
-	init_verified_file();
+	init_verified_value_file();
+	init_verified_trends_file();	
 	return;
 }
 //---------------------------------------------------------------------------------------------------------------------------

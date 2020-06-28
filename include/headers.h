@@ -23,6 +23,7 @@
 #include "daq_interface.h"
 #include "uldaq.h"
 #include "daq_utility.h"
+#include "verified_reader.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
 // Struct declarations for global variables of the program
@@ -45,7 +46,6 @@ struct sensor
 
 	short pin;              // not all sensors will have this, set to -1
 };
-
 
 struct valve 
 {                       	// VALVES (Electric & Solenoid)
