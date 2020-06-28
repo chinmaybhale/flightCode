@@ -18,9 +18,6 @@ void init_verified_trends_file()
 
 	line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
 
-	if (fgets(line, MAX_DATA_LENGTH, verified_trends) == NULL)
-		printf("no data in verified trends file");
-
 	return;
 }
 
@@ -165,9 +162,6 @@ void init_verified_value_file()
 		printf("Unable to open verifiedValueFile.csv!");
 
 	line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
-
-	if (fgets(line, MAX_DATA_LENGTH, verified_val_file) == NULL)
-		printf("No data in verified file!\n");
 
 	return;
 }
