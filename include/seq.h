@@ -9,6 +9,7 @@
 
 // Global declarations go here
 int seq();
+void init_seq_output();
 void init_verified_file();
 void init_verified_value_file();
 

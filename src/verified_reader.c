@@ -4,22 +4,7 @@ FILE *verified_val_file;
 FILE *verified_trends;
 char *line;
 
-void init_verified_trends_file()
-{
-	/**
-	 * this function is used to initiate the process of storing 
-	 * the verified/expected values FOR ARRAY S[]
-	 */
-
-	verified_trends = fopen("verifiedTrends.csv", "r");
-
-	if (!verified_trends)
-		printf("unable to open verifiedTrends.csv");
-
-	line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
-
-	return;
-}
+// TODO: fix memory alloc and dealloc issues here
 
 static int read_verified_trends()
 {
@@ -30,7 +15,7 @@ static int read_verified_trends()
 
 	if (fgets(line, MAX_DATA_LENGTH, verified_trends) == NULL)
 	{
-		printf("end of verified file");
+		printf("End of verified trends file\n");
 		free(line);
 		fclose(verified_trends);
 		return 0;
@@ -81,6 +66,23 @@ static int read_verified_trends()
 	return 1;
 }
 
+void init_verified_trends_file()
+{
+	/**
+	 * this function is used to initiate the process of storing 
+	 * the verified/expected values FOR ARRAY S[]
+	 */
+
+	verified_trends = fopen("verifiedTrends.csv", "r");
+
+	if (!verified_trends)
+		printf("unable to open verifiedTrends.csv");
+
+//	line = (char *)malloc(sizeof(char) * MAX_DATA_LENGTH);
+
+	return;
+}
+
 static int read_verified_value()
 {
 	/**
@@ -92,7 +94,7 @@ static int read_verified_value()
 	if (fgets(line, MAX_DATA_LENGTH, verified_val_file) == NULL)
 	{
 		printf("End of verified value file!\n");
-		free(line);
+//		free(line);
 		fclose(verified_val_file);
 		return 0;
 	}
