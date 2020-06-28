@@ -1,11 +1,12 @@
-// HELIOS ROCKETRY
-// Code here will only run once in the start
-// Think setup() from arduino
+// Helios Rocketry AFCP/src/
+// init.c- Initialize systems program to be run at the very beginning of main.c (Similar to 'void setup() in Arduino)
+// The program consists of several static functions that are being called one by one in the main sequence. 
 
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
 #include "../include/headers.h"
 static void init_sensor(char *, struct sensor *);
 static void init_valve(char *, struct valve *);
-static struct sensor *get_init_values(char *);
 
 static void show_config(char *file_name)
 {
@@ -23,73 +24,61 @@ static void show_config(char *file_name)
 
 	char opt;
 	int i;
-	FILE *file = fopen(file_name, "r");
-	char *name = (char *)malloc(sizeof(char) * 20);
-	struct sensor *init_s = get_init_values(file_name);
+	FILE *file = fopen(file_name, "r");					
+	char *name = (char *)malloc(sizeof(char) * 31);	
 
-	if(!file) {
+	if (!file)                                // File not accessible
+	{ 
 		printf("Not able to open file!");
 		return;
 	}
 
+	// Displaying configuration file in an ordered manner
 	printf("\n############### HELIOS ROCKETRY ##############\n");
 	printf("###### Configuration of firing sequence ######\n\n");
 	printf(">>> SENSOR CONFIGURATION <<<\n\n");
-	
-	// reading line ###SENSORS###
-	fgets(name, 20, file);
-	
-	printf("*** PRE-SEQUENCE CONFIGURATION ***\n");
-	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tPIN\t|\n");
-	printf("---------------------------------------------------------------------------------\n");
-	
-	// reading line >INTIALIZATION
-	fgets(name, 20, file);
+	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tMAX TREND\t|\tMIN TREND\t|\tPIN\t|\n");
+	printf("---------------------------------------------------------------------------------------------------------------------------------\n");
 
-	for(i = 0; i < SENSOR_NUM; i++) {
+
+	fgets(name, 31, file);				   	// reading line >MAIN
+
+	for (i = 0; i < SENSOR_COUNT; i++)
+	{
 		fgets(name, 8, file);
 		name[8] = '\0';
-		printf("%s\t\t|\t%f\t|\t%f\t|\t%d\t|\n", name, init_s[i].max_val, init_s[i].min_val, init_s[i].pin);
-		fgets(name, 20, file);
-	}
-	
-	printf("\n*** MAIN SEQUENCE CONFIGURATION ***\n");
-	printf("SENSOR NAME\t|\tMAX VALUE\t|\tMIN VALUE\t|\tPIN\t|\n");
-	printf("---------------------------------------------------------------------------------\n");
-	
-	// reading line >MAIN
-	fgets(name, 20, file);
-
-	for(i = 0; i < SENSOR_NUM; i++) {
-		fgets(name, 8, file);
-		name[8] = '\0';
-		printf("%s\t\t|\t%f\t|\t%f\t|\t%d\t|\n", name, s[i].max_val, s[i].min_val, s[i].pin);
-		fgets(name, 20, file);
+		printf("%s\t\t|\t%f\t|\t%f\t|\t%f\t|\t%f\t|\t%d\t|\n", name, s[i].max_val, s[i].min_val, 
+				s[i].max_trend, s[i].min_trend, s[i].pin);
+		fgets(name, 31, file);
 	}
 
 	printf("\n>>> VALVE CONFIGURATION <<<\n\n");
-	printf("VALVE NAME\t|\tPIN\t|\tSTATUS\t|\n");
-	printf("-------------------------------------------------\n");
+	printf("VALVE NAME\t|\tPIN\t|\tSTATUS\t|\tFEEDBACK PIN\t|\tFEEDBACK STATUS\t|\n");
+	printf("-------------------------------------------------------------------------------------------------\n");
 
-	fgets(name, 20, file);
+	fgets(name, 31, file);
 
-	for(i = 0; i < VALVE_NUM; i++) {
+	for (i = 0; i < VALVE_COUNT; i++)
+	{
 		fgets(name, 8, file);
 		name[8] = '\0';
-		printf("%s\t\t|\t%d\t|\t%s\t|\n", name, v[i].pin, ((v[i].stat)? "on" : "off" ));
-		fgets(name, 20, file);
+		printf("%s\t\t|\t%d\t|\t%s\t|\t    %d\t\t|\t    %s\t\t|\n", name, v[i].pin, ((v[i].stat) ? "on" : "off"),
+				v[i].fb_pin, ((v[i].feedback) ? "on" : "off"));
+		fgets(name, 31, file);
 	}
 
+	// User input for debug and verbose
 	printf("\n>>> DEBUG CONFIGURATION <<<\n\n");
-	printf("DEBUG: %s\n", ((debug)? "YES" : "NO"));
-	
+	printf("DEBUG: %s\n", ((debug) ? "YES" : "NO"));
+
 	printf("\n>>> VERBOSE <<<\n\n");
-	printf("VERBOSE: %s\n", ((verbose)? "YES" : "NO"));
+	printf("VERBOSE: %s\n", ((verbose) ? "YES" : "NO"));
 
 	printf("\n\nConfirm configuration (y/N): ");
 	scanf("%c", &opt);
 
-	if(opt != 'y') {
+	if (opt != 'y')
+	{
 		printf("Exiting!\n");
 		free(name);
 		fclose(file);
@@ -100,6 +89,7 @@ static void show_config(char *file_name)
 	fclose(file);
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void read_config(char *file_name)
 {
@@ -110,63 +100,84 @@ static void read_config(char *file_name)
 	 * sensor list will start with ###SENSORS###
 	 * valve list will start with ###VALVES###
 	 * debug will start with ###DEBUG###
-	 * sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17], pin# (if availabe, -1 otherwise)(2)[19, 20]
+	 * verbose will start with ###VERBOSE###
+	 *
+	 * sensor_name(7)[0-6], base_val(4)[8-11], +ve error(2)[13, 14], -ve error(2)[16, 17],
+	 * 	base_trend(4)[19-22], +ve trend error(2)[24, 25], -ve trend error(2)[27, 28], pin# (if availabe, -1 otherwise)(2)[30, 31]
+	 * 
 	 * or
-	 * valve_name(7)[0-6], pin#(2)[8, 9]
+	 * 
+	 * valve_name(7)[0-6], pin#(2)[8, 9],feedback_pin#(2)[11, 12]
+	 * 
 	 * sensor_name will decide if it is a pressure or temperature or other kind of sensor.
+	 * ------------------------------------------------------------------------------------------------------------------------------
 	 * EXAMPLE CONFIG FILE
 	 *
 	 * ###SENSORS###
-	 * N_PT_01,1000,10,5,-1
-	 * R_PT_01,500,10,10,-1
+	 * P_PT_01,1000,10,5,50,2,2,-1
+	 * F_PT_01,500,10,10,20,2,2-1
 	 * ###VALVES###
-	 * N_SV_01,0
+	 * P_EV_02,00,01
 	 * ###DEBUG###
 	 * 1
-	 * 
+	 * ###VERBOSE###
+	 * 1
+	 * -----------------------------------------------------------------------------------------------------------------------------
 	 * Args:
 	 *  file_name (char *): The name of the config file to opened
 	 * 
 	 * Returns;
 	 * 	Void
 	 */
-	
+
 	int i;
-	char *setup = (char *)malloc(sizeof(char) * 25);
+	char *setup = (char *)malloc(sizeof(char) * 34);
 	FILE *file = fopen(file_name, "r");
 
-	if(!file) {
+	if (!file)
+	{
 		printf("Unable to open file\n");
 		return;
 	}
-	
-	while(fgets(setup, 23, file)) {
-		setup[23] = '\0';
 
-		if(setup[0] == '>' && setup[1] == 'M') {
-			for(i = 0; i < SENSOR_NUM; i++) {
-				fgets(setup, 23, file);
-				setup[23] = '\0';
+	while (fgets(setup, 33, file))
+	{
+		setup[32] = '\0';
+
+		// sensors
+		if (setup[0] == '#' && setup[3] == 'S')
+		{
+			for (i = 0; i < SENSOR_COUNT; i++)
+			{
+				fgets(setup, 34, file);
+				setup[34] = '\0';
 				init_sensor(setup, &s[i]);
 			}
 		}
-		else if (setup[0] == '#' && setup[4] == 'A') {
-			for(i = 0; i < VALVE_NUM; i++) {
-				fgets(setup, 11, file);
-				setup[11] = '\0';
+		// valves
+		else if (setup[0] == '#' && setup[4] == 'A')
+		{
+			for (i = 0; i < VALVE_COUNT; i++)
+			{
+				fgets(setup, 15, file);
+				setup[15] = '\0';
 				init_valve(setup, &v[i]);
 			}
 		}
-		else if (setup[0] == '#' && setup[3] == 'D') {
+		// debug
+		else if (setup[0] == '#' && setup[3] == 'D')
+		{
 			fgets(setup, 2, file);
-			if(setup[0] == '1')
+			if (setup[0] == '1')
 				debug = 1;
 			else
 				debug = 0;
 		}
-		else if (setup[0] == '#' && setup[4] == 'E') {
+		// verbose
+		else if (setup[0] == '#' && setup[4] == 'E')
+		{
 			fgets(setup, 2, file);
-			if(setup[0] == '1')
+			if (setup[0] == '1')
 				verbose = 1;
 			else
 				verbose = 0;
@@ -177,44 +188,7 @@ static void read_config(char *file_name)
 	fclose(file);
 	return;
 }
-
-struct sensor *get_init_values(char *file_name)
-{
-	/**
-	 * This function gets init values from the file and creates a sensor struct
-	 * 
-	 * Args:
-	 * 	file_name (char *): The name of the config file to grab the init values from
-	 * 
-	 * Returns:
-	 * 	init_s (sensor): Returns a sensor struct with the values from the config file
-	 * 
-	**/
-	
-	struct sensor *init_s = (struct sensor *)malloc(sizeof(struct sensor) * SENSOR_NUM);
-	FILE *file = fopen(file_name, "r");
-	char *setup = (char *)malloc(sizeof(char) * 25);
-	int i;
-
-	while(fgets(setup, 23, file)) {
-		setup[23] = '\0';
-
-		if(setup[0] == '>' && setup[1] == 'I') {
-			for(i = 0; i < SENSOR_NUM; i++) {
-				fgets(setup, 23, file);
-				setup[23] = '\0';
-				init_sensor(setup, &init_s[i]);
-			}
-
-			break;
-		}
-	}
-
-	
-	free(setup);
-	fclose(file);
-	return init_s;
-}
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void init_sensor(char *setup, struct sensor *s)
 {
@@ -230,43 +204,61 @@ static void init_sensor(char *setup, struct sensor *s)
 	 * 
 	**/
 
-	char *str_base_val = (char *)malloc(sizeof(char) * 5);
-	char *str_pos_err = (char *)malloc(sizeof(char) * 3);
-	char *str_neg_err = (char *)malloc(sizeof(char) * 3);
-	char *str_pin = (char *)malloc(sizeof(char) * 3);
+	// declaring generic variables
+	char str_base[5], str_pos_err[3], str_neg_err[3], str_pin[3];
+	float base, pos_err, neg_err;
 
-	strncpy(str_base_val, setup + 8, 4);
-	str_base_val[4] = '\0';
+	// reading absolute values and errors
+	strncpy(str_base, setup + 8, 4);
+	str_base[4] = '\0';
 
 	strncpy(str_pos_err, setup + 13, 2);
 	str_pos_err[2] = '\0';
 
 	strncpy(str_neg_err, setup + 16, 2);
 	str_neg_err[2] = '\0';
+	
+	base = atof(str_base);
+ 	pos_err = atof(str_pos_err) / 100.0f;
+ 	neg_err = atof(str_pos_err) / 100.0f;
 
-	strncpy(str_pin, setup + 19, 2);
+	s->base_val = base;
+	s->pos_val_err = pos_err;
+	s->neg_val_err = neg_err;
+
+	s->max_val = base + (base * pos_err);
+	s->min_val = base - (base * neg_err);
+
+	// reading trends and errors
+	strncpy(str_base, setup + 19, 4);
+	str_base[4] = '\0';
+
+	strncpy(str_pos_err, setup + 24, 2);
+	str_pos_err[2] = '\0';
+
+	strncpy(str_neg_err, setup + 27, 2);
+	str_neg_err[2] = '\0';
+
+	base = atof(str_base);
+ 	pos_err = atof(str_pos_err) / 100.0f;
+ 	neg_err = atof(str_pos_err) / 100.0f;
+	
+	s->base_trend = base;
+	s->pos_trend_err = pos_err;
+	s->neg_trend_err = neg_err;
+
+	s->max_trend = base + (base * pos_err);
+	s->min_trend = base - (base * neg_err);
+	
+	// reading pin number
+	strncpy(str_pin, setup + 30, 2);
 	str_pin[2] = '\0';
-	
-	float base_val = atof(str_base_val);
-	float pos_err = atof(str_pos_err) / 100.0f;
-	float neg_err = atof(str_pos_err) / 100.0f;
-	int pin = atoi(str_pin);
 
-	s->base_val = base_val;
-	s->pos_err = pos_err;
-	s->neg_err = neg_err;
-
-	s->max_val = base_val + (base_val * pos_err);
-	s->min_val = base_val - (base_val * neg_err);
-	s->pin = pin;
-	
-	free(str_base_val);
-	free(str_pos_err);
-	free(str_neg_err);
-	free(str_pin);
+	s->pin = atoi(str_pin);	
 
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void init_valve(char *setup, struct valve *v)
 {
@@ -281,19 +273,25 @@ static void init_valve(char *setup, struct valve *v)
 	 * 	void
 	**/
 
-	char *str_pin = (char *)malloc(sizeof(char) * 3);
+	char pin[3];
 
-	strncpy(str_pin, setup + 8, 2);
-	str_pin[2] = '\0';
+	// reading output pin number
+	strncpy(pin, setup + 8, 2);
+	pin[2] = '\0';
 
-	v->pin = atoi(str_pin);
+	v->pin = atoi(pin);
+
+	// reading feedback pin number
+	strncpy(pin, setup + 11, 2);
+	pin[2] = '\0';
+
+	v->fb_pin = atoi(pin);
+
 	v->stat = 0;
-
-	free(str_pin);
-
+	
 	return;
 }
-
+//---------------------------------------------------------------------------------------------------------------------------
 
 static void system_check(char *file_name)
 {
@@ -307,68 +305,100 @@ static void system_check(char *file_name)
 	 * 	void
 	 * 
 	 **/
-	struct sensor *init_s = get_init_values(file_name);
 	get_data(); // get the most current values from the DAQ
-	char opt;
+	char name[33], opt;
 	int i, no_go = 0;
+	
+	FILE *config_file = fopen(file_name, "r");
 
-	char * s_names[] = {"P_PT_01", "P_PT_02",  "P_PT_03", "O_PT_01", "O_PT_02", "O_PT_03", "F_PT_01", "F_PT_02", "F_PT_03", "O_TT_01", "F_TT_01", "O_LT_01", "F_LT_01"};
-	char * v_names[] = {"P_EV_01", "P_EV_02", "P_EV_03", "P_EV_04", "P_EV_05", "F_EV_01", "F_EV_02", "F_EV_03", "O_SV_01", "O_SV_02", "O_SV_03"};
+	if (!config_file)
+	{
+		printf("Unable to open file!\n");
+		exit(EXIT_FAILURE);
+	}
+
+	// reading line ###SENSORS### 
+	fgets(name, 33, config_file);
 
 	printf("\n>>> SYSTEM CHECK START <<< \n\n");
 
 	printf(">>> SENSORS:\n");
-	for(i =0; i < SENSOR_NUM; i++)
+	for (i = 0; i < SENSOR_COUNT; i++)
 	{
-		if(init_s[i].min_val <= values[i] && 
-				values[i] <= init_s[i].max_val)
+		// reading the sensor name
+		fgets(name, 8, config_file);
+		name[8] = '\0';
+
+		if (s[i].min_val <= daq_val[i].curr &&
+			daq_val[i].curr <= s[i].max_val)
 		{
-			if(verbose == 1)
-				printf("%s: Val: %f, Min: %f, Max: %f, Good: Yes\n", s_names[i], values[i], init_s[i].min_val, init_s[i].max_val);
+			if (verbose == 1)
+				printf("%s\t->\tVal: %f,\tMin: %f,\tMax: %f,\tGood: Yes\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Val: %f, Min: %f, Max: %f, Good: NO\n", s_names[i], values[i], init_s[i].min_val, init_s[i].max_val);
+			printf("%s\t->\tVal: %f,\tMin: %f,\tMax: %f,\tGood: NO\n", name, daq_val[i].curr, s[i].min_val, s[i].max_val);
 		}
+		
+		// skipping the rest of the contents of the line and moving to the next sensor name
+		fgets(name, 33, config_file);
 	}
+
+	// reading line ###VALVES###
+	fgets(name, 33, config_file);
 
 	printf(">>> VALVES:\n");
 	//assuming all valves should be off
-	for(i = 0; i < VALVE_NUM; i++)
+	for (i = 0; i < VALVE_COUNT; i++)
 	{
-		if(v[i].stat == 0)
+		// reading the valve name
+		fgets(name, 8, config_file);
+		name[8] = '\0';
+
+		if (v[i].stat == 0)
 		{
-			if(verbose == 1)
-				printf("%s: Stat: %d, Expected: 0, Good: Yes\n", v_names[i], v[i].stat);
+			if (verbose == 1)
+				printf("%s\t->\tStat: %d,\tExpected: 0,\tGood: Yes\n", name, v[i].stat);
 		}
 		else
 		{
 			no_go = 1;
-			printf("%s: Stat: %d, Expected: 0, Good: NO\n", v_names[i], v[i].stat);
+			printf("%s\t->\tStat: %d,\tExpected: 0,\tGood: NO\n", name, v[i].stat);
 		}
+
+		// skipping the rest of the contents of the line and moving to the next valve name
+		fgets(name, 33, config_file);
 	}
 
+	// no need to read anything else from file, closing it
+	fclose(config_file);
+
 	printf("\n>>> SYSTEM CHECK COMPLETE <<<\n");
-	
-	if (no_go) {
+
+	// SYSTEMS CHECK- User input to abort!
+	if (no_go)
+	{
 		printf("ANOMALIES DETECTED: RECOMMEND NO GO\n");
 	}
-	else {
+	else
+	{
 		printf("ALL NOMINAL: SYSTEMS GO FOR MAIN SEQUENCE\n");
 	}
 
 	printf("\n\nConfirm System Check (y/N): ");
 	scanf("%c", &opt);
-	scanf("%c", &opt);
+	scanf("%c", &opt); // hacky way, ignoring newline
 
-	if(opt != 'y') {
+	if (opt != 'y')
+	{
 		printf("Exiting!\n");
 		exit(EXIT_FAILURE);
 	}
 
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
 
 void init(char *file_name)
 {
@@ -384,11 +414,14 @@ void init(char *file_name)
 	**/
 	read_config(file_name);
 	show_config(file_name);
-	if(debug)
+	if (debug)
 		init_file();
 	else
 		init_daq();
 	system_check(file_name);
-	init_verified_file();
+	init_verified_value_file();
+	init_verified_trends_file();	
 	return;
 }
+//---------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------
