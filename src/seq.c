@@ -16,6 +16,8 @@
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
+FILE *output;
+
 static void write_output()
 {
 	// this function makes a csv string of the status of every valve
