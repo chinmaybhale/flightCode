@@ -149,8 +149,8 @@ static void read_config(char *file_name)
 		{
 			for (i = 0; i < SENSOR_COUNT; i++)
 			{
-				fgets(setup, 33, file);
-				setup[33] = '\0';
+				fgets(setup, 34, file);
+				setup[34] = '\0';
 				init_sensor(setup, &s[i]);
 			}
 		}
