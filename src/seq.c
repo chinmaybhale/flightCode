@@ -23,7 +23,7 @@ static void write_output()
 	// this function makes a csv string of the status of every valve
 	// and the prints it into the output file seq_output.css
 	
-	char buff[2 * VALVE_COUNT - 1];
+	char buff[2 * VALVE_COUNT];
 	int i, ptr = 0;
 
 	for (i = 0; i < VALVE_COUNT - 1; i++)
@@ -32,7 +32,9 @@ static void write_output()
 		ptr += 2;
 	}
 
-	snprintf(buff + ptr, 1, "%d", v[VALVE_COUNT - 1].stat);
+	snprintf(buff + ptr, 2, "%d", v[10].stat);
+
+//	printf("%s\n", buff);
 
 	fprintf(output, "%s", buff);
 }
