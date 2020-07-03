@@ -17,6 +17,28 @@
 //---------------------------------------------------------------------------------------------------------------------------
 
 
+static int vbs_red()
+{
+	// close final valves
+	v[F_EV_03].stat = OFF;
+	v[O_EV_02].stat = OFF;
+
+	// open all gas and cryo vent valves
+	v[P_EV_01].stat = ON;
+	v[P_EV_02].stat = ON;
+	v[O_SV_01].stat = ON;
+	v[F_EV_01].stat = ON;
+	v[O_EV_01].stat = ON;
+
+	// TODO: add var ambient_p, ambient_t and read from config
+	while (!0); // check till ambient pressure reached 
+
+	// open RP-1 drain valve once all pressure lost
+	v[F_EV_02].stat = ON;
+
+	return 1;
+}
+
 int seq()
 {
 	/**
