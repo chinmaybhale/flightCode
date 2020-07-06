@@ -16,6 +16,67 @@
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
+static int vbs_green()
+{
+	/**
+	 * This function is called in the following scenarios
+	 * 
+	 * pre-seq:
+	 * O-PT-1 trend failure
+	 * O-TT-1 trend failure
+	 * F-PT-1/F-TT-1
+	 * F-PT-2/F-TT-2
+	 * seq:
+	 * F-PT-* trend failure
+	 * 
+	 * In these events it calls vbs_red to scrap the launch.
+	 * 
+	 * Args:
+	 * 		None
+	 * 
+	 * Returns:
+	 * 		success (int): 1 for a successful seq
+	 * 
+	**/
+
+	return vbs_red();
+}
+
+
+static int vbs_violet()
+{
+	/**
+	 * This function is called if the rocket has bad trajectory
+	 * It does the following actions:
+	 * open P-EV-1, P-EV-4, O-SV-1	
+	 * close O-EV-2, F-EV-3	
+ 	 * open O-EV-1, F-EV-1	
+	 * 
+	 * Args:
+	 * 	None
+	 * 
+	 * Returns:
+	 * 	success (int): 1 for a successful seq
+	**/
+
+	//bad trajectory can happen at any instance, check if valves are in opposite state first
+
+	v[P_EV_01].stat = ON;
+	v[P_EV_04].stat = ON;
+	v[O_SV_01].stat = ON;
+
+	v[O_EV_02].stat = OFF;
+	v[F_EV_03].stat = OFF;
+
+	v[O_EV_01].stat = ON;
+	v[F_EV_01].stat = ON;
+
+	
+	
+	return 1;
+}
+
+
 
 static int vbs_red()
 {
