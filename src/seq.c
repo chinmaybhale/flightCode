@@ -15,7 +15,93 @@
 //---------------------------------------------------------------------------------------------------------------------------
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
+static int vbs_yellow(){
+	/**
+	 * This function is for the following scenario:
+	 * 		P-TT-2/P-TT-3 wrong trends
+	 * 
+	 * Args:
+	 * 		None
+	 * 
+	 * Returns:
+	 * 		Success (int): 1 for successful seq
+	 * */
 
+	// Open P_EV_04 and check to make sure it is normal
+	v[P_EV_04].stat = ON;
+
+	/**
+	* Should there be a pause/delay here?
+	**/
+
+	// check both transducers for normal behavior
+	if ( s[P_PT_02].max_val > s[P_PT_02].base_val && s[P_PT_02].min_val < s[P_PT_02].base_val)
+	{
+		if ( s[P_PT_03].max_val > s[P_PT_03].base_val && s[P_PT_03].min_val < s[P_PT_03].base_val)
+		{
+			// close P_EV_02
+			v[P_EV_02].stat = OFF;
+			return 1;
+		}
+		else
+		{
+			return vbs_red();
+		}
+		
+	}
+	else
+	{
+		return vbs_red();
+	}
+
+}
+static int vbs_orange(){
+	/**
+	 * This function is called in the following scenarios
+	 * 
+	 * P-PT-1/P-TT-1 wrong trends
+	 * 
+	 * Args: 
+	 * 		None
+	 * 
+	 * Returns:
+	 * 
+	 * 		success (int): 1 for a successful seq
+	 **/
+
+	// Open P-EV-01 until pressure is normalized
+	v[P_EV_01].stat = ON;
+	while (1){
+		if ( s[P_PT_01].max_val > s[P_PT_01].base_val && 
+				s[P_PT_01].min_val < s[P_PT_01].base_val){
+					v[P_EV_01].stat = OFF;
+					break;
+		}
+	}
+
+	// wait 5 seconds
+	clock_t start_t; 
+	double time_spent;
+
+	start_t = clock();
+	while (1){
+		time_spent = (double) (clock() - start_t)/ CLOCKS_PER_SEC;
+		if (time_spent >= 5.0)
+			break;
+	}
+
+	// vbs_red() if transducer is still measuring outside of min/max range
+	if ( s[P_PT_01].max_val > s[P_PT_01].base_val && 
+				s[P_PT_01].min_val < s[P_PT_01].base_val){
+					return 1;
+				}
+	else
+	{
+		return vbs_red();
+	}
+
+
+}
 static int vbs_green()
 {
 	/**
