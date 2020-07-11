@@ -31,35 +31,36 @@ static int vbs_yellow(){
 	 * 		Success (int): 1 for successful seq
 	 * */
 
+	// get initial time;
+	time_t start_t = clock();
+
+
 	// Open P_EV_04 and check to make sure it is normal
 	v[P_EV_04].stat = ON;
 
-	/**
-	* Should there be a pause/delay here?
-	**/
-
-	// check both transducers for normal behavior
-	if ( s[P_PT_02].max_val > s[P_PT_02].base_val && s[P_PT_02].min_val < s[P_PT_02].base_val)
+	while ((start_t + 5.0f) >= clock())
 	{
-		if ( s[P_PT_03].max_val > s[P_PT_03].base_val && s[P_PT_03].min_val < s[P_PT_03].base_val)
+		// check if trends normalize
+		if (daq_val[P_PT_02].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_02].trend <= s[P_PT_02].max_trend
+			&& daq_val[P_PT_03].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_03].trend <= s[P_PT_03].max_trend)
 		{
-			// close P_EV_02
-			v[P_EV_02].stat = OFF;
-			return 1;
+			// everything is alright now
+			v[P_EV_04].stat = OFF;
+			
+			// return to main sequence
+			return 0;
 		}
-		else
-		{
-			return vbs_red();
-		}
-		
-	}
-	else
-	{
-		return vbs_red();
 	}
 
+	// could not control trend, initiate scrap
+	return vbs_red();
+	
 }
-static int vbs_orange(){
+
+static int vbs_orange()
+{
 	/**
 	 * This function is called in the following scenarios
 	 * 
