@@ -16,6 +16,88 @@
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
+static int vbs_red();
+
+
+static int vbs_yellow(){
+	/**
+	 * This function is for the following scenario:
+	 * 		P-TT-2/P-TT-3 wrong trends
+	 * 
+	 * Args:
+	 * 		None
+	 * 
+	 * Returns:
+	 * 		Success (int): 1 for successful seq
+	 * */
+
+	// get initial time;
+	time_t start_t = clock();
+
+
+	// Open P_EV_04 and check to make sure it is normal
+	v[P_EV_04].stat = ON;
+
+	while ((start_t + 5.0f) >= clock())
+	{
+		// check if trends normalize
+		if (daq_val[P_PT_02].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_02].trend <= s[P_PT_02].max_trend
+			&& daq_val[P_PT_03].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_03].trend <= s[P_PT_03].max_trend)
+		{
+			// everything is alright now
+			v[P_EV_04].stat = OFF;
+			
+			// return to main sequence
+			return 0;
+		}
+	}
+
+	// could not control trend, initiate scrap
+	return vbs_red();
+	
+}
+
+static int vbs_orange()
+{
+	/**
+	 * This function is called in the following scenarios
+	 * 
+	 * P-PT-1/P-TT-1 wrong trends
+	 * 
+	 * Args: 
+	 * 		None
+	 * 
+	 * Returns:
+	 * 
+	 * 		success (int): 1 for a successful seq
+	 **/
+	
+	// get initial time for the VBS
+	time_t start_t = clock();
+
+	v[P_EV_01].stat = ON;
+
+	while ((start_t + 5.0f) >= clock())
+	{
+		// check if trends normalize
+		if (daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+			&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+		{
+			// everything is alright now
+			v[P_EV_01].stat = OFF;
+			
+			// return to main sequence
+			return 0;
+		}
+	}
+
+	// could not control trend, initiate scrap
+	return vbs_red();
+
+}
+
 static int vbs_green()
 {
 	/**
