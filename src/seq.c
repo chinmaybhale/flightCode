@@ -15,6 +15,10 @@
 //---------------------------------------------------------------------------------------------------------------------------
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
+
+static int vbs_red();
+
+
 static int vbs_yellow(){
 	/**
 	 * This function is for the following scenario:
@@ -68,40 +72,31 @@ static int vbs_orange(){
 	 * 
 	 * 		success (int): 1 for a successful seq
 	 **/
+	
+	// get initial time for the VBS
+	time_t start_t = clock();
 
-	// Open P-EV-01 until pressure is normalized
 	v[P_EV_01].stat = ON;
-	while (1){
-		if ( s[P_PT_01].max_val > s[P_PT_01].base_val && 
-				s[P_PT_01].min_val < s[P_PT_01].base_val){
-					v[P_EV_01].stat = OFF;
-					break;
+
+	while ((start_t + 5.0f) >= clock())
+	{
+		// check if trends normalize
+		if (daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+			&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+		{
+			// everything is alright now
+			v[P_EV_01].stat = OFF;
+			
+			// return to main sequence
+			return 0;
 		}
 	}
 
-	// wait 5 seconds
-	clock_t start_t; 
-	double time_spent;
-
-	start_t = clock();
-	while (1){
-		time_spent = (double) (clock() - start_t)/ CLOCKS_PER_SEC;
-		if (time_spent >= 5.0)
-			break;
-	}
-
-	// vbs_red() if transducer is still measuring outside of min/max range
-	if ( s[P_PT_01].max_val > s[P_PT_01].base_val && 
-				s[P_PT_01].min_val < s[P_PT_01].base_val){
-					return 1;
-				}
-	else
-	{
-		return vbs_red();
-	}
-
+	// could not control trend, initiate scrap
+	return vbs_red();
 
 }
+
 static int vbs_green()
 {
 	/**
