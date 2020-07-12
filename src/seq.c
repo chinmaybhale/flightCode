@@ -16,6 +16,189 @@
 #include "../include/headers.h"
 //---------------------------------------------------------------------------------------------------------------------------
 
+static int vbs_red();
+
+
+static int vbs_yellow(){
+	/**
+	 * This function is for the following scenario:
+	 * 		P-TT-2/P-TT-3 wrong trends
+	 * 
+	 * Args:
+	 * 		None
+	 * 
+	 * Returns:
+	 * 		Success (int): 1 for successful seq
+	 * */
+
+	// get initial time;
+	time_t start_t = clock();
+
+
+	// Open P_EV_04 and check to make sure it is normal
+	v[P_EV_04].stat = ON;
+
+	while ((start_t + 5.0f) >= clock())
+	{
+		// check if trends normalize
+		if (daq_val[P_PT_02].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_02].trend <= s[P_PT_02].max_trend
+			&& daq_val[P_PT_03].trend >= s[P_PT_02].min_trend
+			&& daq_val[P_PT_03].trend <= s[P_PT_03].max_trend)
+		{
+			// everything is alright now
+			v[P_EV_04].stat = OFF;
+			
+			// return to main sequence
+			return 0;
+		}
+	}
+
+	// could not control trend, initiate scrap
+	return vbs_red();
+	
+}
+
+static int vbs_orange()
+{
+	/**
+	 * This function is called in the following scenarios
+	 * 
+	 * P-PT-1/P-TT-1 wrong trends
+	 * 
+	 * Args: 
+	 * 		None
+	 * 
+	 * Returns:
+	 * 
+	 * 		success (int): 1 for a successful seq
+	 **/
+	
+	// get initial time for the VBS
+	time_t start_t = clock();
+
+	v[P_EV_01].stat = ON;
+
+	while ((start_t + 5.0f) >= clock())
+	{
+		// check if trends normalize
+		if (daq_val[P_PT_01].trend >= s[P_PT_01].min_trend
+			&& daq_val[P_PT_01].trend <= s[P_PT_01].max_trend)
+		{
+			// everything is alright now
+			v[P_EV_01].stat = OFF;
+			
+			// return to main sequence
+			return 0;
+		}
+	}
+
+	// could not control trend, initiate scrap
+	return vbs_red();
+
+}
+
+static int vbs_green()
+{
+	/**
+	 * This function is called in the following scenarios
+	 * 
+	 * pre-seq:
+	 * O-PT-1 trend failure
+	 * O-TT-1 trend failure
+	 * F-PT-1/F-TT-1
+	 * F-PT-2/F-TT-2
+	 * seq:
+	 * F-PT-* trend failure
+	 * 
+	 * In these events it calls vbs_red to scrap the launch.
+	 * 
+	 * Args:
+	 * 		None
+	 * 
+	 * Returns:
+	 * 		success (int): 1 for a successful seq
+	 * 
+	**/
+
+	return vbs_red();
+}
+
+static int vbs_blue()
+{
+	/**
+	 * This function is called if O-PT-2/3 or F-PT-2/3 show bad trend
+	 * It does the following actions:
+	 * scrap launch
+	 * 
+	 * Args:
+	 * 	None
+	 * 
+	 * Returns:
+	 * 	success (int): 1 for a successful seq
+	**/
+	
+	// stub backup sequence
+	// will be expanded during testing
+	return vbs_red();
+}
+
+static int vbs_violet()
+{
+	/**
+	 * This function is called if the rocket has bad trajectory
+	 * It does the following actions:
+	 * open P-EV-1, P-EV-4, O-SV-1	
+	 * close O-EV-2, F-EV-3	
+ 	 * open O-EV-1, F-EV-1	
+	 * 
+	 * Args:
+	 * 	None
+	 * 
+	 * Returns:
+	 * 	success (int): 1 for a successful seq
+	**/
+
+	//bad trajectory can happen at any instance, check if valves are in opposite state first
+
+	v[P_EV_01].stat = ON;
+	v[P_EV_04].stat = ON;
+	v[O_SV_01].stat = ON;
+
+	v[O_EV_02].stat = OFF;
+	v[F_EV_03].stat = OFF;
+
+	v[O_EV_01].stat = ON;
+	v[F_EV_01].stat = ON;
+
+	
+	
+	return 1;
+}
+
+
+
+static int vbs_red()
+{
+	// close final valves
+	v[F_EV_03].stat = OFF;
+	v[O_EV_02].stat = OFF;
+
+	// open all gas and cryo vent valves
+	v[P_EV_01].stat = ON;
+	v[P_EV_02].stat = ON;
+	v[O_SV_01].stat = ON;
+	v[F_EV_01].stat = ON;
+	v[O_EV_01].stat = ON;
+
+	// TODO: add var ambient_p, ambient_t and read from config
+	while (!0); // check till ambient pressure reached 
+
+	// open RP-1 drain valve once all pressure lost
+	v[F_EV_02].stat = ON;
+
+	return 1;
+}
 
 int seq()
 {
