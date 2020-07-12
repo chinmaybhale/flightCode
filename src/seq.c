@@ -124,6 +124,24 @@ static int vbs_green()
 	return vbs_red();
 }
 
+static int vbs_blue()
+{
+	/**
+	 * This function is called if O-PT-2/3 or F-PT-2/3 show bad trend
+	 * It does the following actions:
+	 * scrap launch
+	 * 
+	 * Args:
+	 * 	None
+	 * 
+	 * Returns:
+	 * 	success (int): 1 for a successful seq
+	**/
+	
+	// stub backup sequence
+	// will be expanded during testing
+	return vbs_red();
+}
 
 static int vbs_violet()
 {
